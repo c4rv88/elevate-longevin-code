@@ -55,10 +55,29 @@ function Home() {
       {/* HERO */}
       <section id="home" className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={heroImg} alt="Interior da clínica Longevin" width={1920} height={1280} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/55 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/10 to-transparent" />
+          <img
+            src={heroImg}
+            alt="Fachada da clínica Longevin"
+            width={1920}
+            height={1280}
+            className="w-full h-full object-cover brightness-[0.92] saturate-[0.85]"
+          />
+          {/* Camada 1 — base sage translúcida → creme */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, oklch(0.25 0.04 135 / 0.55) 0%, oklch(0.35 0.04 135 / 0.25) 45%, oklch(0.985 0.008 90 / 0.95) 100%)",
+            }}
+          />
+          {/* Camada 2 — vinheta lateral esquerda para legibilidade do texto */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/35 to-transparent" style={{ backgroundSize: "60% 100%", backgroundRepeat: "no-repeat" }} />
+          {/* Camada 3 — veil dourado quase imperceptível */}
+          <div className="absolute inset-0 bg-gold/[0.04]" />
+          {/* Fade inferior para emendar com a próxima seção */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" />
         </div>
+
 
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-40 md:pt-52 pb-28 md:pb-40 min-h-[92vh] flex flex-col justify-center">
           <p className="eyebrow reveal">Atendimento Multidisciplinar</p>
@@ -67,7 +86,7 @@ function Home() {
             Sua jornada de <span className="italic text-primary">saúde</span> e <em className="not-italic text-primary">longevidade</em>.
           </h1>
 
-          <p className="reveal reveal-delay-2 mt-8 max-w-xl text-base md:text-lg leading-relaxed text-foreground/70">
+          <p className="reveal reveal-delay-2 mt-8 max-w-xl text-base md:text-lg leading-relaxed text-foreground/85">
             Mais do que uma clínica — um novo jeito de cuidar. Medicina integrada, escuta atenta e protocolos personalizados em um espaço pensado para acolher.
           </p>
 
