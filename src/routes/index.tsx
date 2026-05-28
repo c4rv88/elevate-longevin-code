@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Sparkles, Stethoscope, Users } from "lucide-react";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -60,49 +61,73 @@ function Home() {
             alt="Fachada da clínica Longevin"
             width={1920}
             height={1280}
-            className="w-full h-full object-cover brightness-[0.92] saturate-[0.85]"
+            className="w-full h-full object-cover brightness-[0.95] saturate-[1.05] contrast-[1.08]"
           />
-          {/* Camada 1 — base sage translúcida → creme */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, oklch(0.25 0.04 135 / 0.55) 0%, oklch(0.35 0.04 135 / 0.25) 45%, oklch(0.985 0.008 90 / 0.95) 100%)",
-            }}
-          />
-          {/* Camada 2 — vinheta lateral esquerda para legibilidade do texto */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/35 to-transparent" style={{ backgroundSize: "60% 100%", backgroundRepeat: "no-repeat" }} />
-          {/* Camada 3 — veil dourado quase imperceptível */}
-          <div className="absolute inset-0 bg-gold/[0.04]" />
-          {/* Fade inferior para emendar com a próxima seção */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" />
+          {/* Gradiente lateral cinematográfico (esquerda → direita) */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10 md:from-black/60 md:via-black/25 md:to-black/5" />
+          {/* Suave queda inferior para amarrar com a próxima seção */}
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
         </div>
 
+        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-44 md:pt-56 pb-28 md:pb-40 min-h-[88svh] grid md:grid-cols-12 items-center">
+          <div className="md:col-span-7">
+            <p className="reveal text-[11px] font-medium uppercase tracking-[0.3em] text-white/75">
+              Atendimento Multidisciplinar
+            </p>
 
-        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-40 md:pt-52 pb-28 md:pb-40 min-h-[92vh] flex flex-col justify-center">
-          <p className="eyebrow reveal">Atendimento Multidisciplinar</p>
+            <h1 className="reveal reveal-delay-1 mt-7 font-serif text-[2.4rem] sm:text-5xl md:text-6xl lg:text-[5rem] leading-[1.0] tracking-[-0.02em] text-white max-w-3xl">
+              Sua jornada de{" "}
+              <span className="italic" style={{ color: "oklch(0.82 0.07 135)" }}>
+                saúde
+              </span>{" "}
+              e{" "}
+              <em className="not-italic" style={{ color: "oklch(0.82 0.07 135)" }}>
+                longevidade
+              </em>
+              .
+            </h1>
 
-          <h1 className="reveal reveal-delay-1 mt-6 font-serif text-[2.6rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground max-w-5xl">
-            Sua jornada de <span className="italic text-primary">saúde</span> e <em className="not-italic text-primary">longevidade</em>.
-          </h1>
+            <p className="reveal reveal-delay-2 mt-8 max-w-md text-base md:text-lg leading-relaxed text-white/85">
+              Mais do que uma clínica — um novo jeito de cuidar. Medicina integrada, escuta atenta e protocolos personalizados em um espaço pensado para acolher.
+            </p>
 
-          <p className="reveal reveal-delay-2 mt-8 max-w-xl text-base md:text-lg leading-relaxed text-foreground/85">
-            Mais do que uma clínica — um novo jeito de cuidar. Medicina integrada, escuta atenta e protocolos personalizados em um espaço pensado para acolher.
-          </p>
+            <div className="reveal reveal-delay-3 mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-4">
+              <a
+                href="https://agende.longevin.com.br/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-premium justify-center w-full sm:w-auto"
+              >
+                Agendar consulta <span className="arrow">→</span>
+              </a>
+              <a href="#especialidades" className="btn-ghost-light justify-center w-full sm:w-auto">
+                Especialidades
+              </a>
+            </div>
 
-          <div className="reveal reveal-delay-3 mt-10 flex flex-wrap items-center gap-4">
-            <a href="https://agende.longevin.com.br/" target="_blank" rel="noopener noreferrer" className="btn-premium">
-              Agendar consulta <span className="arrow">→</span>
-            </a>
-            <a href="#especialidades" className="btn-ghost">Especialidades</a>
-          </div>
+            <ul className="reveal reveal-delay-4 mt-12 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-8 text-[11px] tracking-[0.18em] uppercase text-white/75">
+              <li className="flex items-center gap-2.5">
+                <Stethoscope className="h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "oklch(0.82 0.07 135)" }} />
+                Atendimento multidisciplinar
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Sparkles className="h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "oklch(0.82 0.07 135)" }} />
+                Protocolos personalizados
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Users className="h-3.5 w-3.5" strokeWidth={1.5} style={{ color: "oklch(0.82 0.07 135)" }} />
+                Equipe especializada
+              </li>
+            </ul>
 
-          <div className="reveal reveal-delay-4 mt-20 flex items-center gap-6 text-xs tracking-[0.24em] uppercase text-muted-foreground">
-            <span className="h-px w-12 bg-gold" />
-            <span>Clínica boutique · Fortaleza</span>
+            <div className="reveal reveal-delay-4 mt-16 flex items-center gap-6 text-[11px] tracking-[0.24em] uppercase text-white/55">
+              <span className="h-px w-12 bg-gold/80" />
+              <span>Clínica boutique · Fortaleza</span>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* PROPOSTA */}
       <section id="sobre" className="py-28 md:py-40">
