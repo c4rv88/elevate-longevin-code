@@ -6,9 +6,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 py-20">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
-            <div className="flex items-center gap-3">
-              <LongevinMark className="h-10 w-10 text-primary" />
-              <span className="font-serif text-2xl tracking-[0.22em]">LONGEVIN</span>
+            <div className="flex items-center">
+              <LongevinMark className="h-12 w-auto" />
             </div>
             <p className="mt-6 max-w-sm font-serif text-2xl leading-snug text-foreground/80">
               Um ecossistema em saúde onde as especialidades se conectam, o tempo é respeitado e o cuidado é personalizado.

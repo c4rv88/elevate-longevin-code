@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logo from "@/assets/longevin-logo.png";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -25,11 +26,14 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10 py-5">
-        <a href="#home" className="flex items-center gap-3" aria-label="Longevin">
-          <LongevinMark className="h-9 w-9 text-primary" />
-          <span className="font-serif text-xl tracking-[0.22em] text-foreground/90">
-            LONGEVIN
-          </span>
+        <a href="#home" className="flex items-center" aria-label="Longevin">
+          <img
+            src={logo}
+            alt="Longevin"
+            className="h-9 md:h-10 w-auto"
+            loading="eager"
+            decoding="async"
+          />
         </a>
 
         <nav className="hidden md:flex items-center gap-10">
@@ -84,18 +88,5 @@ export function SiteHeader() {
 }
 
 export function LongevinMark({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} aria-hidden>
-      <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.4" />
-      <g stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none">
-        <path d="M32 50 V20" />
-        <path d="M32 28 C26 24 22 22 18 22" />
-        <path d="M32 28 C38 24 42 22 46 22" />
-        <path d="M32 36 C25 32 20 30 14 30" />
-        <path d="M32 36 C39 32 44 30 50 30" />
-        <path d="M32 44 C27 40 23 39 19 39" />
-        <path d="M32 44 C37 40 41 39 45 39" />
-      </g>
-    </svg>
-  );
+  return <img src={logo} alt="Longevin" className={className} />;
 }
