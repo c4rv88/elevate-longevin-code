@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import heroImg from "@/assets/hero-clinic.jpg";
+import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
