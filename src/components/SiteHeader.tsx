@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import logo from "@/assets/longevin-logo.png";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "A Longevin", href: "#sobre" },
-  { label: "Especialidades", href: "#especialidades" },
-  { label: "Equipe", href: "#equipe" },
+  { label: "Home", href: "/#home", to: "/" },
+  { label: "A Longevin", href: "/a-longevin", to: "/a-longevin", internal: true },
+  { label: "Especialidades", href: "/#especialidades", to: "/" },
+  { label: "Equipe", href: "/#equipe", to: "/" },
 ];
 
 export function SiteHeader() {
