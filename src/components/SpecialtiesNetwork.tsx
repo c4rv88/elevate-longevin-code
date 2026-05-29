@@ -26,6 +26,8 @@ import {
   DrawerContent,
   DrawerClose,
 } from "@/components/ui/drawer";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { SPECIALTY_ID_TO_SLUG } from "@/data/specialties-content";
 
 type Specialty = {
   id: string;
