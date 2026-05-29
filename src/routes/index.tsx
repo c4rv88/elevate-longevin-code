@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, Stethoscope, Users } from "lucide-react";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
+import excelenciaImg from "@/assets/excelencia-equipe.webp";
 import propostaAtendimento from "@/assets/proposta-atendimento.webp";
 import propostaMultidisciplinar from "@/assets/proposta-multidisciplinar.jpg";
 import propostaCasa from "@/assets/proposta-casa.png";
@@ -179,8 +180,8 @@ function Home() {
       <section className="py-24 md:py-36 bg-[oklch(0.96_0.012_100)]">
         <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 md:grid-cols-12 items-center">
           <div className="md:col-span-6 relative">
-            <div className="aspect-[4/5] overflow-hidden rounded-2xl">
-              <img src={interiorImg} alt="Interior acolhedor da clínica" width={1536} height={1024} loading="lazy" className="w-full h-full object-cover" />
+            <div className="aspect-[4/3] overflow-hidden rounded-2xl">
+              <img src={excelenciaImg} alt="Equipe médica Longevin que atua em conjunto" width={1536} height={1024} loading="lazy" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-6 -right-4 md:right-10 glass border border-border rounded-2xl px-6 py-5 max-w-xs">
               <p className="font-serif text-3xl text-primary leading-none">10+</p>
