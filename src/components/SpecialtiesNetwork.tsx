@@ -531,11 +531,11 @@ function MobileTimeline() {
           style={{ backgroundColor: "var(--gold)", opacity: 0.7 }}
         />
 
-          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[max(24px,calc(50%-36px))] pt-1 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-
+        <div
           ref={scrollerRef}
-          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[calc(50%-36px)] pt-1 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[max(24px,calc(50%-36px))] pt-1 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
+
           {SPECIALTIES.map((s) => {
             const isCenter = s.id === centerId;
             return (
