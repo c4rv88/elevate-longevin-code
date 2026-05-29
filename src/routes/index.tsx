@@ -1,8 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles, Stethoscope, Users, Star, BadgeCheck } from "lucide-react";
+import { Sparkles, Stethoscope, Users, Star, BadgeCheck, Instagram } from "lucide-react";
 import { SpecialtiesNetwork } from "@/components/SpecialtiesNetwork";
 import heroImg from "@/assets/hero-clinic.webp";
 import doctoraliaLogo from "@/assets/doctoralia-logo.png";
+import igPost1 from "@/assets/instagram/post-1.jpg";
+import igPost2 from "@/assets/instagram/post-2.jpg";
+import igPost3 from "@/assets/instagram/post-3.jpg";
+import igPost4 from "@/assets/instagram/post-4.jpg";
+import igPost5 from "@/assets/instagram/post-5.jpg";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
 import propostaAtendimento from "@/assets/proposta-atendimento.webp";
