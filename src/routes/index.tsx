@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, Stethoscope, Users } from "lucide-react";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
+import propostaAtendimento from "@/assets/proposta-atendimento.webp";
+import propostaMultidisciplinar from "@/assets/proposta-multidisciplinar.jpg";
+import propostaCasa from "@/assets/proposta-casa.png";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -144,17 +147,28 @@ function Home() {
 
           <div className="mt-20 grid gap-px bg-border md:grid-cols-3 overflow-hidden rounded-2xl border border-border">
             {[
-              { kicker: "01", title: "Atendimento Diferenciado", body: "Respeito à escuta e ao tempo do paciente, com um protocolo de cuidados específico para cada um." },
-              { kicker: "02", title: "Multidisciplinar", body: "Diversas especialidades médicas e um só propósito: promover a saúde e a longevidade do paciente." },
-              { kicker: "03", title: "Parece uma casa, mas é uma clínica", body: "Um projeto sofisticado que prioriza a calma, o contato com a natureza e o acolhimento." },
+              { kicker: "01", title: "Atendimento Diferenciado", body: "Respeito à escuta e ao tempo do paciente, com um protocolo de cuidados específico para cada um.", img: propostaAtendimento, alt: "Médico em consulta com paciente na Longevin" },
+              { kicker: "02", title: "Multidisciplinar", body: "Diversas especialidades médicas e um só propósito: promover a saúde e a longevidade do paciente.", img: propostaMultidisciplinar, alt: "Recepção da clínica Longevin" },
+              { kicker: "03", title: "Parece uma casa, mas é uma clínica", body: "Um projeto sofisticado que prioriza a calma, o contato com a natureza e o acolhimento.", img: propostaCasa, alt: "Consultório acolhedor da Longevin" },
             ].map((c) => (
-              <div key={c.kicker} className="bg-background p-10 md:p-12 card-lift">
-                <div className="flex items-center gap-4">
-                  <span className="font-serif text-2xl text-gold">{c.kicker}</span>
-                  <span className="h-px w-10 bg-gold/70" />
+              <div key={c.kicker} className="group bg-background flex flex-col card-lift">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={c.img}
+                    alt={c.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-background/0 to-background/15" />
                 </div>
-                <h3 className="mt-6 font-serif text-2xl md:text-[1.7rem] leading-tight">{c.title}</h3>
-                <p className="mt-5 text-sm md:text-base leading-relaxed text-foreground/70">{c.body}</p>
+                <div className="p-8 md:p-10">
+                  <div className="flex items-center gap-4">
+                    <span className="font-serif text-2xl text-gold">{c.kicker}</span>
+                    <span className="h-px w-10 bg-gold/70" />
+                  </div>
+                  <h3 className="mt-6 font-serif text-2xl md:text-[1.7rem] leading-tight">{c.title}</h3>
+                  <p className="mt-5 text-sm md:text-base leading-relaxed text-foreground/70">{c.body}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -187,6 +201,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* ESPECIALIDADES */}
       <section id="especialidades" className="py-28 md:py-40">
