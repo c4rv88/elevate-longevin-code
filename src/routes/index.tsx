@@ -13,6 +13,7 @@ import excelenciaImg from "@/assets/excelencia-equipe.webp";
 import propostaAtendimento from "@/assets/proposta-atendimento.webp";
 import propostaMultidisciplinar from "@/assets/proposta-multidisciplinar.jpg";
 import propostaCasa from "@/assets/proposta-casa.png";
+import areasEquipeImg from "@/assets/areas-especialidades.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
