@@ -481,10 +481,14 @@ function MobileTimeline() {
       el.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
+    };
+  }, [centerId]);
+
   const centerSpec = byId(centerId) ?? SPECIALTIES[0];
   const centerIndex = SPECIALTIES.findIndex((s) => s.id === centerId);
   const canPrev = centerIndex > 0;
   const canNext = centerIndex < SPECIALTIES.length - 1;
+
 
   const scrollToId = (id: string) => {
     const el = scrollerRef.current?.querySelector<HTMLElement>(
