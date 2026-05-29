@@ -685,9 +685,6 @@ function MobileTimeline() {
         </p>
       </div>
 
-      {/* Preview ao vivo do item central */}
-
-      </div>
 
       {/* Preview ao vivo do item central */}
       <button
