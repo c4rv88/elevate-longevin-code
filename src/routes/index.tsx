@@ -400,7 +400,7 @@ function Home() {
             </p>
           </div>
 
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+          <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5 max-w-5xl mx-auto">
             {[
               { img: igPost1, href: "https://www.instagram.com/reel/DYkqnizSvve/" },
               { img: igPost2, href: "https://www.instagram.com/p/DYhS-x3lSTG/" },
