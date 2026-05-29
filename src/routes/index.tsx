@@ -147,13 +147,6 @@ function Home() {
 
           <div className="mt-20 grid gap-px bg-border md:grid-cols-3 overflow-hidden rounded-2xl border border-border">
             {[
-              { kicker: "01", title: "Atendimento Diferenciado", body: "Respeito à escuta e ao tempo do paciente, com um protocolo de cuidados específico para cada um." },
-              { kicker: "02", title: "Multidisciplinar", body: "Diversas especialidades médicas e um só propósito: promover a saúde e a longevidade do paciente." },
-              { kicker: "03", title: "Parece uma casa, mas é uma clínica", body: "Um projeto sofisticado que prioriza a calma, o contato com a natureza e o acolhimento." },
-            ].map((c) => (
-              <div key={c.kicker} className="bg-background p-10 md:p-12 card-lift">
-          <div className="mt-20 grid gap-px bg-border md:grid-cols-3 overflow-hidden rounded-2xl border border-border">
-            {[
               { kicker: "01", title: "Atendimento Diferenciado", body: "Respeito à escuta e ao tempo do paciente, com um protocolo de cuidados específico para cada um.", img: propostaAtendimento, alt: "Médico em consulta com paciente na Longevin" },
               { kicker: "02", title: "Multidisciplinar", body: "Diversas especialidades médicas e um só propósito: promover a saúde e a longevidade do paciente.", img: propostaMultidisciplinar, alt: "Recepção da clínica Longevin" },
               { kicker: "03", title: "Parece uma casa, mas é uma clínica", body: "Um projeto sofisticado que prioriza a calma, o contato com a natureza e o acolhimento.", img: propostaCasa, alt: "Consultório acolhedor da Longevin" },
@@ -179,6 +172,13 @@ function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* EXCELÊNCIA */}
+      <section className="py-24 md:py-36 bg-[oklch(0.96_0.012_100)]">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 md:grid-cols-12 items-center">
+          <div className="md:col-span-6 relative">
             <div className="aspect-[4/5] overflow-hidden rounded-2xl">
               <img src={interiorImg} alt="Interior acolhedor da clínica" width={1536} height={1024} loading="lazy" className="w-full h-full object-cover" />
             </div>
@@ -201,6 +201,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* ESPECIALIDADES */}
       <section id="especialidades" className="py-28 md:py-40">
