@@ -520,7 +520,8 @@ function MobileTimeline() {
         </p>
       </div>
 
-      {/* Timeline horizontal */}
+      <div className="relative mt-10 w-full overflow-hidden">
+
       <div className="relative mt-10">
         {/* Linha base contínua */}
         <div className="pointer-events-none absolute inset-x-0 top-[44px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
