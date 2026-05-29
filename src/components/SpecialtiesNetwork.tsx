@@ -562,8 +562,8 @@ function MobileTimeline() {
           type="button"
           onClick={goPrev}
           disabled={!canPrev}
+          aria-label="Especialidade anterior"
           className="absolute left-1 top-[30px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
-          className="absolute left-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           style={{
             borderWidth: "1px",
             borderStyle: "solid",
@@ -580,8 +580,8 @@ function MobileTimeline() {
           type="button"
           onClick={goNext}
           disabled={!canNext}
+          aria-label="Próxima especialidade"
           className="absolute right-1 top-[30px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
-          className="absolute right-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           style={{
             borderWidth: "1px",
             borderStyle: "solid",
