@@ -1,18 +1,26 @@
 ## Objetivo
 
-Hoje a foto da equipe na seção "Áreas que se conversam" se espalha por toda a seção (full-width, 70–78% da largura), atravessando inclusive a coluna do título e texto à esquerda. O usuário quer que a imagem ocupe exatamente o mesmo enquadramento do bloco do diagrama de especialidades (a coluna `lg:col-span-3` à direita), funcionando como um "fundo" coeso daquele card.
+A foto da equipe deve ocupar toda a largura da seção "Áreas que se conversam" (não só o card do diagrama). As pessoas conversando aparecem à esquerda (atrás do título/texto) e o diagrama de especialidades se posiciona sobre a área mais "limpa" da fotografia, à direita.
 
-## Mudanças em `src/routes/index.tsx` (seção ESPECIALIDADES, linhas ~247–295)
+## Mudanças em `src/routes/index.tsx` (seção ESPECIALIDADES)
 
-1. **Remover a camada absoluta full-section** (`<div aria-hidden className="pointer-events-none absolute inset-0 z-0">` com `inset-0` e `md:w-[78%]`).
-2. **Mover a foto para dentro da coluna do diagrama** (`<div className="lg:col-span-3 ...">`):
-   - Envolver o `<SpecialtiesNetwork />` em um wrapper `relative` com `rounded-2xl overflow-hidden`.
-   - Adicionar, atrás do diagrama, um `<div absolute inset-0>` com a `backgroundImage` da foto recortada (`background-size: cover`, `background-position: center`).
-   - Manter opacidade (~0.55–0.65) e leve dessaturação para preservar legibilidade do diagrama.
-   - Aplicar um gradiente sutil por cima (do `--background` na borda esquerda → transparente à direita) para integrar visualmente com a coluna de texto.
-3. **Ajustar paddings** do wrapper para que o diagrama mantenha respiro (`p-6 md:p-10`).
-4. **Não alterar** o texto, o eyebrow, o título "Áreas que se conversam" nem o componente `SpecialtiesNetwork` em si.
+1. **Desfazer o recorte dentro do card do diagrama**: remover o wrapper `relative rounded-2xl overflow-hidden p-6 md:p-10` em volta de `<SpecialtiesNetwork />` e as duas camadas (foto + gradiente) que adicionei nele. A coluna volta a ser apenas `<SpecialtiesNetwork />` dentro de `lg:col-span-3`.
+
+2. **Reintroduzir a foto como background da seção inteira**, dentro do `<section id="especialidades">`:
+   - `<div aria-hidden className="pointer-events-none absolute inset-0 z-0">` com:
+     - `backgroundImage: url(areasEquipeImg)`
+     - `backgroundSize: cover`
+     - `backgroundPosition: left center` (mantém as pessoas visíveis à esquerda; a área mais "livre" da foto fica à direita, onde o diagrama será sobreposto)
+     - `opacity: ~0.55`, leve dessaturação para tom institucional
+   - Gradiente por cima para garantir legibilidade:
+     - À esquerda: véu suave do `--background` (~25–35%) para o texto ficar legível sobre as pessoas
+     - À direita: véu um pouco mais forte do `--background` (~40–55%) na área onde o diagrama será desenhado, para dar respiro ao SVG
+     - Tonalização verde-oliva sutil global
+
+3. **Manter** `relative z-10` no grid de conteúdo e nas duas colunas, para que título, texto e diagrama fiquem sempre acima da foto.
+
+4. **Não alterar** textos, eyebrow, título "Áreas que se conversam" nem o componente `SpecialtiesNetwork`.
 
 ## Resultado
 
-A fotografia da equipe vira o "tapete" visual do card do diagrama de especialidades, com exatamente as mesmas dimensões e cantos arredondados desse bloco — sem invadir a coluna do título à esquerda e sem se espalhar pela seção inteira.
+Uma única fotografia da equipe atravessa toda a largura da seção. As pessoas ficam ancoradas à esquerda, dialogando visualmente com o título "Áreas que se conversam", e o diagrama de especialidades pousa sobre a porção direita mais limpa da foto — mantendo o minimalismo Longevin.
