@@ -65,9 +65,15 @@ function ALongevinPage() {
           </nav>
 
           <h1 className="mt-8 max-w-5xl font-serif text-5xl md:text-7xl leading-[1.02] tracking-tight text-foreground">
-            Em uma localização privilegiada, a Longevin{" "}
-            <span className="italic text-primary">acolhe, cuida e previne.</span>
+            Mais do que uma clínica —{" "}
+            <span className="italic text-primary">um novo jeito de cuidar.</span>
           </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/70">
+            Um ecossistema de medicina integrada onde as especialidades se
+            conectam, o tempo é respeitado e o cuidado é personalizado em cada
+            etapa da sua jornada.
+          </p>
+
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <a
