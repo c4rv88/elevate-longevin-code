@@ -92,14 +92,6 @@ function Home() {
             </p>
 
             <div className="reveal reveal-delay-3 mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-4">
-              <a
-                href="https://agende.longevin.com.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-premium justify-center w-full sm:w-auto"
-              >
-                Agendar consulta <span className="arrow">→</span>
-              </a>
               <a href="#especialidades" className="btn-ghost-light justify-center w-full sm:w-auto">
                 Especialidades
               </a>

@@ -550,12 +550,12 @@ function MobileTimeline() {
 
       {/* Timeline horizontal com navegação */}
       <div className="relative mt-10 w-full max-w-md">
-        {/* Linha base contínua */}
-        <div className="pointer-events-none absolute inset-x-0 top-[44px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-[50px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
         {/* Segmento dourado centralizado (item ativo) */}
         <div
-          className="pointer-events-none absolute top-[43px] left-1/2 -translate-x-1/2 h-[2px] w-20 rounded-full"
+          className="pointer-events-none absolute top-[49px] left-1/2 -translate-x-1/2 h-[2px] w-24 rounded-full"
           style={{ backgroundColor: "var(--gold)", opacity: 0.7 }}
+        />
         />
 
         {/* Botão anterior */}
@@ -563,7 +563,7 @@ function MobileTimeline() {
           type="button"
           onClick={goPrev}
           disabled={!canPrev}
-          aria-label="Especialidade anterior"
+          className="absolute left-1 top-[30px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           className="absolute left-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           style={{
             borderWidth: "1px",
@@ -581,7 +581,7 @@ function MobileTimeline() {
           type="button"
           onClick={goNext}
           disabled={!canNext}
-          aria-label="Próxima especialidade"
+          className="absolute right-1 top-[30px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           className="absolute right-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           style={{
             borderWidth: "1px",
