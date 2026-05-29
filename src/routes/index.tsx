@@ -386,30 +386,65 @@ function Home() {
       </section>
 
 
-      {/* CTA */}
-      <section className="relative py-28 md:py-40 overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-primary" />
-        <div className="absolute inset-0 -z-10 opacity-[0.15] bg-[radial-gradient(circle_at_top_right,white,transparent_60%)]" />
-        <div className="mx-auto max-w-5xl px-6 md:px-10 text-center text-primary-foreground">
-          <p className="eyebrow text-primary-foreground/70" style={{ color: "color-mix(in oklab, white 80%, transparent)" }}>Boutique em saúde</p>
-          <h2 className="mt-5 font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight">
-            Quer conhecer um novo jeito de <span className="italic">cuidar da sua saúde</span>?
-          </h2>
-          <p className="mt-8 mx-auto max-w-2xl font-serif text-xl md:text-2xl leading-snug text-primary-foreground/85">
-            “Somos um ecossistema em saúde onde as especialidades se conectam, o tempo é respeitado e o cuidado, personalizado.”
-          </p>
-          <div className="mt-12 flex justify-center">
+      {/* INSTAGRAM */}
+      <section className="py-28 md:py-40 bg-[oklch(0.96_0.012_100)]">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <div className="flex flex-col items-center text-center">
+            <Instagram className="h-8 w-8 text-primary" strokeWidth={1.4} />
+            <p className="eyebrow mt-6">Instagram</p>
+            <h2 className="mt-5 font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
+              Acompanhe no <span className="italic text-primary">Instagram</span>.
+            </h2>
+            <p className="mt-6 max-w-xl text-foreground/65 leading-relaxed">
+              Dicas de saúde, bastidores da clínica e conteúdos sobre medicina integrada e longevidade.
+            </p>
+          </div>
+
+          <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+            {[
+              { img: igPost1, href: "https://www.instagram.com/reel/DYkqnizSvve/" },
+              { img: igPost2, href: "https://www.instagram.com/p/DYhS-x3lSTG/" },
+              { img: igPost3, href: "https://www.instagram.com/p/DYmkEe6FZL9/" },
+              { img: igPost4, href: "https://www.instagram.com/p/DY2nSV1mU8k/" },
+              { img: igPost5, href: "https://www.instagram.com/p/DKSsB7GS-r5/" },
+            ].map((post, i) => (
+              <a
+                key={i}
+                href={post.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block aspect-square overflow-hidden rounded-2xl bg-muted"
+              >
+                <img
+                  src={post.img}
+                  alt={`Post no Instagram da Clínica Longevin ${i + 1}`}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+                />
+                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/35 transition-colors duration-500 flex items-center justify-center">
+                  <Instagram
+                    className="h-7 w-7 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    strokeWidth={1.5}
+                  />
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-16 flex justify-center">
             <a
-              href="https://api.whatsapp.com/send/?phone=558599310000&text=Ol%C3%A1+Gostaria+de+agendar+uma+consulta"
+              href="https://www.instagram.com/clinicalongevin"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 rounded-full bg-background text-primary px-8 py-4 text-[12px] tracking-[0.22em] uppercase font-medium hover:bg-background/90 transition-all duration-500 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-3 rounded-full bg-primary text-primary-foreground px-8 py-4 text-[12px] tracking-[0.22em] uppercase font-medium hover:bg-primary/90 transition-all duration-500 hover:-translate-y-0.5"
             >
-              Fale com nosso staff <span aria-hidden>→</span>
+              <Instagram className="h-4 w-4" strokeWidth={1.5} />
+              Acompanhe no Instagram
             </a>
           </div>
         </div>
       </section>
+
 
       {/* ARTIGOS */}
       <section className="py-28 md:py-40">
