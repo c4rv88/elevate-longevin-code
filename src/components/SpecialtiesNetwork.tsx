@@ -168,6 +168,7 @@ function DesktopDiagram() {
   const [active, setActive] = useState<string | null>(null);
   const [entered, setEntered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const el = ref.current;
@@ -305,7 +306,14 @@ function DesktopDiagram() {
               aria-pressed={isActive}
               onMouseEnter={() => setActive(s.id)}
               onFocus={() => setActive(s.id)}
-              onClick={() => setActive((cur) => (cur === s.id ? null : s.id))}
+              onClick={() => {
+                const slug = SPECIALTY_ID_TO_SLUG[s.id];
+                if (slug) {
+                  navigate({ to: "/especialidades/$slug", params: { slug } });
+                } else {
+                  setActive((cur) => (cur === s.id ? null : s.id));
+                }
+              }}
               className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none"
               style={{
                 left: `${(p.x / 600) * 100}%`,
