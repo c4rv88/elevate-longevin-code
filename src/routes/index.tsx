@@ -249,7 +249,7 @@ function Home() {
 
           <Carousel
             opts={{ align: "start", loop: true }}
-            plugins={[autoplay.current]}
+            plugins={autoplay.current ? [autoplay.current] : []}
             className="mt-16"
           >
             <CarouselContent className="-ml-4">
