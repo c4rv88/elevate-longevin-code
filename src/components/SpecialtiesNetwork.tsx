@@ -149,10 +149,10 @@ const PAIRS = (() => {
 
 export function SpecialtiesNetwork() {
   const isMobile = useIsMobile();
-  // Render both on first paint to keep SSR markup stable; useIsMobile is undefined on server
-  if (isMobile) return <MobileOrbital />;
+  if (isMobile) return <MobileTimeline />;
   return <DesktopDiagram />;
 }
+
 
 /* ------------------------------------------------------------------ */
 /* DESKTOP                                                            */
