@@ -1,121 +1,158 @@
-## Reestruturação da seção "Áreas que se conversam"
 
-Transformar a seção atual (grid de cards) em um **diagrama interativo de Medicina Integrada** em layout de duas colunas, mantendo a identidade Longevin (verde sálvia, serif, off-white) e elevando a percepção premium.
+## Refinamento da seção "Áreas que se conversam"
+
+Reescrever `src/components/SpecialtiesNetwork.tsx` em duas experiências distintas — desktop sofisticado e mobile orbital nativo — invertendo a hierarquia visual: especialidades em primeiro plano, linhas como suporte.
 
 ---
 
-### Layout
+### Princípio guia
+- **Antes:** 70% linhas / 30% especialidades.
+- **Depois:** 20% linhas / 80% especialidades.
+- Linhas apenas sugerem conexão; especialidades dominam a atenção.
 
+---
+
+### Desktop (≥ 768px)
+
+**Estrutura visual**
+- Mantém layout radial atual (11 nós em círculo + núcleo central).
+- Núcleo central ganha leve respiração (pulse muito sutil em loop, ~4s).
+
+**Linhas — redução de 30% e hierarquia**
+- Remover conexões "todos → centro" como camada visível default. Centro continua existindo, mas sem 11 raios partindo dele no estado idle.
+- Manter apenas pares semânticos (Nutrição↔Endocrino, Cardio↔Geriatria, Psiq↔Psico, etc.).
+- Opacidade idle: `0.06–0.08` (quase imperceptível, sugere malha).
+- Largura idle: `0.5px`.
+- Cor: `--primary` (verde sálvia).
+
+**Hover / focus em uma especialidade**
+- Linhas das relações daquela especialidade → `opacity 0.55`, `1.1px`, com cor `--gold` suave.
+- Linha daquela especialidade → centro aparece (mesmo destaque) — só nesse momento.
+- Demais linhas: `opacity 0.03`.
+- Nó ativo: scale `1.08`, borda `--primary` sólida, sombra premium.
+- Nós relacionados: borda `--primary` 60%, opacidade 1.
+- Nós não-relacionados: `opacity 0.3`.
+- Núcleo central: reforça borda em `--gold`.
+
+**Tooltip elegante (substitui painel inferior)**
+- Tooltip flutuante ancorado ao nó ativo (posicionado para fora do círculo, com `inset` calculado por quadrante para nunca sair do container).
+- Conteúdo: nome (serif, 18px), 1 linha descritiva curta, lista compacta de "Integra com: X · Y · Z" em caps espaçado dourado.
+- Card off-white com sombra suave, borda hairline, radius 16px, animação `fade-in + translate-y-1` em 200ms.
+- Remover o painel inferior grande atual (deixa o diagrama respirar).
+
+**Estado idle (sem hover)**
+- Substituir o painel por uma legenda discreta abaixo do diagrama: "Passe o mouse em uma especialidade para ver suas conexões."
+
+---
+
+### Mobile (< 768px) — experiência nativa
+
+Inspiração: Apple Health, Apple Vision Pro, Calm, Headspace.
+
+**Bloco 1 — Cabeçalho (já existe na coluna esquerda)**
+- Mantém kicker ESPECIALIDADES, título, parágrafo, CTA Agendar Consulta.
+- No mobile esses elementos já empilham acima do componente.
+
+**Bloco 2 — Núcleo central fixo**
 ```text
-┌─────────────────────────┬────────────────────────────────┐
-│  COLUNA ESQUERDA (40%)  │   COLUNA DIREITA (60%)         │
-│                         │                                │
-│  ESPECIALIDADES         │        ◯ Endocrinologia        │
-│                         │   ◯ Derm        Cardiologia ◯  │
-│  Áreas que se           │ ◯ Psiq    ╲ | ╱    Neuro ◯     │
-│  conversam.             │ ◯ Psico ── [LOGO] ── Reumat ◯  │
-│                         │ ◯ Nutri   ╱ | ╲    Oftalmo ◯   │
-│  Texto institucional…   │   ◯ Clínica   Geriatria ◯      │
-│                         │                                │
-│  [Agendar Consulta →]   │  (painel flutuante ao hover)   │
-└─────────────────────────┴────────────────────────────────┘
+        ╭───────────╮
+        │   LOGO    │
+        │ MEDICINA  │
+        │ INTEGRADA │
+        ╰───────────╯
+   "Toque em uma especialidade
+    para entender como ela se
+    conecta ao seu cuidado."
+```
+- Círculo ~140px com logo + caps "MEDICINA INTEGRADA".
+- Microcopy abaixo (foreground/70, sm).
+
+**Bloco 3 — Orbital horizontal**
+- Linha de "órbita" sutil (arco SVG ou borda inferior tracejada) atravessando a tela.
+- 4 nós-especialidade visíveis por vez, posicionados ao longo da órbita (centro mais alto, laterais mais baixos — sensação de profundidade).
+- Container scroll horizontal nativo (`overflow-x-auto snap-x snap-mandatory`).
+- Ao arrastar, os nós "giram" — efeito conseguido via translateY proporcional à posição relativa ao centro do viewport (cálculo em `onScroll`, sem libs).
+- Cada nó: círculo 84px com ícone + nome serif curto abaixo.
+- Snap centraliza um nó por vez; nó central recebe scale 1.1 e borda `--primary`.
+
+**Ao tocar em uma especialidade**
+- Abre `Drawer` (componente shadcn `drawer.tsx` já disponível) deslizando de baixo.
+- Conteúdo do drawer:
+  - Ícone grande + nome serif 24px.
+  - Linha "Na Longevin, [Especialidade] atua de forma integrada com:"
+  - Lista vertical das relacionadas com bullet `·` dourado.
+  - Bloco "Objetivo:" com 1–2 linhas finais.
+  - Botão `Conhecer especialidade →` (btn-ghost, âncora `#equipe`).
+- Drawer com handle visível, fundo `--card`, radius topo 24px.
+
+**Por que Drawer e não expandir inline:** preserva o "orbital" sempre visível ao fechar, mantém fluidez tipo app nativo, evita reflows verticais.
+
+---
+
+### Dados — ajustes em `SPECIALTIES`
+
+Cada item ganha:
+- `short` (1 frase ~10 palavras, para tooltip desktop e card mobile).
+- `description` atual permanece (drawer mobile).
+- `related` já existe.
+
+Exemplo:
+```ts
+{
+  id: "cardiologia",
+  name: "Cardiologia",
+  Icon: HeartPulse,
+  short: "Prevenção e acompanhamento cardiovascular.",
+  description: "Na Longevin, a Cardiologia atua de forma integrada para promover uma visão completa da saúde cardiovascular.",
+  related: ["endocrinologia", "geriatria", "nutricao", "clinica"],
+}
 ```
 
----
-
-### Coluna esquerda
-- Kicker `ESPECIALIDADES`
-- H2 serif `Áreas que se conversam.` (mantém italic em "conversam")
-- Parágrafo institucional (texto fornecido)
-- CTA `Agendar Consulta` (botão `btn-premium` existente, link `https://agende.longevin.com.br/`)
-- Sticky no desktop para acompanhar a leitura do diagrama
-
-### Coluna direita — diagrama
-- **Núcleo central**: círculo grande off-white com borda dourada sutil, logo Longevin (reaproveitar do `SiteHeader`) + texto `MEDICINA INTEGRADA` em caps espaçado.
-- **11 especialidades** distribuídas em círculo ao redor (ângulos igualmente espaçados, raio ~280px):
-  Clínica Médica, Geriatria, Cardiologia, Endocrinologia, Dermatologia, Neurologia, Nutrição, Oftalmologia, Reumatologia, Psiquiatria, Psicologia.
-- Cada nó: círculo ~96px, ícone lucide minimalista no topo, nome em serif abaixo, borda `1px` em `rgba(125,140,114,0.25)`, fundo off-white.
-- **Conexões SVG** (linhas finas `rgba(125,140,114,0.15)`):
-  - Cada especialidade → núcleo
-  - Pares relacionados: Nutrição↔Endocrino, Cardio↔Geriatria, Psiq↔Psico, Neuro↔Psiq, Endocrino↔Cardio, Reumato↔Geriatria, Derma↔Reumato, Oftalmo↔Neuro
-  - Clínica Médica conecta a todas
-
-### Interações
-- Hover em uma especialidade:
-  - Nó cresce levemente (`scale-105`) e ganha borda em `--primary`
-  - Linhas conectadas a ela ficam opacas (`rgba(125,140,114,0.6)`); demais linhas e nós suavizam para `opacity-30`
-  - Núcleo central reforça borda
-  - **Painel lateral flutuante** (posicionado à direita do diagrama em desktop, abaixo em tablet) mostra: nome (serif), descrição curta (~2 linhas), botão `Conhecer especialidade →`
-- Estado default sem hover: painel exibe uma descrição "introdução" do conceito de Medicina Integrada
-- Clique no nó = mesmo efeito que hover (pin), permite acessar em touch
-
-### Animações de entrada (uma vez, ao entrar no viewport via IntersectionObserver)
-- Linhas SVG: `stroke-dasharray` animado (desenho progressivo, ~1.2s, stagger)
-- Nós: fade-in + scale de 0.92 → 1, stagger ~80ms por especialidade
-- Núcleo central: fade-in primeiro
-- Transições de hover: 300-500ms ease-out
-
-### Responsivo
-- **Desktop ≥1024px**: diagrama completo conforme acima
-- **Tablet 640-1024px**: diagrama reduzido (raio ~210px, nós ~80px), painel vira card abaixo do diagrama
-- **Mobile <640px**: substitui diagrama por **carrossel horizontal** (snap) — núcleo central no topo como bloco fixo + cards de especialidades em scroll horizontal. Sem SVG de conexões.
-
-### Conteúdo das descrições (curtas, 1-2 linhas cada)
-Adicionar para cada especialidade um objeto `{ name, Icon, description }`. Exemplos:
-- Cardiologia — "Avaliação cardiovascular, prevenção e acompanhamento contínuo, integrados às demais áreas para uma visão completa da saúde."
-- Endocrinologia — "Cuidado dos sistemas hormonal e metabólico em diálogo com nutrição, cardiologia e geriatria."
-- (etc. para as 11)
+Revisar `related` para garantir reciprocidade (se A lista B, B lista A) — hoje há assimetrias (ex: Nutrição não lista Cardiologia de volta consistentemente). Padronizar.
 
 ---
 
 ### Implementação técnica
 
-**Arquivos:**
-- Novo: `src/components/SpecialtiesNetwork.tsx` — componente isolado contendo:
-  - Dados das 11 especialidades (nome, ícone, descrição, ângulo, pares relacionados)
-  - SVG absoluto com `<line>` para conexões
-  - Nós posicionados via `position: absolute` calculados por trigonometria (`Math.cos/sin` do ângulo × raio)
-  - Estado `activeIndex` (hover/click) controla classes condicionais nos nós/linhas e o conteúdo do painel
-  - IntersectionObserver para disparar animação de entrada uma única vez
-  - Hook `useMediaQuery` (ou checagem `window.matchMedia`) para alternar entre diagrama e carrossel mobile
+**Arquivo único reescrito:** `src/components/SpecialtiesNetwork.tsx`
 
-- Editado: `src/routes/index.tsx`
-  - Substituir o bloco `<section id="especialidades">` atual (grid `<ul>` de cards) por:
-    ```tsx
-    <section id="especialidades" className="py-28 md:py-40">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:grid-cols-5 items-start">
-        <div className="lg:col-span-2 lg:sticky lg:top-32">
-          {/* kicker + H2 + parágrafo + CTA */}
-        </div>
-        <div className="lg:col-span-3">
-          <SpecialtiesNetwork />
-        </div>
-      </div>
-    </section>
-    ```
-  - Remover o array `specialties` antigo e o CTA central duplicado (já estará na coluna esquerda)
-  - Remover imports de ícones que migrarão para `SpecialtiesNetwork.tsx`
-
-**Tokens CSS** (em `src/styles.css`, se necessário):
-- Adicionar `--line-soft: oklch(...)` mapeando para `rgba(125,140,114,0.15)` em equivalente oklch
-- Reaproveitar `--primary`, `--gold`, `--background` existentes
-
-**Animação CSS** para o desenho das linhas:
-```css
-@keyframes draw-line {
-  from { stroke-dashoffset: var(--len); }
-  to   { stroke-dashoffset: 0; }
+Estrutura:
+```tsx
+export function SpecialtiesNetwork() {
+  const isMobile = useIsMobile(); // hook existente, breakpoint 768
+  return isMobile ? <MobileOrbital /> : <DesktopDiagram />;
 }
 ```
 
-**Acessibilidade:**
-- Cada nó é `<button>` com `aria-label`, `aria-pressed` quando ativo
-- Painel lateral com `role="status"` e `aria-live="polite"`
-- Carrossel mobile com scroll nativo + snap (sem JS de gesture)
+**DesktopDiagram**
+- Reusa lógica de posicionamento atual.
+- Remove rendering das 11 linhas centrais no estado idle (renderiza só quando `active`).
+- Tooltip: novo subcomponente `<NodeTooltip spec quadrant />` posicionado absolutamente em relação ao container do diagrama; quadrante calculado a partir do ângulo (`tl|tr|bl|br`) para ancorar lados opostos.
+- Animação de entrada (IntersectionObserver) mantida.
+
+**MobileOrbital**
+- Layout: núcleo fixo no topo (sticky dentro do bloco), microcopy.
+- Container horizontal com items distribuídos; cálculo de `translateY` via `useRef` + `onScroll` (rAF throttled) lendo `boundingClientRect` de cada nó vs centro do viewport — sem libs.
+- Estado `selected: Specialty | null` controla abertura do `Drawer` (`@/components/ui/drawer`).
+- Drawer já está disponível (vide `src/components/ui/drawer.tsx`).
+
+**Tokens / CSS**
+- Nenhum token novo obrigatório. Reusa `--primary`, `--gold`, `--card`, `--border`, `--background`.
+- Pode adicionar utility `.orbit-arc` em `styles.css` se SVG inline não bastar.
+
+**Acessibilidade**
+- Desktop: nós permanecem `<button aria-pressed>`; tooltip com `role="tooltip"` e `aria-describedby` ligado ao nó ativo.
+- Mobile: drawer já trata foco/escape; cards no carrossel são `<button>` com `aria-label`.
+- Carrossel mobile navegável por teclado (foco move scroll via `scrollIntoView`).
+
+**Sem mudanças em**
+- `src/routes/index.tsx` (estrutura de 2 colunas mantida).
+- Outras seções.
+- Tokens de cor / tipografia globais.
 
 ---
 
 ### Fora de escopo
-- Não altera nenhuma outra seção da home
-- Não cria página de detalhe da especialidade (botão "Conhecer especialidade" aponta provisoriamente para `#equipe` ou âncora; confirmar destino se houver preferência)
-- Mantém paleta, tipografia e botões existentes — nenhum token de cor novo além do `--line-soft` opcional
+- Não criar página individual de especialidade (botão "Conhecer" continua apontando para `#equipe`).
+- Não adicionar libs (sem framer-motion, sem GSAP) — animações via CSS transitions + rAF.
+- Não alterar cabeçalho/CTA da coluna esquerda.
