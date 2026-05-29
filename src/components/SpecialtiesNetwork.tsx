@@ -272,7 +272,7 @@ function DesktopDiagram() {
           }`}
         >
           <div
-            className="relative aspect-square min-h-[150px] min-w-[150px] rounded-full bg-background flex flex-col items-center justify-center text-center px-4 transition-all duration-500 animate-[corepulse_5s_ease-in-out_infinite]"
+            className="relative aspect-square min-h-[150px] min-w-[150px] rounded-full bg-background flex items-center justify-center text-center px-4 transition-all duration-500 animate-[corepulse_5s_ease-in-out_infinite]"
             style={{
               boxShadow:
                 "0 1px 0 color-mix(in oklab, var(--gold) 40%, transparent) inset, 0 24px 60px -28px color-mix(in oklab, var(--primary) 60%, transparent)",
@@ -283,13 +283,9 @@ function DesktopDiagram() {
                 : "color-mix(in oklab, var(--gold) 45%, transparent)",
             }}
           >
-            <LongevinMark className="h-8 w-auto opacity-90" />
-            <p className="mt-2 font-serif text-[10px] tracking-[0.28em] uppercase text-foreground/75 leading-tight">
-              Medicina
-              <br />
-              Integrada
-            </p>
+            <img src={treeLogo} alt="Longevin" className="h-16 w-16 object-contain opacity-95" />
           </div>
+
         </div>
 
         {/* specialty nodes */}
