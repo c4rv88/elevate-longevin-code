@@ -53,7 +53,7 @@ function ALongevinPage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      {/* Hero */}
+      {/* Hero / Nossa proposta */}
       <section className="relative pt-40 pb-24 md:pt-48 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[oklch(0.96_0.012_100)] to-background" />
         <div className="mx-auto max-w-7xl px-6 md:px-10">
@@ -64,18 +64,55 @@ function ALongevinPage() {
             <span className="text-foreground/70">A Longevin</span>
           </nav>
 
-          <h1 className="mt-8 max-w-5xl font-serif text-5xl md:text-7xl leading-[1.02] tracking-tight text-foreground">
+          <div className="mt-12 grid gap-16 md:grid-cols-12 items-center">
+            <div className="md:col-span-6">
+              <p className="eyebrow">Nossa proposta</p>
+              <h1 className="mt-6 font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight">
+                Um ecossistema em saúde,{" "}
+                <span className="italic text-primary">além da consulta.</span>
+              </h1>
+              <p className="mt-8 text-lg leading-relaxed text-foreground/75">
+                A Longevin propõe um modelo inovador de cuidado em saúde, que vai
+                além da consulta: um verdadeiro ecossistema que combina
+                especialidades médicas, ambiente acolhedor e atenção autêntica a
+                cada etapa da jornada do paciente.
+              </p>
+              <p className="mt-6 text-lg leading-relaxed text-foreground/75">
+                Idealizada por profissionais que defendem uma medicina mais humana
+                e abrangente, a clínica reúne áreas como geriatria, cardiologia,
+                endocrinologia, reumatologia, dermatologia, psiquiatria,
+                neurologia, oftalmologia, clínica médica, psicologia, nutrição,
+                entre outras.
+              </p>
+            </div>
+            <div className="md:col-span-6">
+              <div className="relative overflow-hidden rounded-2xl border border-border/60 shadow-xl">
+                <img
+                  src={interiorImg}
+                  alt="Interior da clínica Longevin"
+                  className="w-full h-[520px] object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Manifesto destaque */}
+      <section id="proposta" className="py-24 md:py-32 border-t border-border/60">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 text-center">
+          <p className="eyebrow text-gold">Nosso jeito</p>
+          <h2 className="mt-8 font-serif text-5xl md:text-7xl leading-[1.02] tracking-tight">
             Mais do que uma clínica —{" "}
             <span className="italic text-primary">um novo jeito de cuidar.</span>
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/70">
+          </h2>
+          <p className="mt-10 max-w-2xl mx-auto text-lg leading-relaxed text-foreground/70">
             Um ecossistema de medicina integrada onde as especialidades se
             conectam, o tempo é respeitado e o cuidado é personalizado em cada
             etapa da sua jornada.
           </p>
-
-
-          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://agende.longevin.com.br/"
               target="_blank"
@@ -84,47 +121,13 @@ function ALongevinPage() {
             >
               Agendar consulta <span className="arrow">→</span>
             </a>
-            <a href="#proposta" className="btn-ghost">
+            <a href="#pilares" className="btn-ghost">
               Conhecer a proposta
             </a>
           </div>
         </div>
       </section>
 
-      {/* Manifesto */}
-      <section id="proposta" className="py-24 md:py-32">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 md:grid-cols-12 items-center">
-          <div className="md:col-span-6">
-            <p className="eyebrow">Nossa proposta</p>
-            <h2 className="mt-6 font-serif text-4xl md:text-5xl leading-tight">
-              Um ecossistema em saúde, além da consulta.
-            </h2>
-            <p className="mt-8 text-lg leading-relaxed text-foreground/75">
-              A Longevin propõe um modelo inovador de cuidado em saúde, que vai
-              além da consulta: um verdadeiro ecossistema que combina
-              especialidades médicas, ambiente acolhedor e atenção autêntica a
-              cada etapa da jornada do paciente.
-            </p>
-            <p className="mt-6 text-lg leading-relaxed text-foreground/75">
-              Idealizada por profissionais que defendem uma medicina mais humana
-              e abrangente, a clínica reúne áreas como geriatria, cardiologia,
-              endocrinologia, reumatologia, dermatologia, psiquiatria,
-              neurologia, oftalmologia, clínica médica, psicologia, nutrição,
-              entre outras.
-            </p>
-          </div>
-          <div className="md:col-span-6">
-            <div className="relative overflow-hidden rounded-2xl border border-border/60 shadow-xl">
-              <img
-                src={interiorImg}
-                alt="Interior da clínica Longevin"
-                className="w-full h-[520px] object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Pillars grid */}
       <section className="py-24 md:py-32 bg-[oklch(0.96_0.012_100)]">
