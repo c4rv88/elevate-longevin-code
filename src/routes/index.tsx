@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Activity, Apple, Bone, Brain, BrainCircuit, Eye, HeartHandshake, HeartPulse, MessageCircleHeart, Sparkles, Stethoscope, Users, type LucideIcon } from "lucide-react";
+import { Sparkles, Stethoscope, Users } from "lucide-react";
+import { SpecialtiesNetwork } from "@/components/SpecialtiesNetwork";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
@@ -21,19 +22,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const specialties: { name: string; Icon: LucideIcon }[] = [
-  { name: "Clínica Médica", Icon: Stethoscope },
-  { name: "Geriatria", Icon: HeartHandshake },
-  { name: "Cardiologia", Icon: HeartPulse },
-  { name: "Endocrinologia", Icon: Activity },
-  { name: "Dermatologia", Icon: Sparkles },
-  { name: "Neurologia", Icon: Brain },
-  { name: "Nutrição", Icon: Apple },
-  { name: "Oftalmologia", Icon: Eye },
-  { name: "Reumatologia", Icon: Bone },
-  { name: "Psiquiatria", Icon: BrainCircuit },
-  { name: "Psicologia", Icon: MessageCircleHeart },
-];
 
 const doctors = [
   { name: "Dr. Karlos Jennysson", spec: "Cardiologia", rqe: "RQE 113119", img: "https://longevin.com.br/wp-content/uploads/2025/06/Dr.-Carlos-Jennyson-1-1-e1749523769929.jpg" },
