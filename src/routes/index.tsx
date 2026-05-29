@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Activity, Apple, Bone, Brain, BrainCircuit, Eye, HeartHandshake, HeartPulse, MessageCircleHeart, Sparkles, Stethoscope, Users, type LucideIcon } from "lucide-react";
+import { Sparkles, Stethoscope, Users } from "lucide-react";
+import { SpecialtiesNetwork } from "@/components/SpecialtiesNetwork";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
@@ -21,19 +22,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const specialties: { name: string; Icon: LucideIcon }[] = [
-  { name: "Clínica Médica", Icon: Stethoscope },
-  { name: "Geriatria", Icon: HeartHandshake },
-  { name: "Cardiologia", Icon: HeartPulse },
-  { name: "Endocrinologia", Icon: Activity },
-  { name: "Dermatologia", Icon: Sparkles },
-  { name: "Neurologia", Icon: Brain },
-  { name: "Nutrição", Icon: Apple },
-  { name: "Oftalmologia", Icon: Eye },
-  { name: "Reumatologia", Icon: Bone },
-  { name: "Psiquiatria", Icon: BrainCircuit },
-  { name: "Psicologia", Icon: MessageCircleHeart },
-];
 
 const doctors = [
   { name: "Dr. Karlos Jennysson", spec: "Cardiologia", rqe: "RQE 113119", img: "https://longevin.com.br/wp-content/uploads/2025/06/Dr.-Carlos-Jennyson-1-1-e1749523769929.jpg" },
@@ -210,39 +198,33 @@ function Home() {
 
       {/* ESPECIALIDADES */}
       <section id="especialidades" className="py-28 md:py-40">
-        <div className="mx-auto max-w-7xl px-6 md:px-10">
-          <div className="max-w-3xl">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
+          <div className="lg:col-span-2 lg:sticky lg:top-32">
             <p className="eyebrow">Especialidades</p>
-            <h2 className="mt-5 font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight">
+            <h2 className="mt-5 font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
               Áreas que se <span className="italic text-primary">conversam</span>.
             </h2>
+            <p className="mt-8 text-foreground/70 leading-relaxed max-w-md">
+              Na Longevin, cada especialidade faz parte de uma visão integrada da saúde. Nossa equipe atua de forma colaborativa para compreender o paciente como um todo, conectando diferentes áreas do conhecimento para promover prevenção, diagnóstico e acompanhamento contínuo.
+            </p>
+            <div className="mt-10">
+              <a
+                href="https://agende.longevin.com.br/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-premium"
+              >
+                Agendar consulta <span className="arrow">→</span>
+              </a>
+            </div>
           </div>
 
-          <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {specialties.map((s, i) => (
-              <li
-                key={s.name}
-                className="group relative border border-border rounded-2xl p-7 bg-card card-lift overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-transparent transition-all duration-700" />
-                <div className="relative flex items-center justify-between">
-                  <div>
-                    <p className="text-[11px] tracking-[0.22em] uppercase text-gold">{String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="mt-3 font-serif text-2xl">{s.name}</h3>
-                  </div>
-                  <s.Icon className="h-8 w-8 text-primary/70 group-hover:text-primary transition-colors" strokeWidth={1.25} />
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-16 flex justify-center">
-            <a href="https://agende.longevin.com.br/" target="_blank" rel="noopener noreferrer" className="btn-premium">
-              Agendar consulta <span className="arrow">→</span>
-            </a>
+          <div className="lg:col-span-3">
+            <SpecialtiesNetwork />
           </div>
         </div>
       </section>
+
 
       {/* EQUIPE */}
       <section id="equipe" className="py-28 md:py-40 bg-[oklch(0.96_0.012_100)]">
