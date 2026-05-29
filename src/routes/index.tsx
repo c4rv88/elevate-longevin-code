@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, Stethoscope, Users, Star, BadgeCheck } from "lucide-react";
 import { SpecialtiesNetwork } from "@/components/SpecialtiesNetwork";
 import heroImg from "@/assets/hero-clinic.webp";
+import doctoraliaLogo from "@/assets/doctoralia-logo.png";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
 import propostaAtendimento from "@/assets/proposta-atendimento.webp";
@@ -360,10 +361,13 @@ function Home() {
           </Carousel>
 
           <div className="mt-16 flex flex-col items-center gap-3">
-            <div className="flex items-center gap-2 text-[#00a991]">
-              <BadgeCheck className="h-5 w-5" strokeWidth={2} />
-              <span className="font-semibold tracking-tight">Doctoralia</span>
-            </div>
+            <img
+              src={doctoraliaLogo}
+              alt="Doctoralia"
+              className="h-7 md:h-8 w-auto"
+              loading="lazy"
+            />
+
             <a
               href="https://www.doctoralia.com.br/clinicas/clinica-longevin#facility-opinion-stats"
               target="_blank"
