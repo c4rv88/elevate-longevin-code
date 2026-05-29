@@ -1,55 +1,62 @@
 ## Objetivo
 
-Criar uma página dedicada para cada uma das 7 especialidades fornecidas (Geriatria, Clínica Médica, Neurologia, Reumatologia, Psicologia, Psiquiatria, Cardiologia) e tornar os nós do diagrama clicáveis para navegar até elas.
+Refinar visualmente o `DesktopDiagram` em `src/components/SpecialtiesNetwork.tsx` para que o núcleo Longevin se torne o protagonista óbvio, com órbita perfeitamente equilibrada, conexões discretas e animações elegantes. Escopo: apenas o diagrama desktop — mobile/timeline e demais seções ficam intocados.
 
-## Arquitetura de rotas
+## Núcleo central
 
-Uma única rota dinâmica em `src/routes/especialidades.$slug.tsx` que renderiza o conteúdo de acordo com o `slug`. Vantagens: um único arquivo, SEO por rota (`head()` com title/description próprios), fácil expansão futura.
+- Aumentar o círculo central de 88px para 200px (≈+125%, dentro do espírito "40–60% maior" considerando que o limite atual estava subdimensionado relativo aos nós).
+- Reforçar protagonismo:
+  - Borda dupla refinada usando `var(--primary)` (verde institucional) a ~55% opacidade.
+  - Glow externo suave em camadas (dois `box-shadow` empilhados: difusão larga em `--primary` 18% + halo dourado interno sutil).
+  - Animação `corepulse` ajustada para respirar o glow externo, não a borda.
+- Conteúdo interno reorganizado verticalmente com respiro:
+  - Logo árvore ocupando ~46% da área interna (≈92px).
+  - Abaixo: bloco "MEDICINA / INTEGRADA" em duas linhas, font-serif, tracking amplo (`0.32em`), `text-foreground/70`, com micro-divisor dourado de 16px entre logo e texto.
+- z-index do núcleo acima das linhas, mas abaixo dos tooltips.
 
-URLs geradas:
-- `/especialidades/geriatria`
-- `/especialidades/clinica-medica`
-- `/especialidades/neurologia`
-- `/especialidades/reumatologia`
-- `/especialidades/psicologia`
-- `/especialidades/psiquiatria`
-- `/especialidades/cardiologia`
+## Órbita e nós
 
-Se o slug não existir → `notFound()`.
+- Manter as 10 especialidades distribuídas em ângulos exatamente iguais (já é o caso). Aumentar o raio de 240 para 250 para dar mais respiro ao núcleo maior e evitar sobreposição visual.
+- Padronizar 100% os nós:
+  - Tamanho fixo 92×92 (era 88), todos iguais.
+  - Borda 1px `color-mix(--primary 28%, transparent)` uniforme em estado neutro.
+  - Ícone `h-7 w-7` com `strokeWidth={1.25}` (já está) — manter.
+  - Label `font-serif text-[11px]` (já está) — manter.
+- Garantir mesmo `box-shadow` base em todos no estado neutro.
 
-## Conteúdo
+## Linhas de conexão
 
-Criar `src/data/specialties-content.ts` com um mapa `slug → { name, tagline, paragraphs[], Icon }` usando exatamente os textos fornecidos pelo usuário (título, subtítulo destacado e parágrafos).
+Reestruturar para reduzir ruído cruzado:
 
-## Layout da página
+- Remover renderização do conjunto completo de `PAIRS` por padrão.
+- Estado neutro: desenhar apenas as 10 raios do centro → cada especialidade, com `stroke="var(--primary)"`, opacidade 0.10, `strokeWidth=0.6`.
+- Conexões entre especialidades relacionadas (`PAIRS`) só aparecem quando há `activeSpec` e somente as que tocam o nó ativo, com opacidade 0.45 e cor `var(--gold)`.
+- Resultado: composição limpa em repouso (parece uma órbita radial), e contexto revelado no hover.
 
-Reutilizar `SiteHeader` e `SiteFooter` (mesmos do site). Estrutura por página:
+## Interação (hover)
 
-1. Hero curto: ícone da especialidade (Lucide, mesmo do diagrama) + nome + tagline (a frase em destaque do texto fornecido).
-2. Corpo: parágrafos do texto em tipografia editorial (prose), alinhado ao design system (tokens de cor/spacing já existentes em `src/styles.css`).
-3. CTA final: botão "Agendar consulta" + link "Ver todas as especialidades" voltando para a âncora do diagrama na home.
-4. `head()` com `title`, `description`, `og:title`, `og:description` específicos por especialidade.
+- Ao entrar no nó:
+  - Nó: scale 1.08, borda `var(--primary)` 100%, shadow reforçada.
+  - Raio centro→nó: opacidade 0.7, `--gold`, `strokeWidth=1.2`.
+  - Conexões relacionadas: visíveis (ver acima).
+  - Núcleo central: borda passa para `var(--gold)` 70% e ganha um anel externo sutil (pulse mais intenso) para reforçar a relação centro↔especialidade.
+  - Demais nós: opacidade 0.35 (já existe lógica `dimmed`) — manter.
+- Saída: tudo retorna suavemente via transições já presentes (300–500ms ease).
 
-## Navegação a partir do diagrama
+## Animações de entrada (mantendo o gatilho `IntersectionObserver`)
 
-Em `src/components/SpecialtiesNetwork.tsx`:
-- Mapear `specialty.id` → slug de rota (`clinica` → `clinica-medica`, demais ids já batem com o slug).
-- Envolver cada nó (desktop + mobile timeline) em `<Link to="/especialidades/$slug" params={{ slug }}>` somente para as 7 especialidades com página. As 3 sem página (Endocrinologia, Dermatologia, Nutrição, Oftalmologia) continuam apenas com tooltip/drawer — sem link.
-- Manter hover/tooltip atuais; o clique passa a navegar.
+Sequência orquestrada por `transitionDelay`:
 
-## Detalhes técnicos
+1. 0ms — núcleo central faz fade+scale (de 0.9 → 1) em 700ms.
+2. 350ms — raios centro→nós são "desenhados" via `stroke-dashoffset` indo de comprimento total a 0 em 700ms, escalonados 40ms entre si.
+3. 600ms — nós aparecem em sequência (delay `600 + i*70ms`), fade+scale como hoje.
 
-- Rota: `createFileRoute('/especialidades/$slug')` com `head()` derivado do conteúdo via `loader` que retorna o specialty (ou `throw notFound()`).
-- `errorComponent` e `notFoundComponent` definidos na rota.
-- Componente da página fica em `src/components/SpecialtyPage.tsx` para manter a rota enxuta.
-- Sem mudanças em backend/dados — puramente frontend.
+Usar `pathLength` ou cálculo de comprimento por `Math.hypot(dx,dy)` em cada linha para o efeito de desenho.
+
+## Tipografia auxiliar
+
+- Substituir o texto cinza inferior "Passe o mouse em uma especialidade para ver suas conexões" mantendo estilo atual (não pedido para mudar).
 
 ## Arquivos
 
-Novos:
-- `src/data/specialties-content.ts`
-- `src/components/SpecialtyPage.tsx`
-- `src/routes/especialidades.$slug.tsx`
-
-Editados:
-- `src/components/SpecialtiesNetwork.tsx` (tornar nós clicáveis para as 7 especialidades)
+Editado: `src/components/SpecialtiesNetwork.tsx` (apenas `DesktopDiagram` + keyframes locais). Nenhum outro arquivo afetado.
