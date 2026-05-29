@@ -309,7 +309,7 @@ function DesktopDiagram() {
               onClick={() => {
                 const slug = SPECIALTY_ID_TO_SLUG[s.id];
                 if (slug) {
-                  navigate({ to: "/especialidades/$slug", params: { slug } });
+                  navigate({ to: "/$slug", params: { slug } });
                 } else {
                   setActive((cur) => (cur === s.id ? null : s.id));
                 }
@@ -791,7 +791,7 @@ function MobileTimeline() {
 
               {SPECIALTY_ID_TO_SLUG[selected.id] ? (
                 <Link
-                  to="/especialidades/$slug"
+                  to="/$slug"
                   params={{ slug: SPECIALTY_ID_TO_SLUG[selected.id] }}
                   onClick={() => setSelected(null)}
                   className="btn-ghost mt-8 inline-flex w-full justify-center"
