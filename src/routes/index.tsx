@@ -400,7 +400,7 @@ function Home() {
             </p>
           </div>
 
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+          <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5 max-w-5xl mx-auto">
             {[
               { img: igPost1, href: "https://www.instagram.com/reel/DYkqnizSvve/" },
               { img: igPost2, href: "https://www.instagram.com/p/DYhS-x3lSTG/" },
@@ -413,13 +413,13 @@ function Home() {
                 href={post.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block aspect-square overflow-hidden rounded-2xl bg-muted"
+                className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-muted"
               >
                 <img
                   src={post.img}
                   alt={`Post no Instagram da Clínica Longevin ${i + 1}`}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+                  className="w-full h-full object-contain transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/35 transition-colors duration-500 flex items-center justify-center">
                   <Instagram
