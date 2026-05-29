@@ -57,6 +57,7 @@ const articles = [
 ];
 
 function Home() {
+  const autoplay = useRef(Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }));
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
 
