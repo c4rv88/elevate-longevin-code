@@ -242,27 +242,42 @@ function Home() {
             </p>
           </div>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {doctors.map((d) => (
-              <article key={d.name} className="group">
-                <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
-                  <img
-                    src={d.img}
-                    alt={d.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div className="mt-6 flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] tracking-[0.22em] uppercase text-gold">{d.spec}</p>
-                    <h3 className="mt-2 font-serif text-2xl leading-tight">{d.name}</h3>
-                  </div>
-                  {d.rqe && <span className="mt-2 text-[11px] tracking-[0.18em] uppercase text-muted-foreground whitespace-nowrap">{d.rqe}</span>}
-                </div>
-              </article>
-            ))}
-          </div>
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            className="mt-16"
+          >
+            <CarouselContent className="-ml-4">
+              {doctors.map((d) => (
+                <CarouselItem
+                  key={d.name}
+                  className="pl-4 basis-[82%] sm:basis-1/2 lg:basis-1/3"
+                >
+                  <article className="group">
+                    <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
+                      <img
+                        src={d.img}
+                        alt={d.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                      />
+                    </div>
+                    <div className="mt-6 flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-[11px] tracking-[0.22em] uppercase text-gold">{d.spec}</p>
+                        <h3 className="mt-2 font-serif text-2xl leading-tight">{d.name}</h3>
+                      </div>
+                      {d.rqe && <span className="mt-2 text-[11px] tracking-[0.18em] uppercase text-muted-foreground whitespace-nowrap">{d.rqe}</span>}
+                    </div>
+                  </article>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="mt-10 flex items-center justify-end gap-3">
+              <CarouselPrevious className="static translate-y-0 h-11 w-11 border-border text-foreground hover:bg-primary hover:text-primary-foreground" />
+              <CarouselNext className="static translate-y-0 h-11 w-11 border-border text-foreground hover:bg-primary hover:text-primary-foreground" />
+            </div>
+          </Carousel>
+
         </div>
       </section>
 
