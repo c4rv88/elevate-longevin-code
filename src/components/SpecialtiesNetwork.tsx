@@ -496,7 +496,8 @@ function MobileTimeline() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-hidden">
+
       {/* Núcleo central compacto */}
       <div className="flex flex-col items-center">
         <div
