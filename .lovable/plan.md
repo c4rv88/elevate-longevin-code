@@ -1,21 +1,17 @@
 ## Objetivo
 
-A foto da equipe deve ficar contida apenas no lado esquerdo da seção (atrás/ao redor do título e texto). O diagrama de especialidades à direita fica sobre o fundo claro padrão da seção, sem nenhuma foto atrás dele.
+1. Deslocar o diagrama de especialidades ainda mais para a direita da seção.
+2. Recortar a foto para focar nas duas pessoas conversando na lateral esquerda.
 
-## Mudanças em `src/routes/index.tsx` (seção ESPECIALIDADES, linhas ~248–296)
+## Mudanças em `src/routes/index.tsx` (seção ESPECIALIDADES)
 
-1. **Restringir a camada da foto à metade esquerda da seção**:
-   - Trocar `<div className="absolute inset-0">` (foto) por `<div className="absolute inset-y-0 left-0 w-full md:w-[48%] lg:w-[42%]">` para que a foto ocupe apenas a faixa esquerda.
-   - Manter `backgroundPosition: "left center"`, `backgroundSize: "cover"`, opacidade ~0.55, dessaturação leve.
-   - Aplicar máscara de fade na borda direita para a foto desaparecer suavemente antes de chegar no diagrama:
-     `WebkitMaskImage / maskImage: "linear-gradient(90deg, #000 0%, #000 65%, transparent 100%)"`.
+1. **Reposicionar o diagrama mais à direita**: no grid `lg:grid-cols-5`, mudar o `<div className="lg:col-span-3">` que envolve `<SpecialtiesNetwork />` para `lg:col-span-2 lg:col-start-4` (ou `lg:justify-self-end`), encolhendo o card e empurrando-o para a borda direita. Manter `min-w-0 w-full max-w-md lg:max-w-none` para responsivo.
+2. **Recortar a foto nas duas pessoas à esquerda**:
+   - Trocar `backgroundPosition: "left center"` por algo como `"15% 35%"` para enquadrar nos rostos das duas pessoas.
+   - Aumentar levemente o zoom: usar `backgroundSize: "cover"` em um container mais estreito (`md:w-[42%] lg:w-[36%]`) para o crop ficar mais íntimo.
+   - Manter máscara de fade na borda direita.
+3. **Não alterar** texto, eyebrow, título ou componente `SpecialtiesNetwork`.
 
-2. **Simplificar o véu de legibilidade**:
-   - Substituir o gradiente de 4 stops por um gradiente mais simples confinado à esquerda, só para garantir contraste do texto sobre as pessoas: `linear-gradient(90deg, color-mix(in oklab, var(--background) 28%, transparent) 0%, transparent 60%)`.
-   - Remover a tonalização verde-oliva global (não precisa mais cobrir o lado direito).
+## Detalhe técnico
 
-3. **Não alterar** estrutura do grid, textos, título, eyebrow, nem o `<SpecialtiesNetwork />` — ele renderiza normalmente sobre o fundo da seção.
-
-## Resultado
-
-A foto da equipe fica delicadamente recortada à esquerda, dialogando com o título "Áreas que se conversam". O diagrama de especialidades à direita ganha protagonismo total sobre o fundo claro, sem competição visual.
+Como a coluna de texto à esquerda (`lg:col-span-2 lg:sticky`) já ocupa 2/5, e o diagrama vai para `lg:col-span-2 lg:col-start-4`, a coluna central (col 3) vira respiro vazio entre texto e diagrama, criando a sensação de empurrar o diagrama para a lateral direita.

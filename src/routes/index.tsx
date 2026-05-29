@@ -249,27 +249,29 @@ function Home() {
         {/* Foto da equipe contida à esquerda — diagrama à direita fica sobre fundo limpo */}
         <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
           <div
-            className="absolute inset-y-0 left-0 w-full md:w-[48%] lg:w-[42%]"
+
+            className="absolute inset-y-0 left-0 w-full md:w-[42%] lg:w-[36%]"
             style={{
               backgroundImage: `url(${areasEquipeImg})`,
               backgroundSize: "cover",
-              backgroundPosition: "left center",
+              backgroundPosition: "15% 35%",
               filter: "saturate(0.62) contrast(0.96) brightness(1.04)",
-              opacity: 0.55,
+              opacity: 0.6,
               WebkitMaskImage:
-                "linear-gradient(90deg, #000 0%, #000 65%, transparent 100%)",
+                "linear-gradient(90deg, #000 0%, #000 60%, transparent 100%)",
               maskImage:
-                "linear-gradient(90deg, #000 0%, #000 65%, transparent 100%)",
+                "linear-gradient(90deg, #000 0%, #000 60%, transparent 100%)",
             }}
           />
           {/* Véu sutil só na faixa esquerda para legibilidade do texto */}
           <div
-            className="absolute inset-y-0 left-0 w-full md:w-[48%] lg:w-[42%]"
+            className="absolute inset-y-0 left-0 w-full md:w-[42%] lg:w-[36%]"
             style={{
               background:
                 "linear-gradient(90deg, color-mix(in oklab, var(--background) 28%, transparent) 0%, transparent 60%)",
             }}
           />
+
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
@@ -282,12 +284,12 @@ function Home() {
               Na Longevin, cada especialidade faz parte de uma visão integrada da saúde. Nossa equipe atua de forma colaborativa para compreender o paciente como um todo, conectando diferentes áreas do conhecimento para promover prevenção, diagnóstico e acompanhamento contínuo.
             </p>
           </div>
-
-          <div className="lg:col-span-3 min-w-0 w-full">
+          <div className="lg:col-span-2 lg:col-start-4 min-w-0 w-full justify-self-end">
             <SpecialtiesNetwork />
           </div>
         </div>
       </section>
+
 
 
 
