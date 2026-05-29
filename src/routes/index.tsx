@@ -66,7 +66,7 @@ function Home() {
           {/* Gradiente lateral cinematográfico (esquerda → direita) */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10 md:from-black/60 md:via-black/25 md:to-black/5" />
           {/* Suave queda inferior para amarrar com a próxima seção */}
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-background" />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-44 md:pt-56 pb-28 md:pb-40 min-h-[88svh] grid md:grid-cols-12 items-center">
@@ -120,10 +120,6 @@ function Home() {
               </li>
             </ul>
 
-            <div className="reveal reveal-delay-4 mt-16 flex items-center gap-6 text-[11px] tracking-[0.24em] uppercase text-white/55">
-              <span className="h-px w-12 bg-gold/80" />
-              <span>Clínica boutique · Fortaleza</span>
-            </div>
           </div>
         </div>
       </section>
