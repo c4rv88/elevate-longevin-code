@@ -188,19 +188,21 @@ function DesktopDiagram() {
     return () => io.disconnect();
   }, []);
 
-  const { positions, angles } = useMemo(() => {
+  const { positions, angles, lengths } = useMemo(() => {
     const cx = 300;
     const cy = 300;
-    const r = 240;
+    const r = 250;
     const n = SPECIALTIES.length;
     const pos: Record<string, { x: number; y: number }> = {};
     const ang: Record<string, number> = {};
+    const len: Record<string, number> = {};
     SPECIALTIES.forEach((s, i) => {
       const angle = (i / n) * Math.PI * 2 - Math.PI / 2;
       pos[s.id] = { x: cx + Math.cos(angle) * r, y: cy + Math.sin(angle) * r };
       ang[s.id] = angle;
+      len[s.id] = Math.hypot(pos[s.id].x - cx, pos[s.id].y - cy);
     });
-    return { positions: pos, angles: ang };
+    return { positions: pos, angles: ang, lengths: len };
   }, []);
 
   const activeSpec = active ? byId(active) ?? null : null;
@@ -209,11 +211,6 @@ function DesktopDiagram() {
     if (!activeSpec) return new Set<string>();
     return new Set<string>([activeSpec.id, ...activeSpec.related]);
   }, [activeSpec]);
-
-  const isPairActive = (a: string, b: string) =>
-    !!activeSpec &&
-    (a === activeSpec.id || b === activeSpec.id) &&
-    (activeSpec.related.includes(a) || activeSpec.related.includes(b) || a === activeSpec.id || b === activeSpec.id);
 
   return (
     <div ref={ref} className="relative">
@@ -226,72 +223,109 @@ function DesktopDiagram() {
           className="absolute inset-0 w-full h-full pointer-events-none"
           aria-hidden="true"
         >
-          {/* Specialty pair lines */}
-          {PAIRS.map(([a, b], i) => {
-            const pa = positions[a];
-            const pb = positions[b];
-            const activeLine = isPairActive(a, b);
+          {/* Radial spokes: center → each specialty. Always visible (subtle). */}
+          {SPECIALTIES.map((s, i) => {
+            const p = positions[s.id];
+            const isActiveSpoke = activeSpec?.id === s.id;
+            const dimmed = !!activeSpec && !isActiveSpoke;
+            const L = lengths[s.id];
             return (
               <line
-                key={`p-${a}-${b}`}
-                x1={pa.x}
-                y1={pa.y}
-                x2={pb.x}
-                y2={pb.y}
-                className="transition-all duration-500"
-                stroke={activeLine ? "var(--gold)" : "var(--primary)"}
+                key={`spoke-${s.id}`}
+                x1={300}
+                y1={300}
+                x2={p.x}
+                y2={p.y}
+                stroke={isActiveSpoke ? "var(--gold)" : "var(--primary)"}
                 style={{
-                  strokeWidth: activeLine ? 1.1 : 0.5,
-                  opacity: entered
-                    ? activeLine
-                      ? 0.55
-                      : activeSpec
-                        ? 0.03
-                        : 0.07
-                    : 0,
-                  transitionDelay: `${600 + i * 25}ms`,
+                  strokeWidth: isActiveSpoke ? 1.2 : 0.6,
+                  strokeDasharray: L,
+                  strokeDashoffset: entered ? 0 : L,
+                  opacity: entered ? (isActiveSpoke ? 0.7 : dimmed ? 0.05 : 0.12) : 0,
+                  transition:
+                    "stroke-dashoffset 800ms cubic-bezier(0.22,0.61,0.36,1), opacity 500ms ease, stroke 400ms ease, stroke-width 400ms ease",
+                  transitionDelay: entered ? `${350 + i * 40}ms` : "0ms",
                 }}
               />
             );
           })}
-          {/* Center spokes — only when a specialty is active, only for it */}
-          {activeSpec && (
-            <line
-              x1={300}
-              y1={300}
-              x2={positions[activeSpec.id].x}
-              y2={positions[activeSpec.id].y}
-              stroke="var(--gold)"
-              style={{ strokeWidth: 1.1, opacity: 0.55 }}
-              className="transition-all duration-500"
-            />
-          )}
+
+          {/* Inter-specialty pair lines: ONLY for the active node's relations */}
+          {activeSpec &&
+            activeSpec.related.map((rid) => {
+              const pa = positions[activeSpec.id];
+              const pb = positions[rid];
+              if (!pa || !pb) return null;
+              return (
+                <line
+                  key={`rel-${activeSpec.id}-${rid}`}
+                  x1={pa.x}
+                  y1={pa.y}
+                  x2={pb.x}
+                  y2={pb.y}
+                  stroke="var(--gold)"
+                  style={{
+                    strokeWidth: 0.9,
+                    opacity: 0.45,
+                  }}
+                  className="animate-[fade-in_280ms_ease-out]"
+                />
+              );
+            })}
         </svg>
 
-        {/* center node */}
+        {/* center node — protagonist */}
         <div
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ${
-            entered ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-[900ms] ${
+            entered ? "opacity-100 scale-100" : "opacity-0 scale-90"
           }`}
+          style={{ zIndex: 15, transitionTimingFunction: "cubic-bezier(0.2,0.7,0.2,1)" }}
         >
+          {/* Outer glow halo */}
           <div
-            className="relative rounded-full bg-background flex items-center justify-center transition-all duration-500 animate-[corepulse_5s_ease-in-out_infinite]"
+            aria-hidden="true"
+            className="absolute inset-0 -m-8 rounded-full pointer-events-none animate-[coreglow_6s_ease-in-out_infinite]"
             style={{
-              width: "88px",
-              height: "88px",
-              boxShadow:
-                "0 1px 0 color-mix(in oklab, var(--gold) 40%, transparent) inset, 0 24px 60px -28px color-mix(in oklab, var(--primary) 60%, transparent)",
-              borderWidth: "1px",
+              background:
+                "radial-gradient(circle, color-mix(in oklab, var(--primary) 22%, transparent) 0%, transparent 70%)",
+              opacity: activeSpec ? 1 : 0.85,
+              transition: "opacity 500ms ease",
+            }}
+          />
+          <div
+            className="relative rounded-full bg-background flex flex-col items-center justify-center transition-all duration-500"
+            style={{
+              width: "200px",
+              height: "200px",
+              borderWidth: "1.5px",
               borderStyle: "solid",
               borderColor: activeSpec
-                ? "color-mix(in oklab, var(--gold) 75%, transparent)"
-                : "color-mix(in oklab, var(--gold) 45%, transparent)",
+                ? "color-mix(in oklab, var(--gold) 70%, transparent)"
+                : "color-mix(in oklab, var(--primary) 55%, transparent)",
+              boxShadow:
+                "0 1px 0 color-mix(in oklab, var(--gold) 35%, transparent) inset, 0 30px 80px -32px color-mix(in oklab, var(--primary) 70%, transparent), 0 0 0 6px color-mix(in oklab, var(--primary) 6%, transparent)",
             }}
           >
-            <img src={treeLogo} alt="Longevin" className="h-10 w-10 object-contain opacity-95" />
+            <img
+              src={treeLogo}
+              alt="Longevin"
+              className="h-[92px] w-[92px] object-contain opacity-95"
+            />
+            <div
+              aria-hidden="true"
+              className="mt-3 h-px w-4"
+              style={{ backgroundColor: "color-mix(in oklab, var(--gold) 70%, transparent)" }}
+            />
+            <div className="mt-2 flex flex-col items-center leading-[1.05]">
+              <span className="font-serif text-[10px] tracking-[0.32em] uppercase text-foreground/70">
+                Medicina
+              </span>
+              <span className="font-serif text-[10px] tracking-[0.32em] uppercase text-foreground/70">
+                Integrada
+              </span>
+            </div>
           </div>
         </div>
-
 
         {/* specialty nodes */}
         {SPECIALTIES.map((s, i) => {
@@ -318,34 +352,34 @@ function DesktopDiagram() {
               style={{
                 left: `${(p.x / 600) * 100}%`,
                 top: `${(p.y / 600) * 100}%`,
-                opacity: entered ? (dimmed ? 0.3 : 1) : 0,
+                opacity: entered ? (dimmed ? 0.35 : 1) : 0,
                 transform: `translate(-50%, -50%) scale(${entered ? 1 : 0.9})`,
-                transition: `opacity 500ms ease, transform 600ms cubic-bezier(0.2,0.7,0.2,1)`,
-                transitionDelay: entered ? `${300 + i * 60}ms` : "0ms",
+                transition:
+                  "opacity 500ms ease, transform 700ms cubic-bezier(0.2,0.7,0.2,1)",
+                transitionDelay: entered ? `${750 + i * 70}ms` : "0ms",
                 zIndex: isActive ? 20 : 10,
               }}
             >
               <div
                 className={`flex flex-col items-center justify-center rounded-full bg-background transition-all duration-300 ${
-                  isActive ? "scale-[1.1]" : "group-hover:scale-[1.05]"
+                  isActive ? "scale-[1.08]" : "group-hover:scale-[1.04]"
                 }`}
                 style={{
-                  width: "88px",
-                  height: "88px",
+                  width: "92px",
+                  height: "92px",
                   borderWidth: "1px",
                   borderStyle: "solid",
                   borderColor: isActive
                     ? "var(--primary)"
                     : relatedSet.has(s.id) && activeSpec
-                      ? "color-mix(in oklab, var(--primary) 60%, transparent)"
-                      : "color-mix(in oklab, var(--primary) 22%, transparent)",
+                      ? "color-mix(in oklab, var(--primary) 55%, transparent)"
+                      : "color-mix(in oklab, var(--primary) 28%, transparent)",
                   boxShadow: isActive
-                    ? "0 18px 44px -18px color-mix(in oklab, var(--primary) 75%, transparent)"
+                    ? "0 20px 46px -18px color-mix(in oklab, var(--primary) 78%, transparent)"
                     : "0 6px 18px -14px color-mix(in oklab, var(--primary) 40%, transparent)",
                 }}
               >
                 <s.Icon className="h-7 w-7 text-primary" strokeWidth={1.25} />
-
                 <span className="mt-1 font-serif text-[11px] leading-tight text-foreground/85 px-1 text-center">
                   {s.name}
                 </span>
@@ -365,9 +399,9 @@ function DesktopDiagram() {
       </p>
 
       <style>{`
-        @keyframes corepulse {
-          0%, 100% { box-shadow: 0 1px 0 color-mix(in oklab, var(--gold) 40%, transparent) inset, 0 24px 60px -28px color-mix(in oklab, var(--primary) 60%, transparent); }
-          50%      { box-shadow: 0 1px 0 color-mix(in oklab, var(--gold) 55%, transparent) inset, 0 28px 70px -24px color-mix(in oklab, var(--primary) 75%, transparent); }
+        @keyframes coreglow {
+          0%, 100% { transform: scale(1); opacity: 0.85; }
+          50%      { transform: scale(1.08); opacity: 1; }
         }
       `}</style>
     </div>
