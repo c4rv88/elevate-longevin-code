@@ -481,28 +481,48 @@ function MobileTimeline() {
       el.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
-    };
-  }, [centerId]);
-
   const centerSpec = byId(centerId) ?? SPECIALTIES[0];
+  const centerIndex = SPECIALTIES.findIndex((s) => s.id === centerId);
+  const canPrev = centerIndex > 0;
+  const canNext = centerIndex < SPECIALTIES.length - 1;
+
+  const scrollToId = (id: string) => {
+    const el = scrollerRef.current?.querySelector<HTMLElement>(
+      `[data-tl-node][data-id="${id}"]`
+    );
+    if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  };
+
+  const goPrev = () => {
+    if (canPrev) scrollToId(SPECIALTIES[centerIndex - 1].id);
+  };
+  const goNext = () => {
+    if (canNext) scrollToId(SPECIALTIES[centerIndex + 1].id);
+  };
 
   const handleNodeClick = (s: Specialty) => {
-    const el = scrollerRef.current?.querySelector<HTMLElement>(
-      `[data-tl-node][data-id="${s.id}"]`
-    );
-    if (el && s.id !== centerId) {
-      el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    if (s.id !== centerId) {
+      scrollToId(s.id);
       setTimeout(() => setSelected(s), 240);
     } else {
       setSelected(s);
     }
   };
 
-  return (
-    <div className="relative w-full overflow-hidden">
+  const onKey = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      goPrev();
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      goNext();
+    }
+  };
 
+  return (
+    <div className="relative w-full overflow-hidden flex flex-col items-center">
       {/* Núcleo central compacto */}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center w-full max-w-sm text-center">
         <div
           className="relative h-24 w-24 rounded-full bg-background flex items-center justify-center animate-[corepulse_5s_ease-in-out_infinite]"
           style={{
@@ -518,13 +538,13 @@ function MobileTimeline() {
         <p className="mt-3 font-serif text-[10px] tracking-[0.28em] uppercase text-foreground/75">
           Medicina Integrada
         </p>
-        <p className="mt-3 max-w-[300px] text-center text-sm leading-relaxed text-foreground/65">
+        <p className="mt-3 text-center text-sm leading-relaxed text-foreground/65 px-4">
           Deslize pelas especialidades e descubra como nossa equipe atua de forma integrada para cuidar da sua saúde.
         </p>
       </div>
 
-      <div className="relative mt-10 w-full overflow-hidden">
-
+      {/* Timeline horizontal com navegação */}
+      <div className="relative mt-10 w-full max-w-md">
         {/* Linha base contínua */}
         <div className="pointer-events-none absolute inset-x-0 top-[44px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
         {/* Segmento dourado centralizado (item ativo) */}
@@ -533,11 +553,54 @@ function MobileTimeline() {
           style={{ backgroundColor: "var(--gold)", opacity: 0.7 }}
         />
 
+        {/* Botão anterior */}
+        <button
+          type="button"
+          onClick={goPrev}
+          disabled={!canPrev}
+          aria-label="Especialidade anterior"
+          className="absolute left-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
+          style={{
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "color-mix(in oklab, var(--primary) 22%, transparent)",
+            boxShadow:
+              "0 6px 18px -10px color-mix(in oklab, var(--primary) 40%, transparent)",
+          }}
+        >
+          <ChevronLeft className="h-4 w-4 text-primary" strokeWidth={1.6} />
+        </button>
+
+        {/* Botão próximo */}
+        <button
+          type="button"
+          onClick={goNext}
+          disabled={!canNext}
+          aria-label="Próxima especialidade"
+          className="absolute right-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
+          style={{
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "color-mix(in oklab, var(--primary) 22%, transparent)",
+            boxShadow:
+              "0 6px 18px -10px color-mix(in oklab, var(--primary) 40%, transparent)",
+          }}
+        >
+          <ChevronRight className="h-4 w-4 text-primary" strokeWidth={1.6} />
+        </button>
+
         <div
           ref={scrollerRef}
-          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[max(24px,calc(50%-36px))] pt-1 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          tabIndex={0}
+          onKeyDown={onKey}
+          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[max(56px,calc(50%-36px))] pt-1 pb-6 focus:outline-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%)",
+            maskImage:
+              "linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%)",
+          }}
         >
-
           {SPECIALTIES.map((s) => {
             const isCenter = s.id === centerId;
             return (
@@ -588,6 +651,42 @@ function MobileTimeline() {
             );
           })}
         </div>
+
+        {/* Dots de paginação */}
+        <div className="flex items-center justify-center gap-1.5 mt-1">
+          {SPECIALTIES.map((s) => {
+            const isCenter = s.id === centerId;
+            return (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => scrollToId(s.id)}
+                aria-label={`Ir para ${s.name}`}
+                aria-current={isCenter}
+                className="group p-1.5 -m-1.5 focus:outline-none"
+              >
+                <span
+                  className="block rounded-full transition-all duration-300"
+                  style={{
+                    width: isCenter ? 16 : 4,
+                    height: isCenter ? 5 : 4,
+                    backgroundColor: isCenter
+                      ? "var(--gold)"
+                      : "color-mix(in oklab, var(--primary) 28%, transparent)",
+                  }}
+                />
+              </button>
+            );
+          })}
+        </div>
+
+        <p className="mt-3 text-center text-[9px] tracking-[0.28em] uppercase text-foreground/40">
+          Deslize ou use as setas
+        </p>
+      </div>
+
+      {/* Preview ao vivo do item central */}
+
       </div>
 
       {/* Preview ao vivo do item central */}
