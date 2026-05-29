@@ -496,7 +496,8 @@ function MobileTimeline() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-hidden">
+
       {/* Núcleo central compacto */}
       <div className="flex flex-col items-center">
         <div
@@ -519,8 +520,8 @@ function MobileTimeline() {
         </p>
       </div>
 
-      {/* Timeline horizontal */}
-      <div className="relative mt-10">
+      <div className="relative mt-10 w-full overflow-hidden">
+
         {/* Linha base contínua */}
         <div className="pointer-events-none absolute inset-x-0 top-[44px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
         {/* Segmento dourado centralizado (item ativo) */}
@@ -531,8 +532,9 @@ function MobileTimeline() {
 
         <div
           ref={scrollerRef}
-          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[calc(50%-36px)] pt-1 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[max(24px,calc(50%-36px))] pt-1 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
+
           {SPECIALTIES.map((s) => {
             const isCenter = s.id === centerId;
             return (
@@ -673,33 +675,8 @@ function MobileTimeline() {
                 {selected.short}
               </p>
 
-              <p className="mt-7 text-[10px] tracking-[0.22em] uppercase text-gold">
-                Integra com
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {selected.related.map((id) => {
-                  const r = byId(id);
-                  if (!r) return null;
-                  return (
-                    <span
-                      key={id}
-                      className="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-serif text-foreground/80"
-                      style={{
-                        backgroundColor:
-                          "color-mix(in oklab, var(--primary) 8%, transparent)",
-                        borderWidth: "1px",
-                        borderStyle: "solid",
-                        borderColor:
-                          "color-mix(in oklab, var(--primary) 22%, transparent)",
-                      }}
-                    >
-                      {r.name}
-                    </span>
-                  );
-                })}
-              </div>
+              <p className="mt-6 text-[10px] tracking-[0.22em] uppercase text-gold">
 
-              <p className="mt-7 text-[10px] tracking-[0.22em] uppercase text-gold">
                 Objetivo
               </p>
               <p className="mt-2 text-[14px] leading-relaxed text-foreground/75">
