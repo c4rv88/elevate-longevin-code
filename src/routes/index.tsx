@@ -152,22 +152,33 @@ function Home() {
               { kicker: "03", title: "Parece uma casa, mas é uma clínica", body: "Um projeto sofisticado que prioriza a calma, o contato com a natureza e o acolhimento." },
             ].map((c) => (
               <div key={c.kicker} className="bg-background p-10 md:p-12 card-lift">
-                <div className="flex items-center gap-4">
-                  <span className="font-serif text-2xl text-gold">{c.kicker}</span>
-                  <span className="h-px w-10 bg-gold/70" />
+          <div className="mt-20 grid gap-px bg-border md:grid-cols-3 overflow-hidden rounded-2xl border border-border">
+            {[
+              { kicker: "01", title: "Atendimento Diferenciado", body: "Respeito à escuta e ao tempo do paciente, com um protocolo de cuidados específico para cada um.", img: propostaAtendimento, alt: "Médico em consulta com paciente na Longevin" },
+              { kicker: "02", title: "Multidisciplinar", body: "Diversas especialidades médicas e um só propósito: promover a saúde e a longevidade do paciente.", img: propostaMultidisciplinar, alt: "Recepção da clínica Longevin" },
+              { kicker: "03", title: "Parece uma casa, mas é uma clínica", body: "Um projeto sofisticado que prioriza a calma, o contato com a natureza e o acolhimento.", img: propostaCasa, alt: "Consultório acolhedor da Longevin" },
+            ].map((c) => (
+              <div key={c.kicker} className="group bg-background flex flex-col card-lift">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={c.img}
+                    alt={c.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-background/0 to-background/15" />
                 </div>
-                <h3 className="mt-6 font-serif text-2xl md:text-[1.7rem] leading-tight">{c.title}</h3>
-                <p className="mt-5 text-sm md:text-base leading-relaxed text-foreground/70">{c.body}</p>
+                <div className="p-8 md:p-10">
+                  <div className="flex items-center gap-4">
+                    <span className="font-serif text-2xl text-gold">{c.kicker}</span>
+                    <span className="h-px w-10 bg-gold/70" />
+                  </div>
+                  <h3 className="mt-6 font-serif text-2xl md:text-[1.7rem] leading-tight">{c.title}</h3>
+                  <p className="mt-5 text-sm md:text-base leading-relaxed text-foreground/70">{c.body}</p>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* EXCELÊNCIA */}
-      <section className="py-24 md:py-36 bg-[oklch(0.96_0.012_100)]">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 md:grid-cols-12 items-center">
-          <div className="md:col-span-6 relative">
             <div className="aspect-[4/5] overflow-hidden rounded-2xl">
               <img src={interiorImg} alt="Interior acolhedor da clínica" width={1536} height={1024} loading="lazy" className="w-full h-full object-cover" />
             </div>
