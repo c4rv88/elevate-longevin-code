@@ -6,6 +6,8 @@ import {
   Bone,
   Brain,
   BrainCircuit,
+  ChevronLeft,
+  ChevronRight,
   Eye,
   HeartHandshake,
   HeartPulse,
@@ -15,6 +17,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
+
 import { LongevinMark } from "@/components/SiteHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
