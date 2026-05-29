@@ -1,14 +1,20 @@
-## Objetivo
-Exibir os posts do Instagram na **proporção nativa do Instagram** (vertical 4:5), sem cortar imagens, e reduzir o tamanho dos cards no grid para que continuem equilibrados na seção.
+## Diagnóstico
+As imagens 2–5 estão cortadas em quadrado porque as thumbnails baixadas via microlink vêm da URL do og:image do Instagram, que já é uma versão **pré-recortada em 1:1** (parâmetros `c288.0.864.864a` / `s640x640` na URL do CDN). O `aspect-[4/5]` + `object-contain` do card não consegue restaurar pixels que já foram cortados na origem.
 
-## Mudanças em `src/routes/index.tsx` (seção "Acompanhe no Instagram")
+A imagem 1 (reel) aparece inteira porque o reel já é vertical 9:16 e o crop quadrado do og pegou só o miolo, que coincidentemente cobre o card.
 
-1. **Proporção dos cards**: trocar `aspect-square` por `aspect-[4/5]` em cada card — é o formato vertical padrão de feed do Instagram, evita o crop quadrado atual.
-2. **Sem corte de imagem**: trocar `object-cover` por `object-contain` e adicionar um fundo neutro (`bg-muted`) para preencher possíveis bordas caso algum post seja quadrado ou em outra proporção. Assim nenhuma imagem é cortada.
-3. **Reduzir tamanho no desktop**: trocar o grid de `grid-cols-2 sm:grid-cols-3 lg:grid-cols-5` para `grid-cols-2 sm:grid-cols-3 lg:grid-cols-5` mantido, mas envolvendo o grid em um container `max-w-5xl mx-auto` para que os cards fiquem proporcionalmente menores e a seção respire mais (alinhado ao restante do site).
-4. **Hover overlay**: mantém igual (ícone Instagram aparecendo on hover).
+## Solução
+Re-baixar as 5 thumbnails a partir do **endpoint público de embed do Instagram** (`https://www.instagram.com/p/<shortcode>/embed/captioned`), que serve a imagem do post na proporção original (sem o crop quadrado do og:image). Esse endpoint não exige login nem chave e é o mesmo usado pelo widget oficial de embed.
 
-## Sem outras alterações
-- Botão "Acompanhe no Instagram", cabeçalho da seção, fundo e tipografia ficam iguais.
-- Nenhum outro arquivo é modificado.
-- Nenhum thumbnail é re-baixado.
+### Passos
+1. Para cada um dos 5 posts (4 `/p/...` + 1 `/reel/...`), buscar `https://www.instagram.com/<path>/embed/captioned/` com `User-Agent` de browser.
+2. Extrair do HTML retornado a URL do `<img class="EmbeddedMediaImage">` (ou o `display_url` no JSON embutido), que aponta para a imagem em proporção nativa.
+3. Sobrescrever `src/assets/instagram/post-1.jpg` … `post-5.jpg` com essas novas imagens.
+4. Caso algum post não retorne imagem nativa (raro), manter o fallback atual.
+
+### Sem mudanças no React
+- `src/routes/index.tsx` não muda: já está com `aspect-[4/5]` + `object-contain` + `bg-muted`, que vai exibir cada imagem inteira na sua proporção original assim que o arquivo correto estiver no disco.
+- Reels (9:16) ficarão com pequenas faixas laterais do `bg-muted`; posts quadrados (1:1) ficarão com faixas em cima/baixo; posts 4:5 preencherão o card. Nenhuma imagem cortada.
+
+### Fallback se o endpoint /embed/ falhar
+Tentar `https://www.instagram.com/p/<shortcode>/?__a=1&__d=dis` e, em último caso, raspar a página pública via Firecrawl (já é o conector padrão do projeto) para extrair `display_url`.
