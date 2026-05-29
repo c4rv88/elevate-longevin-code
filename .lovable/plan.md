@@ -1,17 +1,12 @@
-## Alterações em `src/routes/index.tsx`
+Vou aumentar a presença visual da fotografia na seção “Áreas que se conversam” mantendo o visual premium e limpo.
 
-### 1. Remover 3 médicos do array `doctors` (linhas 40–50)
-- Dra. Emanuelle Albuquerque (Psicologia)
-- Dr. Gerber Caraciolo (Oftalmologia)
-- Dra. Tayná Milfont (Endocrinologia)
+Plano:
+1. Remover o posicionamento atrás de tudo que pode estar escondendo a imagem.
+2. Aumentar bastante a opacidade da foto e reduzir a máscara/fade para que ela apareça claramente.
+3. Suavizar o overlay verde/legibilidade para não apagar a fotografia.
+4. Ajustar o enquadramento para mobile, onde o usuário está vendo a página, garantindo que a foto apareça de forma perceptível sem prejudicar a leitura do texto e do diagrama.
 
-Restarão 6 médicos: Karlos Jennysson, Thayane Furtado, Itaquê Figueiredo, Igor Brito, Mayanne Lucy, Alexia Carneiro.
-
-### 2. Diminuir tamanho dos cards do carrossel (linha 295)
-Aumentar a quantidade de cards visíveis por viewport, deixando cada card menor:
-- Antes: `basis-[82%] sm:basis-1/2 lg:basis-1/3` (1 / 2 / 3 cards)
-- Depois: `basis-[70%] sm:basis-1/3 lg:basis-1/4 xl:basis-1/5` (1 / 3 / 4 / 5 cards)
-
-Também reduzir tipografia do nome (linha 309) de `text-2xl` para `text-xl` para acompanhar o card menor.
-
-Nenhuma outra mudança.
+Detalhe técnico:
+- Alterar apenas `src/routes/index.tsx`, na camada de fundo da seção `#especialidades`.
+- Trocar `-z-10` por uma camada controlada dentro da própria seção e manter o conteúdo acima com `z-index`.
+- Elevar a opacidade para algo próximo de `0.6–0.75` e reduzir a força do gradiente que hoje está apagando a imagem.
