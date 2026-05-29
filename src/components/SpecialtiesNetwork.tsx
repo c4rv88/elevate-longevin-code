@@ -286,8 +286,9 @@ function DesktopDiagram() {
             }}
           >
             <img src={treeLogo} alt="Longevin" className="h-10 w-10 object-contain opacity-95" />
-
+          </div>
         </div>
+
 
         {/* specialty nodes */}
         {SPECIALTIES.map((s, i) => {
