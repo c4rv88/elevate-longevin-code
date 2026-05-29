@@ -1,26 +1,21 @@
 ## Objetivo
 
-A foto da equipe deve ocupar toda a largura da seção "Áreas que se conversam" (não só o card do diagrama). As pessoas conversando aparecem à esquerda (atrás do título/texto) e o diagrama de especialidades se posiciona sobre a área mais "limpa" da fotografia, à direita.
+A foto da equipe deve ficar contida apenas no lado esquerdo da seção (atrás/ao redor do título e texto). O diagrama de especialidades à direita fica sobre o fundo claro padrão da seção, sem nenhuma foto atrás dele.
 
-## Mudanças em `src/routes/index.tsx` (seção ESPECIALIDADES)
+## Mudanças em `src/routes/index.tsx` (seção ESPECIALIDADES, linhas ~248–296)
 
-1. **Desfazer o recorte dentro do card do diagrama**: remover o wrapper `relative rounded-2xl overflow-hidden p-6 md:p-10` em volta de `<SpecialtiesNetwork />` e as duas camadas (foto + gradiente) que adicionei nele. A coluna volta a ser apenas `<SpecialtiesNetwork />` dentro de `lg:col-span-3`.
+1. **Restringir a camada da foto à metade esquerda da seção**:
+   - Trocar `<div className="absolute inset-0">` (foto) por `<div className="absolute inset-y-0 left-0 w-full md:w-[48%] lg:w-[42%]">` para que a foto ocupe apenas a faixa esquerda.
+   - Manter `backgroundPosition: "left center"`, `backgroundSize: "cover"`, opacidade ~0.55, dessaturação leve.
+   - Aplicar máscara de fade na borda direita para a foto desaparecer suavemente antes de chegar no diagrama:
+     `WebkitMaskImage / maskImage: "linear-gradient(90deg, #000 0%, #000 65%, transparent 100%)"`.
 
-2. **Reintroduzir a foto como background da seção inteira**, dentro do `<section id="especialidades">`:
-   - `<div aria-hidden className="pointer-events-none absolute inset-0 z-0">` com:
-     - `backgroundImage: url(areasEquipeImg)`
-     - `backgroundSize: cover`
-     - `backgroundPosition: left center` (mantém as pessoas visíveis à esquerda; a área mais "livre" da foto fica à direita, onde o diagrama será sobreposto)
-     - `opacity: ~0.55`, leve dessaturação para tom institucional
-   - Gradiente por cima para garantir legibilidade:
-     - À esquerda: véu suave do `--background` (~25–35%) para o texto ficar legível sobre as pessoas
-     - À direita: véu um pouco mais forte do `--background` (~40–55%) na área onde o diagrama será desenhado, para dar respiro ao SVG
-     - Tonalização verde-oliva sutil global
+2. **Simplificar o véu de legibilidade**:
+   - Substituir o gradiente de 4 stops por um gradiente mais simples confinado à esquerda, só para garantir contraste do texto sobre as pessoas: `linear-gradient(90deg, color-mix(in oklab, var(--background) 28%, transparent) 0%, transparent 60%)`.
+   - Remover a tonalização verde-oliva global (não precisa mais cobrir o lado direito).
 
-3. **Manter** `relative z-10` no grid de conteúdo e nas duas colunas, para que título, texto e diagrama fiquem sempre acima da foto.
-
-4. **Não alterar** textos, eyebrow, título "Áreas que se conversam" nem o componente `SpecialtiesNetwork`.
+3. **Não alterar** estrutura do grid, textos, título, eyebrow, nem o `<SpecialtiesNetwork />` — ele renderiza normalmente sobre o fundo da seção.
 
 ## Resultado
 
-Uma única fotografia da equipe atravessa toda a largura da seção. As pessoas ficam ancoradas à esquerda, dialogando visualmente com o título "Áreas que se conversam", e o diagrama de especialidades pousa sobre a porção direita mais limpa da foto — mantendo o minimalismo Longevin.
+A foto da equipe fica delicadamente recortada à esquerda, dialogando com o título "Áreas que se conversam". O diagrama de especialidades à direita ganha protagonismo total sobre o fundo claro, sem competição visual.
