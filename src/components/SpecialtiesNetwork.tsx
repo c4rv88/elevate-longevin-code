@@ -26,6 +26,8 @@ import {
   DrawerContent,
   DrawerClose,
 } from "@/components/ui/drawer";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { SPECIALTY_ID_TO_SLUG } from "@/data/specialties-content";
 
 type Specialty = {
   id: string;
@@ -166,6 +168,7 @@ function DesktopDiagram() {
   const [active, setActive] = useState<string | null>(null);
   const [entered, setEntered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const el = ref.current;
@@ -303,7 +306,14 @@ function DesktopDiagram() {
               aria-pressed={isActive}
               onMouseEnter={() => setActive(s.id)}
               onFocus={() => setActive(s.id)}
-              onClick={() => setActive((cur) => (cur === s.id ? null : s.id))}
+              onClick={() => {
+                const slug = SPECIALTY_ID_TO_SLUG[s.id];
+                if (slug) {
+                  navigate({ to: "/especialidades/$slug", params: { slug } });
+                } else {
+                  setActive((cur) => (cur === s.id ? null : s.id));
+                }
+              }}
               className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none"
               style={{
                 left: `${(p.x / 600) * 100}%`,
@@ -779,14 +789,26 @@ function MobileTimeline() {
                 {selected.description}
               </p>
 
-              <a
-                href="#equipe"
-                onClick={() => setSelected(null)}
-                className="btn-ghost mt-8 inline-flex w-full justify-center"
-              >
-                Conhecer especialidade
-                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-              </a>
+              {SPECIALTY_ID_TO_SLUG[selected.id] ? (
+                <Link
+                  to="/especialidades/$slug"
+                  params={{ slug: SPECIALTY_ID_TO_SLUG[selected.id] }}
+                  onClick={() => setSelected(null)}
+                  className="btn-ghost mt-8 inline-flex w-full justify-center"
+                >
+                  Conhecer especialidade
+                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </Link>
+              ) : (
+                <a
+                  href="#equipe"
+                  onClick={() => setSelected(null)}
+                  className="btn-ghost mt-8 inline-flex w-full justify-center"
+                >
+                  Conhecer especialidade
+                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </a>
+              )}
             </div>
           )}
         </DrawerContent>
