@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, Stethoscope, Users, Star, BadgeCheck } from "lucide-react";
 import { SpecialtiesNetwork } from "@/components/SpecialtiesNetwork";
 import heroImg from "@/assets/hero-clinic.webp";
+import doctoraliaLogo from "@/assets/doctoralia-logo.png";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
 import propostaAtendimento from "@/assets/proposta-atendimento.webp";
