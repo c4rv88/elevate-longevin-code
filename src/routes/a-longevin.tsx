@@ -12,7 +12,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
-import propostaCasa from "@/assets/proposta-casa.png";
+
 
 export const Route = createFileRoute("/a-longevin")({
   head: () => ({
