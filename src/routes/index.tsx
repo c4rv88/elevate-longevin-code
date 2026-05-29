@@ -368,3 +368,5 @@ function Home() {
       <SiteFooter />
     </div>
   );
+}
+
