@@ -1,37 +1,44 @@
-# Depoimentos reais do Doctoralia
+## Objetivo
 
-Substituir a seção "DEPOIMENTOS" atual em `src/routes/index.tsx` por um bloco no estilo do print enviado, usando opiniões 5 estrelas verificadas extraídas do perfil público da Clínica Longevin no Doctoralia.
+Remover a seção CTA "Fale com nosso staff" (a faixa verde com "Quer conhecer um novo jeito de cuidar da sua saúde?") em `src/routes/index.tsx` e substituí-la por uma nova seção **"Acompanhe no Instagram"**, inspirada no print de referência, com 5 posts reais do perfil `@clinicalongevin` e um botão para o perfil.
 
-## O que muda
+## O que será feito
 
-- Apenas `src/routes/index.tsx` (seção `DEPOIMENTOS`).
-- Mesmo background quente da seção atual de depoimentos / equipe, com cabeçalho centralizado:
-  - eyebrow "Depoimentos"
-  - título serif: "O que dizem nossas *pacientes*"
-  - subtítulo: "Relatos reais de pacientes verificados na Doctoralia."
-- Grid de 3 colunas (md+) com 6 depoimentos exibidos em carrossel (embla, mesmo padrão da seção de equipe) com setas de navegação à esquerda/direita.
-- Cada card:
-  - 5 estrelas douradas (cor `--gold`, ícone `Star` do lucide preenchido) no topo
-  - citação em itálico serif
-  - nome do paciente em bold com selo "verificado" (ícone `BadgeCheck` em verde Doctoralia)
-  - subtítulo "Consulta verificada" em muted
-  - borda 1px `border-border`, `rounded-2xl`, `bg-background/60`, padding generoso
-- Rodapé centralizado: logo/marca "Doctoralia" (texto + ícone estilizado verde) + link "Ver todas as 98 opiniões na Doctoralia" → `https://www.doctoralia.com.br/clinicas/clinica-longevin#facility-opinion-stats` (target=_blank).
+### 1. Remover seção CTA verde
+Em `src/routes/index.tsx`, remover o bloco `{/* CTA */}` inteiro (a `<section>` com fundo `bg-primary` que contém "Fale com nosso staff").
 
-## Conteúdo (6 opiniões 5★ reais)
+### 2. Adicionar seção "Acompanhe no Instagram"
+No mesmo lugar (entre Depoimentos e Artigos), adicionar nova seção com:
 
-1. **Maria das Graças** — "Médico exatamente o que eu procurava, excelência em tudo, desde o recebimento do paciente até o final da consulta. Já escolhi o médico da nossa família." — *Dr. Igor Brito · Geriatria*
-2. **Daniel Mendes** — "Me senti realmente acolhido e compreendido. A consulta foi boa até demais — me senti confortável, respeitado e à vontade para falar." — *Dra. Mayanne Lucy · Psicologia*
-3. **Josiane** — "Dra. Alexia atendeu minha mãe. Médica super atenciosa e bastante profissional. Excelente." — *Dra. Alexia Carneiro · Neurologia*
-4. **Thamiris** — "Ótima profissional, atenciosa, pontual. Estou gostando muito." — *Dra. Mayanne Lucy · Psicologia*
-5. **M.A.S.** — "Atendimento humanizado com orientações detalhadas para a paciente." — *Dr. Igor Brito · Geriatria*
-6. **Samara** — "Explicou muito bem. Saímos mais calmos. Maravilhoso." — *Dr. Igor Brito · Clínica médica*
+- **Fundo:** `bg-[oklch(0.96_0.012_100)]` (mesmo tom suave usado em outras seções) para criar respiro visual antes dos Artigos.
+- **Topo centralizado:** ícone `Instagram` (lucide-react) em traço fino + título serifado "Acompanhe no Instagram" (mesma tipografia das outras seções, `font-serif text-4xl md:text-5xl`, com "Instagram" em itálico/`text-primary`) + parágrafo curto: *"Dicas de saúde, bastidores da clínica e conteúdos sobre medicina integrada e longevidade."*
+- **Grid de 5 posts:** grid responsivo (`grid-cols-2 sm:grid-cols-3 lg:grid-cols-5`), cada card é um `<a>` para o link do post, abrindo em nova aba (`target="_blank"` `rel="noopener noreferrer"`).
+  - Cada card: aspecto quadrado (`aspect-square`), `rounded-2xl overflow-hidden`, thumbnail com `object-cover`, hover sutil com zoom (`group-hover:scale-[1.04]`) e overlay com ícone Instagram no centro ao passar o mouse.
+  - Padrão de hover e elevação alinhado ao restante do site (cards de artigos / depoimentos).
+- **Botão central abaixo do grid:** botão arredondado no estilo `btn-premium`/pill já usado no site, com ícone Instagram + texto "Acompanhe no Instagram" → link para `https://www.instagram.com/clinicalongevin` em nova aba.
 
-Citações editadas levemente (pontuação) preservando o sentido original.
+### 3. Thumbnails dos posts
+Para cada um dos 5 reels/posts:
+1. `https://www.instagram.com/reel/DYkqnizSvve/`
+2. `https://www.instagram.com/p/DYhS-x3lSTG/`
+3. `https://www.instagram.com/p/DYmkEe6FZL9/`
+4. `https://www.instagram.com/p/DY2nSV1mU8k/`
+5. `https://www.instagram.com/p/DKSsB7GS-r5/`
 
-## Técnico
+Baixar a imagem de preview via endpoint público `https://www.instagram.com/p/<shortcode>/media/?size=l` (ou capturar via screenshot da página pública) e salvar em `src/assets/instagram/post-1.jpg` … `post-5.jpg`. Importar como ES modules no topo do arquivo.
 
-- Adicionar imports `Star`, `BadgeCheck` do `lucide-react`.
-- Reaproveitar `Carousel`/`CarouselContent`/`CarouselItem` + `Autoplay` já importados.
-- Estrelas: `<Star className="h-4 w-4 fill-gold text-gold" />` × 5.
-- Nenhuma alteração em `SiteHeader`, `SiteFooter`, rotas ou tokens de design.
+> Observação: o Instagram pode bloquear hotlink direto, por isso os thumbnails serão baixados e servidos localmente pelo próprio site (mais rápido, estável e sem dependência de CDN externa).
+
+### 4. Detalhes técnicos
+- Adicionar import: `Instagram` de `lucide-react`.
+- Adicionar imports dos 5 assets em `src/assets/instagram/`.
+- Sem alterações em `SiteHeader`, `SiteFooter`, tokens de design, rotas ou outras seções.
+- Nenhum endpoint, dependência ou variável de ambiente novos.
+
+### 5. Arquivos alterados
+- `src/routes/index.tsx` — remove seção CTA, adiciona seção Instagram.
+- `src/assets/instagram/post-1.jpg` … `post-5.jpg` — novos (baixados dos posts públicos).
+
+### O que NÃO muda
+- Cabeçalho, rodapé, padrão de botões existentes, paleta, tipografia.
+- Seções de Hero, Proposta, Excelência, Especialidades, Equipe, Depoimentos, Artigos.
