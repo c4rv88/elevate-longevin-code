@@ -334,7 +334,8 @@ function DesktopDiagram() {
                     : "0 6px 18px -14px color-mix(in oklab, var(--primary) 40%, transparent)",
                 }}
               >
-                <s.Icon className="h-5 w-5 text-primary" strokeWidth={1.25} />
+                <s.Icon className="h-7 w-7 text-primary" strokeWidth={1.25} />
+
                 <span className="mt-1 font-serif text-[11px] leading-tight text-foreground/85 px-1 text-center">
                   {s.name}
                 </span>
