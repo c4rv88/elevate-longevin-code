@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Star, BadgeCheck } from "lucide-react";
-import { Sparkles, Stethoscope, Users } from "lucide-react";
+import { Sparkles, Stethoscope, Users, Star, BadgeCheck } from "lucide-react";
 import { SpecialtiesNetwork } from "@/components/SpecialtiesNetwork";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
