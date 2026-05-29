@@ -44,9 +44,39 @@ const doctors = [
 ];
 
 const testimonials = [
-  { quote: "A escuta atenta e o cuidado integrado me devolveram qualidade de vida. Senti-me, pela primeira vez, vista como pessoa, não como prontuário.", name: "Paciente Longevin" },
-  { quote: "Um espaço que parece uma casa, com a precisão de uma clínica de excelência. Cada detalhe transmite calma e confiança.", name: "Paciente Longevin" },
-  { quote: "A discussão multidisciplinar do meu caso elevou completamente o nível dos meus diagnósticos. Cuidado raro e verdadeiro.", name: "Paciente Longevin" },
+  {
+    quote:
+      "Médico exatamente o que eu procurava, excelência em tudo, desde o recebimento do paciente até o final da consulta. Já escolhi o médico da nossa família.",
+    name: "Maria das Graças",
+    context: "Dr. Igor Brito · Geriatria",
+  },
+  {
+    quote:
+      "Me senti realmente acolhido e compreendido. A consulta foi boa até demais — me senti confortável, respeitado e à vontade para falar.",
+    name: "Daniel Mendes",
+    context: "Dra. Mayanne Lucy · Psicologia",
+  },
+  {
+    quote:
+      "Dra. Alexia atendeu minha mãe. Médica super atenciosa e bastante profissional. Excelente.",
+    name: "Josiane",
+    context: "Dra. Alexia Carneiro · Neurologia",
+  },
+  {
+    quote: "Ótima profissional, atenciosa, pontual. Estou gostando muito.",
+    name: "Thamiris",
+    context: "Dra. Mayanne Lucy · Psicologia",
+  },
+  {
+    quote: "Atendimento humanizado com orientações detalhadas para a paciente.",
+    name: "M.A.S.",
+    context: "Dr. Igor Brito · Geriatria",
+  },
+  {
+    quote: "Explicou muito bem. Saímos mais calmos. Maravilhoso.",
+    name: "Samara",
+    context: "Dr. Igor Brito · Clínica médica",
+  },
 ];
 
 const articles = [
