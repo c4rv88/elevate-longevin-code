@@ -1,24 +1,15 @@
-## Inverter ordem em `/a-longevin`
+## Reordenar topo de `/a-longevin`
 
-Atualmente o hero fala sobre localização e depois vem "Nossa proposta"; a localização aparece só perto do fim. Vamos inverter: a página começa apresentando a clínica e termina com a localização + Google Maps.
+Mover o bloco "Mais do que uma clínica — um novo jeito de cuidar" (atual hero) para **depois** da seção "Nossa proposta".
 
-### Mudanças em `src/routes/a-longevin.tsx`
+### Nova ordem das seções
 
-1. **Hero** — trocar o título e a ênfase para falar da clínica em si:
-   - Eyebrow: "A Longevin"
-   - Título: "Mais do que uma clínica — *um novo jeito de cuidar.*"
-   - Subtítulo curto explicando o ecossistema de medicina integrada.
-   - Mantém CTAs "Agendar consulta" e "Conhecer a proposta".
+1. **Hero / Nossa proposta** (atual seção "Manifesto") — passa a ser o topo da página, com o eyebrow "A Longevin" + breadcrumb Home / A Longevin acima, mantendo o título "Um ecossistema em saúde, além da consulta." e os dois parágrafos. Padding superior aumentado (`pt-40 md:pt-48`) para compensar o header fixo.
+2. **"Mais do que uma clínica — um novo jeito de cuidar"** — vira uma seção destaque logo abaixo, centralizada, com o subtítulo e os CTAs ("Agendar consulta" / "Conhecer a proposta") preservados.
+3. Pilares (Melhor atendimento médico)
+4. Por que nos escolher
+5. Cuidado integral
+6. Localização (com Google Maps)
+7. CTA final
 
-2. **Reordenar seções** (de cima para baixo):
-   1. Hero (clínica)
-   2. Manifesto / proposta
-   3. Pilares (Melhor atendimento médico)
-   4. Por que nos escolher
-   5. Cuidado integral (bloco escuro)
-   6. **Localização** — agora penúltima seção, com título "Em uma localização privilegiada, a Longevin acolhe, cuida e previne." e **embed real do Google Maps** (iframe) no lugar da imagem `propostaCasa`, mais o endereço e link "Ver no Google Maps".
-   7. CTA final
-
-3. **Google Maps embed** — usar `<iframe>` padrão do Google Maps (`https://www.google.com/maps?q=...&output=embed`) com a query "Clínica Longevin Fortaleza", dentro do mesmo container arredondado/bordado já usado para imagens.
-
-Nenhuma outra mudança de estilo, header ou footer.
+Apenas reordenação e ajuste de paddings/breadcrumb em `src/routes/a-longevin.tsx`. Nenhuma outra mudança.
