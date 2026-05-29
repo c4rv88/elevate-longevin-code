@@ -675,33 +675,8 @@ function MobileTimeline() {
                 {selected.short}
               </p>
 
-              <p className="mt-7 text-[10px] tracking-[0.22em] uppercase text-gold">
-                Integra com
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {selected.related.map((id) => {
-                  const r = byId(id);
-                  if (!r) return null;
-                  return (
-                    <span
-                      key={id}
-                      className="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-serif text-foreground/80"
-                      style={{
-                        backgroundColor:
-                          "color-mix(in oklab, var(--primary) 8%, transparent)",
-                        borderWidth: "1px",
-                        borderStyle: "solid",
-                        borderColor:
-                          "color-mix(in oklab, var(--primary) 22%, transparent)",
-                      }}
-                    >
-                      {r.name}
-                    </span>
-                  );
-                })}
-              </div>
+              <p className="mt-6 text-[10px] tracking-[0.22em] uppercase text-gold">
 
-              <p className="mt-7 text-[10px] tracking-[0.22em] uppercase text-gold">
                 Objetivo
               </p>
               <p className="mt-2 text-[14px] leading-relaxed text-foreground/75">
