@@ -149,10 +149,10 @@ const PAIRS = (() => {
 
 export function SpecialtiesNetwork() {
   const isMobile = useIsMobile();
-  // Render both on first paint to keep SSR markup stable; useIsMobile is undefined on server
-  if (isMobile) return <MobileOrbital />;
+  if (isMobile) return <MobileTimeline />;
   return <DesktopDiagram />;
 }
+
 
 /* ------------------------------------------------------------------ */
 /* DESKTOP                                                            */
@@ -429,10 +429,10 @@ function NodeTooltip({ spec, angle }: { spec: Specialty; angle: number }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* MOBILE — Orbital                                                    */
+/* MOBILE — Timeline                                                   */
 /* ------------------------------------------------------------------ */
 
-function MobileOrbital() {
+function MobileTimeline() {
   const [selected, setSelected] = useState<Specialty | null>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [centerId, setCenterId] = useState<string>(SPECIALTIES[0].id);
@@ -449,16 +449,19 @@ function MobileOrbital() {
         const center = scrollerRect.left + scrollerRect.width / 2;
         let bestId = centerId;
         let bestDist = Infinity;
-        Array.from(el.querySelectorAll<HTMLElement>("[data-orbit-node]")).forEach(
+        Array.from(el.querySelectorAll<HTMLElement>("[data-tl-node]")).forEach(
           (node) => {
             const r = node.getBoundingClientRect();
             const c = r.left + r.width / 2;
             const dist = Math.abs(c - center);
             const norm = Math.min(1, dist / (scrollerRect.width / 2));
-            // Arc: lift toward center, drop at sides
-            const lift = (1 - norm) * 28; // px
-            node.style.transform = `translateY(${-lift}px) scale(${1 - norm * 0.18})`;
-            node.style.opacity = String(1 - norm * 0.45);
+            const inner = node.querySelector<HTMLElement>("[data-tl-inner]");
+            if (inner) {
+              const scale = 1 - norm * 0.22;
+              const lift = (1 - norm) * 6;
+              inner.style.transform = `translateY(${-lift}px) scale(${scale})`;
+              inner.style.opacity = String(0.4 + (1 - norm) * 0.55);
+            }
             if (dist < bestDist) {
               bestDist = dist;
               bestId = node.dataset.id || bestId;
@@ -478,53 +481,57 @@ function MobileOrbital() {
     };
   }, [centerId]);
 
+  const centerSpec = byId(centerId) ?? SPECIALTIES[0];
+
+  const handleNodeClick = (s: Specialty) => {
+    const el = scrollerRef.current?.querySelector<HTMLElement>(
+      `[data-tl-node][data-id="${s.id}"]`
+    );
+    if (el && s.id !== centerId) {
+      el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      setTimeout(() => setSelected(s), 240);
+    } else {
+      setSelected(s);
+    }
+  };
+
   return (
     <div className="relative">
-      {/* Núcleo central */}
+      {/* Núcleo central compacto */}
       <div className="flex flex-col items-center">
         <div
-          className="relative h-[140px] w-[140px] rounded-full bg-background flex flex-col items-center justify-center animate-[corepulse_5s_ease-in-out_infinite]"
+          className="relative h-24 w-24 rounded-full bg-background flex items-center justify-center animate-[corepulse_5s_ease-in-out_infinite]"
           style={{
             borderWidth: "1px",
             borderStyle: "solid",
             borderColor: "color-mix(in oklab, var(--gold) 55%, transparent)",
             boxShadow:
-              "0 24px 60px -28px color-mix(in oklab, var(--primary) 60%, transparent)",
+              "0 20px 50px -24px color-mix(in oklab, var(--primary) 60%, transparent)",
           }}
         >
-          <LongevinMark className="h-8 w-auto opacity-90" />
-          <p className="mt-2 font-serif text-[10px] tracking-[0.28em] uppercase text-foreground/75 leading-tight text-center">
-            Medicina
-            <br />
-            Integrada
-          </p>
+          <LongevinMark className="h-7 w-auto opacity-90" />
         </div>
-        <p className="mt-6 max-w-[280px] text-center text-sm leading-relaxed text-foreground/65">
-          Toque em uma especialidade para entender como ela se conecta ao seu cuidado.
+        <p className="mt-3 font-serif text-[10px] tracking-[0.28em] uppercase text-foreground/75">
+          Medicina Integrada
+        </p>
+        <p className="mt-3 max-w-[300px] text-center text-sm leading-relaxed text-foreground/65">
+          Deslize pelas especialidades e descubra como nossa equipe atua de forma integrada para cuidar da sua saúde.
         </p>
       </div>
 
-      {/* Arco de órbita */}
-      <div className="relative mt-12">
-        <svg
-          viewBox="0 0 400 80"
-          preserveAspectRatio="none"
-          className="absolute inset-x-0 top-10 h-20 w-full pointer-events-none"
-          aria-hidden="true"
-        >
-          <path
-            d="M -20 60 Q 200 -10 420 60"
-            fill="none"
-            stroke="var(--primary)"
-            strokeWidth="1"
-            strokeDasharray="2 5"
-            opacity="0.25"
-          />
-        </svg>
+      {/* Timeline horizontal */}
+      <div className="relative mt-10">
+        {/* Linha base contínua */}
+        <div className="pointer-events-none absolute inset-x-0 top-[44px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
+        {/* Segmento dourado centralizado (item ativo) */}
+        <div
+          className="pointer-events-none absolute top-[43px] left-1/2 -translate-x-1/2 h-[2px] w-20 rounded-full"
+          style={{ backgroundColor: "var(--gold)", opacity: 0.7 }}
+        />
 
         <div
           ref={scrollerRef}
-          className="relative overflow-x-auto snap-x snap-mandatory flex gap-6 px-[calc(50%-44px)] pb-8 pt-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[calc(50%-36px)] pt-1 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {SPECIALTIES.map((s) => {
             const isCenter = s.id === centerId;
@@ -532,79 +539,130 @@ function MobileOrbital() {
               <button
                 key={s.id}
                 type="button"
-                data-orbit-node
+                data-tl-node
                 data-id={s.id}
                 aria-label={s.name}
-                onClick={() => setSelected(s)}
-                className="snap-center shrink-0 focus:outline-none will-change-transform"
-                style={{ transition: "border-color 300ms" }}
+                aria-current={isCenter}
+                onClick={() => handleNodeClick(s)}
+                className="snap-center shrink-0 focus:outline-none w-[72px] flex flex-col items-center"
               >
                 <div
-                  className="flex flex-col items-center justify-center rounded-full bg-background"
+                  data-tl-inner
+                  className="flex items-center justify-center rounded-full bg-background will-change-transform"
                   style={{
-                    width: 88,
-                    height: 88,
+                    width: isCenter ? 72 : 48,
+                    height: isCenter ? 72 : 48,
                     borderWidth: "1px",
                     borderStyle: "solid",
                     borderColor: isCenter
                       ? "var(--primary)"
-                      : "color-mix(in oklab, var(--primary) 22%, transparent)",
+                      : "color-mix(in oklab, var(--primary) 25%, transparent)",
                     boxShadow: isCenter
-                      ? "0 18px 44px -18px color-mix(in oklab, var(--primary) 75%, transparent)"
-                      : "0 6px 18px -14px color-mix(in oklab, var(--primary) 30%, transparent)",
+                      ? "0 18px 40px -16px color-mix(in oklab, var(--primary) 65%, transparent)"
+                      : "0 4px 12px -10px color-mix(in oklab, var(--primary) 30%, transparent)",
+                    transition:
+                      "width 320ms cubic-bezier(0.2,0.7,0.2,1), height 320ms cubic-bezier(0.2,0.7,0.2,1), border-color 280ms, box-shadow 320ms",
                   }}
                 >
-                  <s.Icon className="h-5 w-5 text-primary" strokeWidth={1.25} />
-                  <span className="mt-1 font-serif text-[11px] leading-tight text-foreground/85 px-1 text-center">
-                    {s.name}
-                  </span>
+                  <s.Icon
+                    className="text-primary"
+                    style={{ width: isCenter ? 22 : 16, height: isCenter ? 22 : 16 }}
+                    strokeWidth={1.3}
+                  />
                 </div>
+                <span
+                  className={`mt-2 font-serif leading-tight text-center px-0.5 transition-all duration-300 ${
+                    isCenter
+                      ? "text-[13px] text-foreground/90"
+                      : "text-[11px] text-foreground/55"
+                  }`}
+                >
+                  {s.name}
+                </span>
               </button>
             );
           })}
         </div>
-
-        <p className="mt-1 text-center text-[10px] tracking-[0.24em] uppercase text-foreground/45">
-          Arraste para explorar
-        </p>
       </div>
 
-      <Drawer
-        open={!!selected}
-        onOpenChange={(o) => !o && setSelected(null)}
+      {/* Preview ao vivo do item central */}
+      <button
+        key={centerSpec.id}
+        type="button"
+        onClick={() => setSelected(centerSpec)}
+        aria-label={`Ver detalhes de ${centerSpec.name}`}
+        className="mt-2 w-full max-w-md mx-auto block text-left rounded-2xl bg-background/60 px-5 py-4 animate-[fade-in_240ms_ease-out] focus:outline-none"
+        style={{
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "color-mix(in oklab, var(--primary) 14%, transparent)",
+        }}
       >
-        <DrawerContent className="bg-card border-border rounded-t-3xl px-6 pb-10 pt-2 max-h-[85vh]">
+        <div className="flex items-center gap-3">
+          <centerSpec.Icon className="h-4 w-4 text-primary" strokeWidth={1.4} />
+          <h4 className="font-serif text-[18px] leading-none">{centerSpec.name}</h4>
+        </div>
+        <p className="mt-2 text-sm leading-relaxed text-foreground/65">
+          {centerSpec.short}
+        </p>
+        <p className="mt-3 text-[10px] tracking-[0.24em] uppercase text-gold">
+          Toque para ver detalhes →
+        </p>
+      </button>
+
+      {/* Bottom sheet */}
+      <Drawer open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
+        <DrawerContent
+          className="bg-card rounded-t-[28px] px-6 pb-10 pt-2 h-[75vh]"
+          style={{
+            borderTopWidth: "1px",
+            borderLeftWidth: "1px",
+            borderRightWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "color-mix(in oklab, var(--primary) 18%, transparent)",
+            boxShadow:
+              "0 -24px 60px -28px color-mix(in oklab, var(--primary) 50%, transparent)",
+          }}
+        >
           {selected && (
-            <div className="mx-auto w-full max-w-md">
+            <div className="mx-auto w-full max-w-md overflow-y-auto pr-1">
               <div className="flex items-start justify-between mt-4">
                 <div className="flex items-center gap-3">
                   <div
                     className="flex items-center justify-center rounded-full bg-background"
                     style={{
-                      width: 52,
-                      height: 52,
+                      width: 56,
+                      height: 56,
                       borderWidth: "1px",
                       borderStyle: "solid",
                       borderColor:
-                        "color-mix(in oklab, var(--primary) 35%, transparent)",
+                        "color-mix(in oklab, var(--primary) 40%, transparent)",
+                      boxShadow:
+                        "0 12px 28px -14px color-mix(in oklab, var(--primary) 55%, transparent)",
                     }}
                   >
                     <selected.Icon
-                      className="h-5 w-5 text-primary"
-                      strokeWidth={1.25}
+                      className="h-6 w-6 text-primary"
+                      strokeWidth={1.3}
                     />
                   </div>
                   <div>
                     <p className="text-[10px] tracking-[0.22em] uppercase text-gold">
                       Especialidade
                     </p>
-                    <h3 className="font-serif text-2xl leading-tight mt-0.5">
+                    <h3 className="font-serif text-[26px] leading-tight mt-0.5">
                       {selected.name}
                     </h3>
                   </div>
                 </div>
                 <DrawerClose
-                  className="rounded-full p-2 text-foreground/50 hover:text-foreground transition"
+                  className="rounded-full h-9 w-9 flex items-center justify-center text-foreground/55 hover:text-foreground transition"
+                  style={{
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                    borderColor:
+                      "color-mix(in oklab, var(--primary) 22%, transparent)",
+                  }}
                   aria-label="Fechar"
                 >
                   <X className="h-4 w-4" />
@@ -612,33 +670,46 @@ function MobileOrbital() {
               </div>
 
               <p className="mt-6 text-[15px] leading-relaxed text-foreground/75">
-                Na Longevin, a {selected.name} atua de forma integrada com:
+                {selected.short}
               </p>
-              <ul className="mt-4 space-y-2">
+
+              <p className="mt-7 text-[10px] tracking-[0.22em] uppercase text-gold">
+                Integra com
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
                 {selected.related.map((id) => {
                   const r = byId(id);
                   if (!r) return null;
                   return (
-                    <li
+                    <span
                       key={id}
-                      className="flex items-center gap-3 text-[15px] text-foreground/85"
+                      className="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-serif text-foreground/80"
+                      style={{
+                        backgroundColor:
+                          "color-mix(in oklab, var(--primary) 8%, transparent)",
+                        borderWidth: "1px",
+                        borderStyle: "solid",
+                        borderColor:
+                          "color-mix(in oklab, var(--primary) 22%, transparent)",
+                      }}
                     >
-                      <span className="text-gold">·</span>
                       {r.name}
-                    </li>
+                    </span>
                   );
                 })}
-              </ul>
+              </div>
 
-              <p className="mt-6 text-[13px] leading-relaxed text-foreground/65">
-                <span className="font-medium text-foreground/80">Objetivo: </span>
+              <p className="mt-7 text-[10px] tracking-[0.22em] uppercase text-gold">
+                Objetivo
+              </p>
+              <p className="mt-2 text-[14px] leading-relaxed text-foreground/75">
                 {selected.description}
               </p>
 
               <a
                 href="#equipe"
                 onClick={() => setSelected(null)}
-                className="btn-ghost mt-8 inline-flex"
+                className="btn-ghost mt-8 inline-flex w-full justify-center"
               >
                 Conhecer especialidade
                 <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
@@ -650,10 +721,11 @@ function MobileOrbital() {
 
       <style>{`
         @keyframes corepulse {
-          0%, 100% { box-shadow: 0 24px 60px -28px color-mix(in oklab, var(--primary) 60%, transparent); }
-          50%      { box-shadow: 0 28px 70px -24px color-mix(in oklab, var(--primary) 75%, transparent); }
+          0%, 100% { box-shadow: 0 20px 50px -24px color-mix(in oklab, var(--primary) 60%, transparent); }
+          50%      { box-shadow: 0 24px 60px -20px color-mix(in oklab, var(--primary) 75%, transparent); }
         }
       `}</style>
     </div>
   );
 }
+
