@@ -130,7 +130,8 @@ function ALongevinPage() {
 
 
       {/* Pillars grid */}
-      <section className="py-24 md:py-32 bg-[oklch(0.96_0.012_100)]">
+      <section id="pilares" className="py-24 md:py-32 bg-[oklch(0.96_0.012_100)]">
+
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <div className="max-w-3xl">
             <p className="eyebrow text-gold">Melhor atendimento médico</p>
