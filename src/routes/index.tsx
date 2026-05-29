@@ -246,32 +246,28 @@ function Home() {
 
       {/* ESPECIALIDADES */}
       <section id="especialidades" className="relative py-28 md:py-40 overflow-hidden">
-        {/* Foto da equipe cobrindo toda a seção — pessoas à esquerda, área livre à direita */}
+        {/* Foto da equipe contida à esquerda — diagrama à direita fica sobre fundo limpo */}
         <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
           <div
-            className="absolute inset-0"
+            className="absolute inset-y-0 left-0 w-full md:w-[48%] lg:w-[42%]"
             style={{
               backgroundImage: `url(${areasEquipeImg})`,
               backgroundSize: "cover",
               backgroundPosition: "left center",
               filter: "saturate(0.62) contrast(0.96) brightness(1.04)",
               opacity: 0.55,
+              WebkitMaskImage:
+                "linear-gradient(90deg, #000 0%, #000 65%, transparent 100%)",
+              maskImage:
+                "linear-gradient(90deg, #000 0%, #000 65%, transparent 100%)",
             }}
           />
-          {/* Véu de legibilidade — mais leve à esquerda, mais forte à direita (atrás do diagrama) */}
+          {/* Véu sutil só na faixa esquerda para legibilidade do texto */}
           <div
-            className="absolute inset-0"
+            className="absolute inset-y-0 left-0 w-full md:w-[48%] lg:w-[42%]"
             style={{
               background:
-                "linear-gradient(90deg, color-mix(in oklab, var(--background) 30%, transparent) 0%, color-mix(in oklab, var(--background) 18%, transparent) 38%, color-mix(in oklab, var(--background) 45%, transparent) 70%, color-mix(in oklab, var(--background) 55%, transparent) 100%)",
-            }}
-          />
-          {/* Tonalização verde-oliva institucional sutil */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(135deg, transparent 0%, color-mix(in oklab, var(--primary) 5%, transparent) 100%)",
+                "linear-gradient(90deg, color-mix(in oklab, var(--background) 28%, transparent) 0%, transparent 60%)",
             }}
           />
         </div>
