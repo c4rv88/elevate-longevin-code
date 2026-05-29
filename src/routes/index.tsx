@@ -13,6 +13,7 @@ import excelenciaImg from "@/assets/excelencia-equipe.webp";
 import propostaAtendimento from "@/assets/proposta-atendimento.webp";
 import propostaMultidisciplinar from "@/assets/proposta-multidisciplinar.jpg";
 import propostaCasa from "@/assets/proposta-casa.png";
+import areasEquipeImg from "@/assets/areas-especialidades.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
@@ -244,8 +245,34 @@ function Home() {
 
 
       {/* ESPECIALIDADES */}
-      <section id="especialidades" className="py-28 md:py-40">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
+      <section id="especialidades" className="relative py-28 md:py-40 overflow-hidden">
+        {/* Camada humana sutil — equipe multidisciplinar */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div
+            className="absolute inset-y-0 right-0 w-full md:w-[70%] lg:w-[62%]"
+            style={{
+              backgroundImage: `url(${areasEquipeImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center right",
+              filter: "saturate(0.25) contrast(0.82) brightness(1.06) blur(2px) sepia(0.18) hue-rotate(40deg)",
+              opacity: 0.09,
+              WebkitMaskImage:
+                "radial-gradient(ellipse 75% 80% at 70% 50%, #000 30%, transparent 78%)",
+              maskImage:
+                "radial-gradient(ellipse 75% 80% at 70% 50%, #000 30%, transparent 78%)",
+            }}
+          />
+          {/* Tonalização verde oliva institucional */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 85%, transparent) 45%, color-mix(in oklab, var(--primary) 6%, var(--background)) 100%)",
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
           <div className="lg:col-span-2 lg:sticky lg:top-32">
             <p className="eyebrow">Especialidades</p>
             <h2 className="mt-5 font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
@@ -264,6 +291,7 @@ function Home() {
 
         </div>
       </section>
+
 
 
       {/* EQUIPE */}
