@@ -287,10 +287,9 @@ function Home() {
           <div className="lg:col-span-2 lg:col-start-4 min-w-0 w-full justify-self-end">
             <SpecialtiesNetwork />
           </div>
-
-          </div>
         </div>
       </section>
+
 
 
 
