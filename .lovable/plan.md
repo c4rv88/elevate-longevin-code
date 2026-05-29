@@ -1,62 +1,37 @@
-## Objetivo
+# Depoimentos reais do Doctoralia
 
-Refinar visualmente o `DesktopDiagram` em `src/components/SpecialtiesNetwork.tsx` para que o núcleo Longevin se torne o protagonista óbvio, com órbita perfeitamente equilibrada, conexões discretas e animações elegantes. Escopo: apenas o diagrama desktop — mobile/timeline e demais seções ficam intocados.
+Substituir a seção "DEPOIMENTOS" atual em `src/routes/index.tsx` por um bloco no estilo do print enviado, usando opiniões 5 estrelas verificadas extraídas do perfil público da Clínica Longevin no Doctoralia.
 
-## Núcleo central
+## O que muda
 
-- Aumentar o círculo central de 88px para 200px (≈+125%, dentro do espírito "40–60% maior" considerando que o limite atual estava subdimensionado relativo aos nós).
-- Reforçar protagonismo:
-  - Borda dupla refinada usando `var(--primary)` (verde institucional) a ~55% opacidade.
-  - Glow externo suave em camadas (dois `box-shadow` empilhados: difusão larga em `--primary` 18% + halo dourado interno sutil).
-  - Animação `corepulse` ajustada para respirar o glow externo, não a borda.
-- Conteúdo interno reorganizado verticalmente com respiro:
-  - Logo árvore ocupando ~46% da área interna (≈92px).
-  - Abaixo: bloco "MEDICINA / INTEGRADA" em duas linhas, font-serif, tracking amplo (`0.32em`), `text-foreground/70`, com micro-divisor dourado de 16px entre logo e texto.
-- z-index do núcleo acima das linhas, mas abaixo dos tooltips.
+- Apenas `src/routes/index.tsx` (seção `DEPOIMENTOS`).
+- Mesmo background quente da seção atual de depoimentos / equipe, com cabeçalho centralizado:
+  - eyebrow "Depoimentos"
+  - título serif: "O que dizem nossas *pacientes*"
+  - subtítulo: "Relatos reais de pacientes verificados na Doctoralia."
+- Grid de 3 colunas (md+) com 6 depoimentos exibidos em carrossel (embla, mesmo padrão da seção de equipe) com setas de navegação à esquerda/direita.
+- Cada card:
+  - 5 estrelas douradas (cor `--gold`, ícone `Star` do lucide preenchido) no topo
+  - citação em itálico serif
+  - nome do paciente em bold com selo "verificado" (ícone `BadgeCheck` em verde Doctoralia)
+  - subtítulo "Consulta verificada" em muted
+  - borda 1px `border-border`, `rounded-2xl`, `bg-background/60`, padding generoso
+- Rodapé centralizado: logo/marca "Doctoralia" (texto + ícone estilizado verde) + link "Ver todas as 98 opiniões na Doctoralia" → `https://www.doctoralia.com.br/clinicas/clinica-longevin#facility-opinion-stats` (target=_blank).
 
-## Órbita e nós
+## Conteúdo (6 opiniões 5★ reais)
 
-- Manter as 10 especialidades distribuídas em ângulos exatamente iguais (já é o caso). Aumentar o raio de 240 para 250 para dar mais respiro ao núcleo maior e evitar sobreposição visual.
-- Padronizar 100% os nós:
-  - Tamanho fixo 92×92 (era 88), todos iguais.
-  - Borda 1px `color-mix(--primary 28%, transparent)` uniforme em estado neutro.
-  - Ícone `h-7 w-7` com `strokeWidth={1.25}` (já está) — manter.
-  - Label `font-serif text-[11px]` (já está) — manter.
-- Garantir mesmo `box-shadow` base em todos no estado neutro.
+1. **Maria das Graças** — "Médico exatamente o que eu procurava, excelência em tudo, desde o recebimento do paciente até o final da consulta. Já escolhi o médico da nossa família." — *Dr. Igor Brito · Geriatria*
+2. **Daniel Mendes** — "Me senti realmente acolhido e compreendido. A consulta foi boa até demais — me senti confortável, respeitado e à vontade para falar." — *Dra. Mayanne Lucy · Psicologia*
+3. **Josiane** — "Dra. Alexia atendeu minha mãe. Médica super atenciosa e bastante profissional. Excelente." — *Dra. Alexia Carneiro · Neurologia*
+4. **Thamiris** — "Ótima profissional, atenciosa, pontual. Estou gostando muito." — *Dra. Mayanne Lucy · Psicologia*
+5. **M.A.S.** — "Atendimento humanizado com orientações detalhadas para a paciente." — *Dr. Igor Brito · Geriatria*
+6. **Samara** — "Explicou muito bem. Saímos mais calmos. Maravilhoso." — *Dr. Igor Brito · Clínica médica*
 
-## Linhas de conexão
+Citações editadas levemente (pontuação) preservando o sentido original.
 
-Reestruturar para reduzir ruído cruzado:
+## Técnico
 
-- Remover renderização do conjunto completo de `PAIRS` por padrão.
-- Estado neutro: desenhar apenas as 10 raios do centro → cada especialidade, com `stroke="var(--primary)"`, opacidade 0.10, `strokeWidth=0.6`.
-- Conexões entre especialidades relacionadas (`PAIRS`) só aparecem quando há `activeSpec` e somente as que tocam o nó ativo, com opacidade 0.45 e cor `var(--gold)`.
-- Resultado: composição limpa em repouso (parece uma órbita radial), e contexto revelado no hover.
-
-## Interação (hover)
-
-- Ao entrar no nó:
-  - Nó: scale 1.08, borda `var(--primary)` 100%, shadow reforçada.
-  - Raio centro→nó: opacidade 0.7, `--gold`, `strokeWidth=1.2`.
-  - Conexões relacionadas: visíveis (ver acima).
-  - Núcleo central: borda passa para `var(--gold)` 70% e ganha um anel externo sutil (pulse mais intenso) para reforçar a relação centro↔especialidade.
-  - Demais nós: opacidade 0.35 (já existe lógica `dimmed`) — manter.
-- Saída: tudo retorna suavemente via transições já presentes (300–500ms ease).
-
-## Animações de entrada (mantendo o gatilho `IntersectionObserver`)
-
-Sequência orquestrada por `transitionDelay`:
-
-1. 0ms — núcleo central faz fade+scale (de 0.9 → 1) em 700ms.
-2. 350ms — raios centro→nós são "desenhados" via `stroke-dashoffset` indo de comprimento total a 0 em 700ms, escalonados 40ms entre si.
-3. 600ms — nós aparecem em sequência (delay `600 + i*70ms`), fade+scale como hoje.
-
-Usar `pathLength` ou cálculo de comprimento por `Math.hypot(dx,dy)` em cada linha para o efeito de desenho.
-
-## Tipografia auxiliar
-
-- Substituir o texto cinza inferior "Passe o mouse em uma especialidade para ver suas conexões" mantendo estilo atual (não pedido para mudar).
-
-## Arquivos
-
-Editado: `src/components/SpecialtiesNetwork.tsx` (apenas `DesktopDiagram` + keyframes locais). Nenhum outro arquivo afetado.
+- Adicionar imports `Star`, `BadgeCheck` do `lucide-react`.
+- Reaproveitar `Carousel`/`CarouselContent`/`CarouselItem` + `Autoplay` já importados.
+- Estrelas: `<Star className="h-4 w-4 fill-gold text-gold" />` × 5.
+- Nenhuma alteração em `SiteHeader`, `SiteFooter`, rotas ou tokens de design.
