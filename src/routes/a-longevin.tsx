@@ -12,7 +12,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
-import propostaCasa from "@/assets/proposta-casa.png";
+
 
 export const Route = createFileRoute("/a-longevin")({
   head: () => ({
@@ -65,9 +65,15 @@ function ALongevinPage() {
           </nav>
 
           <h1 className="mt-8 max-w-5xl font-serif text-5xl md:text-7xl leading-[1.02] tracking-tight text-foreground">
-            Em uma localização privilegiada, a Longevin{" "}
-            <span className="italic text-primary">acolhe, cuida e previne.</span>
+            Mais do que uma clínica —{" "}
+            <span className="italic text-primary">um novo jeito de cuidar.</span>
           </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/70">
+            Um ecossistema de medicina integrada onde as especialidades se
+            conectam, o tempo é respeitado e o cuidado é personalizado em cada
+            etapa da sua jornada.
+          </p>
+
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <a
@@ -216,7 +222,8 @@ function ALongevinPage() {
           <div className="md:col-span-5">
             <p className="eyebrow text-gold">Localização</p>
             <h2 className="mt-6 font-serif text-4xl md:text-5xl leading-tight">
-              No coração de Fortaleza.
+              Em uma localização privilegiada, a Longevin{" "}
+              <span className="italic text-primary">acolhe, cuida e previne.</span>
             </h2>
             <p className="mt-8 text-lg leading-relaxed text-foreground/75">
               Um endereço pensado para receber com tranquilidade, acessibilidade
@@ -239,14 +246,17 @@ function ALongevinPage() {
           </div>
           <div className="md:col-span-7">
             <div className="relative overflow-hidden rounded-2xl border border-border/60 shadow-xl">
-              <img
-                src={propostaCasa}
-                alt="Fachada da clínica Longevin"
-                className="w-full h-[480px] object-cover"
+              <iframe
+                title="Mapa Clínica Longevin"
+                src="https://www.google.com/maps?q=Clinica+Longevin+Fortaleza&output=embed"
+                className="w-full h-[480px] border-0"
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
             </div>
           </div>
+
         </div>
       </section>
 
