@@ -415,17 +415,6 @@ function NodeTooltip({ spec, angle }: { spec: Specialty; angle: number }) {
         <p className="mt-2.5 text-[13px] leading-relaxed text-foreground/70">
           {spec.short}
         </p>
-        {spec.related.length > 0 && (
-          <p className="mt-3 text-[10px] tracking-[0.22em] uppercase text-gold">
-            Integra com{" "}
-            <span className="text-foreground/55 normal-case tracking-normal text-[12px] block mt-1">
-              {spec.related
-                .map((id) => byId(id)?.name)
-                .filter(Boolean)
-                .join(" · ")}
-            </span>
-          </p>
-        )}
       </div>
     </div>
   );
