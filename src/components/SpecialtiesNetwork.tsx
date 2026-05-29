@@ -272,8 +272,10 @@ function DesktopDiagram() {
           }`}
         >
           <div
-            className="relative aspect-square min-h-[150px] min-w-[150px] rounded-full bg-background flex items-center justify-center text-center px-4 transition-all duration-500 animate-[corepulse_5s_ease-in-out_infinite]"
+            className="relative rounded-full bg-background flex items-center justify-center transition-all duration-500 animate-[corepulse_5s_ease-in-out_infinite]"
             style={{
+              width: "88px",
+              height: "88px",
               boxShadow:
                 "0 1px 0 color-mix(in oklab, var(--gold) 40%, transparent) inset, 0 24px 60px -28px color-mix(in oklab, var(--primary) 60%, transparent)",
               borderWidth: "1px",
@@ -283,10 +285,10 @@ function DesktopDiagram() {
                 : "color-mix(in oklab, var(--gold) 45%, transparent)",
             }}
           >
-            <img src={treeLogo} alt="Longevin" className="h-16 w-16 object-contain opacity-95" />
+            <img src={treeLogo} alt="Longevin" className="h-10 w-10 object-contain opacity-95" />
           </div>
-
         </div>
+
 
         {/* specialty nodes */}
         {SPECIALTIES.map((s, i) => {
@@ -332,7 +334,8 @@ function DesktopDiagram() {
                     : "0 6px 18px -14px color-mix(in oklab, var(--primary) 40%, transparent)",
                 }}
               >
-                <s.Icon className="h-5 w-5 text-primary" strokeWidth={1.25} />
+                <s.Icon className="h-7 w-7 text-primary" strokeWidth={1.25} />
+
                 <span className="mt-1 font-serif text-[11px] leading-tight text-foreground/85 px-1 text-center">
                   {s.name}
                 </span>
@@ -412,17 +415,6 @@ function NodeTooltip({ spec, angle }: { spec: Specialty; angle: number }) {
         <p className="mt-2.5 text-[13px] leading-relaxed text-foreground/70">
           {spec.short}
         </p>
-        {spec.related.length > 0 && (
-          <p className="mt-3 text-[10px] tracking-[0.22em] uppercase text-gold">
-            Integra com{" "}
-            <span className="text-foreground/55 normal-case tracking-normal text-[12px] block mt-1">
-              {spec.related
-                .map((id) => byId(id)?.name)
-                .filter(Boolean)
-                .join(" · ")}
-            </span>
-          </p>
-        )}
       </div>
     </div>
   );
