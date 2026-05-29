@@ -31,7 +31,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10 py-4">
-        <a href="#home" className="flex items-center" aria-label="Longevin">
+        <Link to="/" className="flex items-center" aria-label="Longevin">
           <img
             src={logo}
             alt="Longevin"
@@ -41,21 +41,25 @@ export function SiteHeader() {
             loading="eager"
             decoding="async"
           />
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-10">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className={`link-underline text-[12px] tracking-[0.22em] uppercase transition-colors ${
-                onDark ? "text-white/80 hover:text-white" : "text-foreground/75 hover:text-primary"
-              }`}
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const cls = `link-underline text-[12px] tracking-[0.22em] uppercase transition-colors ${
+              onDark ? "text-white/80 hover:text-white" : "text-foreground/75 hover:text-primary"
+            }`;
+            return l.internal ? (
+              <Link key={l.href} to={l.to} className={cls}>
+                {l.label}
+              </Link>
+            ) : (
+              <a key={l.href} href={l.href} className={cls}>
+                {l.label}
+              </a>
+            );
+          })}
         </nav>
+
 
         <div className="hidden md:block">
           <a
@@ -89,16 +93,19 @@ export function SiteHeader() {
         className={`md:hidden overflow-hidden transition-all duration-500 ${open ? "max-h-96" : "max-h-0"}`}
       >
         <div className="bg-background/95 backdrop-blur-xl border-t border-border/60 px-6 py-8 flex flex-col gap-6">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-[13px] tracking-[0.22em] uppercase text-foreground/80"
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const cls = "text-[13px] tracking-[0.22em] uppercase text-foreground/80";
+            return l.internal ? (
+              <Link key={l.href} to={l.to} onClick={() => setOpen(false)} className={cls}>
+                {l.label}
+              </Link>
+            ) : (
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className={cls}>
+                {l.label}
+              </a>
+            );
+          })}
+
           <a
             href="https://agende.longevin.com.br/"
             className="btn-premium self-start"
