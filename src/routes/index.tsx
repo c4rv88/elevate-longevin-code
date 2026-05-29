@@ -41,13 +41,11 @@ const doctors = [
   { name: "Dr. Karlos Jennysson", spec: "Cardiologia", rqe: "RQE 113119", img: "https://longevin.com.br/wp-content/uploads/2025/06/Dr.-Carlos-Jennyson-1-1-e1749523769929.jpg" },
   { name: "Dra. Thayane Furtado", spec: "Reumatologia", rqe: "RQE 17762", img: "https://longevin.com.br/wp-content/uploads/2025/07/Dra-Tayane-e1751571255349.webp" },
   { name: "Itaquê Figueiredo", spec: "Nutrição", rqe: "", img: "https://longevin.com.br/wp-content/uploads/2025/07/Itaque-Figueiredo-e1751571634897.webp" },
-  { name: "Dra. Emanuelle Albuquerque", spec: "Psicologia", rqe: "", img: "https://longevin.com.br/wp-content/uploads/2025/07/Dra-Emanuelle-scaled-e1751569087610.webp" },
   { name: "Dr. Igor Brito", spec: "Geriatria", rqe: "", img: "https://longevin.com.br/wp-content/uploads/2025/07/Dr-Igor-Brito-1-e1751571906422.webp" },
   { name: "Dra. Mayanne Lucy", spec: "Psicologia", rqe: "", img: "https://longevin.com.br/wp-content/uploads/2025/07/Dra-Mayane-Lucy-e1751573136170.webp" },
-  { name: "Dra. Tayná Milfont", spec: "Endocrinologia", rqe: "RQE 17431", img: "https://longevin.com.br/wp-content/uploads/2025/06/Dra.-Thayna-e1749523355311.jpg" },
   { name: "Dra. Alexia Carneiro", spec: "Neurologia", rqe: "RQE 13.508", img: "https://longevin.com.br/wp-content/uploads/2025/06/Dra.-Alexia-e1749523460581.jpg" },
-  { name: "Dr. Gerber Caraciolo", spec: "Oftalmologia", rqe: "RQE 7845", img: "https://longevin.com.br/wp-content/uploads/2025/06/Dr.-Gerber-e1749523538530.jpg" },
 ];
+
 
 const testimonials = [
   {
@@ -292,7 +290,8 @@ function Home() {
               {doctors.map((d) => (
                 <CarouselItem
                   key={d.name}
-                  className="pl-4 basis-[82%] sm:basis-1/2 lg:basis-1/3"
+                  className="pl-4 basis-[70%] sm:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+
                 >
                   <article className="group">
                     <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
@@ -306,7 +305,8 @@ function Home() {
                     <div className="mt-6 flex items-start justify-between gap-4">
                       <div>
                         <p className="text-[11px] tracking-[0.22em] uppercase text-gold">{d.spec}</p>
-                        <h3 className="mt-2 font-serif text-2xl leading-tight">{d.name}</h3>
+                        <h3 className="mt-2 font-serif text-xl leading-tight">{d.name}</h3>
+
                       </div>
                       {d.rqe && <span className="mt-2 text-[11px] tracking-[0.18em] uppercase text-muted-foreground whitespace-nowrap">{d.rqe}</span>}
                     </div>
