@@ -246,6 +246,36 @@ function Home() {
 
       {/* ESPECIALIDADES */}
       <section id="especialidades" className="relative py-28 md:py-40 overflow-hidden">
+        {/* Foto da equipe cobrindo toda a seção — pessoas à esquerda, área livre à direita */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${areasEquipeImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "left center",
+              filter: "saturate(0.62) contrast(0.96) brightness(1.04)",
+              opacity: 0.55,
+            }}
+          />
+          {/* Véu de legibilidade — mais leve à esquerda, mais forte à direita (atrás do diagrama) */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, color-mix(in oklab, var(--background) 30%, transparent) 0%, color-mix(in oklab, var(--background) 18%, transparent) 38%, color-mix(in oklab, var(--background) 45%, transparent) 70%, color-mix(in oklab, var(--background) 55%, transparent) 100%)",
+            }}
+          />
+          {/* Tonalização verde-oliva institucional sutil */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, transparent 0%, color-mix(in oklab, var(--primary) 5%, transparent) 100%)",
+            }}
+          />
+        </div>
+
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
           <div className="lg:col-span-2 lg:sticky lg:top-32">
             <p className="eyebrow">Especialidades</p>
@@ -258,37 +288,11 @@ function Home() {
           </div>
 
           <div className="lg:col-span-3 min-w-0 w-full">
-            <div className="relative rounded-2xl overflow-hidden p-6 md:p-10">
-              {/* Foto da equipe — recortada nas dimensões do card do diagrama */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  backgroundImage: `url(${areasEquipeImg})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  filter: "saturate(0.62) contrast(0.96) brightness(1.04)",
-                  opacity: 0.6,
-                }}
-              />
-              {/* Gradiente sutil para integrar com a coluna de texto */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(90deg, color-mix(in oklab, var(--background) 55%, transparent) 0%, color-mix(in oklab, var(--background) 20%, transparent) 40%, transparent 100%)",
-                }}
-              />
-              <div className="relative z-10">
-                <SpecialtiesNetwork />
-              </div>
-            </div>
+            <SpecialtiesNetwork />
           </div>
-
-
         </div>
       </section>
+
 
 
 
