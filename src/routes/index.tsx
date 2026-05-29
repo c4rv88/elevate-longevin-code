@@ -183,10 +183,6 @@ function Home() {
             <div className="aspect-[4/3] overflow-hidden rounded-2xl">
               <img src={excelenciaImg} alt="Equipe médica Longevin que atua em conjunto" width={1536} height={1024} loading="lazy" className="w-full h-full object-cover" />
             </div>
-            <div className="absolute -bottom-6 -right-4 md:right-10 glass border border-border rounded-2xl px-6 py-5 max-w-xs">
-              <p className="font-serif text-3xl text-primary leading-none">10+</p>
-              <p className="mt-2 text-xs tracking-[0.2em] uppercase text-muted-foreground">Especialidades em sinergia</p>
-            </div>
           </div>
 
           <div className="md:col-span-6 md:pl-6">
