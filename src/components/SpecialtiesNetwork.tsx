@@ -789,14 +789,26 @@ function MobileTimeline() {
                 {selected.description}
               </p>
 
-              <a
-                href="#equipe"
-                onClick={() => setSelected(null)}
-                className="btn-ghost mt-8 inline-flex w-full justify-center"
-              >
-                Conhecer especialidade
-                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-              </a>
+              {SPECIALTY_ID_TO_SLUG[selected.id] ? (
+                <Link
+                  to="/especialidades/$slug"
+                  params={{ slug: SPECIALTY_ID_TO_SLUG[selected.id] }}
+                  onClick={() => setSelected(null)}
+                  className="btn-ghost mt-8 inline-flex w-full justify-center"
+                >
+                  Conhecer especialidade
+                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </Link>
+              ) : (
+                <a
+                  href="#equipe"
+                  onClick={() => setSelected(null)}
+                  className="btn-ghost mt-8 inline-flex w-full justify-center"
+                >
+                  Conhecer especialidade
+                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </a>
+              )}
             </div>
           )}
         </DrawerContent>
