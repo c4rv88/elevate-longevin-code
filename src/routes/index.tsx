@@ -284,9 +284,10 @@ function Home() {
               Na Longevin, cada especialidade faz parte de uma visão integrada da saúde. Nossa equipe atua de forma colaborativa para compreender o paciente como um todo, conectando diferentes áreas do conhecimento para promover prevenção, diagnóstico e acompanhamento contínuo.
             </p>
           </div>
-
-          <div className="lg:col-span-3 min-w-0 w-full">
+          <div className="lg:col-span-2 lg:col-start-4 min-w-0 w-full justify-self-end">
             <SpecialtiesNetwork />
+          </div>
+
           </div>
         </div>
       </section>
