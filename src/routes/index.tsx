@@ -249,7 +249,6 @@ function Home() {
         {/* Foto da equipe contida à esquerda — diagrama à direita fica sobre fundo limpo */}
         <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
           <div
-
             className="absolute inset-y-0 left-0 w-full md:w-[42%] lg:w-[36%]"
             style={{
               backgroundImage: `url(${areasEquipeImg})`,
