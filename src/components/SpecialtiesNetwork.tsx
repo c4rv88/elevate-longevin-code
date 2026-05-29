@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import { LongevinMark } from "@/components/SiteHeader";
+import treeLogo from "@/assets/logo-longevin-tree.png";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Drawer,
@@ -528,7 +529,7 @@ function MobileTimeline() {
       {/* Núcleo central compacto */}
       <div className="flex flex-col items-center w-full max-w-sm text-center">
         <div
-          className="relative h-24 w-24 rounded-full bg-background flex items-center justify-center animate-[corepulse_5s_ease-in-out_infinite]"
+          className="relative h-28 w-28 rounded-full bg-background flex items-center justify-center animate-[corepulse_5s_ease-in-out_infinite]"
           style={{
             borderWidth: "1px",
             borderStyle: "solid",
@@ -537,7 +538,7 @@ function MobileTimeline() {
               "0 20px 50px -24px color-mix(in oklab, var(--primary) 60%, transparent)",
           }}
         >
-          <LongevinMark className="h-7 w-auto opacity-90" />
+          <img src={treeLogo} alt="Longevin" className="h-16 w-16 object-contain opacity-95" />
         </div>
         <p className="mt-3 font-serif text-[10px] tracking-[0.28em] uppercase text-foreground/75">
           Medicina Integrada
@@ -549,11 +550,10 @@ function MobileTimeline() {
 
       {/* Timeline horizontal com navegação */}
       <div className="relative mt-10 w-full max-w-md">
-        {/* Linha base contínua */}
-        <div className="pointer-events-none absolute inset-x-0 top-[44px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-[50px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
         {/* Segmento dourado centralizado (item ativo) */}
         <div
-          className="pointer-events-none absolute top-[43px] left-1/2 -translate-x-1/2 h-[2px] w-20 rounded-full"
+          className="pointer-events-none absolute top-[49px] left-1/2 -translate-x-1/2 h-[2px] w-24 rounded-full"
           style={{ backgroundColor: "var(--gold)", opacity: 0.7 }}
         />
 
@@ -563,7 +563,7 @@ function MobileTimeline() {
           onClick={goPrev}
           disabled={!canPrev}
           aria-label="Especialidade anterior"
-          className="absolute left-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
+          className="absolute left-1 top-[30px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           style={{
             borderWidth: "1px",
             borderStyle: "solid",
@@ -581,7 +581,7 @@ function MobileTimeline() {
           onClick={goNext}
           disabled={!canNext}
           aria-label="Próxima especialidade"
-          className="absolute right-1 top-[24px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
+          className="absolute right-1 top-[30px] z-10 h-10 w-10 rounded-full bg-background/95 backdrop-blur flex items-center justify-center transition disabled:opacity-30 disabled:pointer-events-none"
           style={{
             borderWidth: "1px",
             borderStyle: "solid",
@@ -597,12 +597,12 @@ function MobileTimeline() {
           ref={scrollerRef}
           tabIndex={0}
           onKeyDown={onKey}
-          className="relative overflow-x-auto snap-x snap-mandatory scroll-smooth flex items-start gap-5 px-[max(56px,calc(50%-36px))] pt-1 pb-6 focus:outline-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="relative overflow-x-auto overscroll-x-contain snap-x snap-mandatory scroll-smooth flex items-start gap-6 px-[max(64px,calc(50%-40px))] pt-1 pb-6 focus:outline-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           style={{
             WebkitMaskImage:
-              "linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%)",
+              "linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%)",
             maskImage:
-              "linear-gradient(90deg, transparent 0, #000 56px, #000 calc(100% - 56px), transparent 100%)",
+              "linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%)",
           }}
         >
           {SPECIALTIES.map((s) => {
@@ -616,14 +616,14 @@ function MobileTimeline() {
                 aria-label={s.name}
                 aria-current={isCenter}
                 onClick={() => handleNodeClick(s)}
-                className="snap-center shrink-0 focus:outline-none w-[72px] flex flex-col items-center"
+                className="snap-center shrink-0 focus:outline-none w-[84px] flex flex-col items-center"
               >
                 <div
                   data-tl-inner
                   className="flex items-center justify-center rounded-full bg-background will-change-transform"
                   style={{
-                    width: isCenter ? 72 : 48,
-                    height: isCenter ? 72 : 48,
+                    width: isCenter ? 84 : 60,
+                    height: isCenter ? 84 : 60,
                     borderWidth: "1px",
                     borderStyle: "solid",
                     borderColor: isCenter
@@ -638,7 +638,7 @@ function MobileTimeline() {
                 >
                   <s.Icon
                     className="text-primary"
-                    style={{ width: isCenter ? 22 : 16, height: isCenter ? 22 : 16 }}
+                    style={{ width: isCenter ? 30 : 22, height: isCenter ? 30 : 22 }}
                     strokeWidth={1.3}
                   />
                 </div>
