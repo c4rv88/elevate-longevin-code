@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, Stethoscope, Users } from "lucide-react";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
+import propostaAtendimento from "@/assets/proposta-atendimento.webp";
+import propostaMultidisciplinar from "@/assets/proposta-multidisciplinar.jpg";
+import propostaCasa from "@/assets/proposta-casa.png";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
