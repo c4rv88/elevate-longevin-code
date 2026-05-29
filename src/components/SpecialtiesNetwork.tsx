@@ -309,7 +309,7 @@ function DesktopDiagram() {
               onClick={() => {
                 const slug = SPECIALTY_ID_TO_SLUG[s.id];
                 if (slug) {
-                  navigate({ to: "/especialidades/$slug", params: { slug } });
+                  navigate({ to: "/$slug", params: { slug } });
                 } else {
                   setActive((cur) => (cur === s.id ? null : s.id));
                 }
