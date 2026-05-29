@@ -85,25 +85,19 @@ export function SpecialtyPage({ specialty }: { specialty: SpecialtyContent }) {
             <p className="mt-4 text-foreground/65 leading-relaxed">
               Atendimento humano, integrado e personalizado em uma clínica boutique de medicina integrada.
             </p>
-            <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="mt-7 flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
               <a
                 href="https://agende.longevin.com.br/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost inline-flex items-center justify-center gap-2"
-                style={{
-                  backgroundColor: "var(--color-primary)",
-                  color: "var(--color-primary-foreground, #fff)",
-                  borderColor: "var(--color-primary)",
-                }}
+                className="btn-premium justify-center w-full sm:w-auto"
               >
-                Agendar consulta
-                <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+                Agendar consulta <span className="arrow">→</span>
               </a>
               <Link
                 to="/"
                 hash="especialidades"
-                className="btn-ghost inline-flex items-center justify-center gap-2"
+                className="btn-ghost justify-center w-full sm:w-auto"
               >
                 Ver todas as especialidades
               </Link>
