@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { LongevinMark } from "./SiteHeader";
 
 export function SiteFooter() {
@@ -17,10 +18,11 @@ export function SiteFooter() {
           <div className="md:col-span-3">
             <p className="eyebrow">Navegação</p>
             <ul className="mt-5 space-y-3 text-sm text-foreground/75">
-              <li><a className="link-underline" href="#home">Home</a></li>
-              <li><a className="link-underline" href="#sobre">A Longevin</a></li>
-              <li><a className="link-underline" href="#especialidades">Especialidades</a></li>
-              <li><a className="link-underline" href="#equipe">Equipe</a></li>
+              <li><a className="link-underline" href="/#home">Home</a></li>
+              <li><Link className="link-underline" to="/a-longevin">A Longevin</Link></li>
+              <li><a className="link-underline" href="/#especialidades">Especialidades</a></li>
+              <li><a className="link-underline" href="/#equipe">Equipe</a></li>
+
             </ul>
           </div>
 
