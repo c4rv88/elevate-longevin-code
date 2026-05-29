@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles, Stethoscope, Users } from "lucide-react";
+import { Activity, Apple, Bone, Brain, BrainCircuit, Eye, HeartHandshake, HeartPulse, MessageCircleHeart, Sparkles, Stethoscope, Users, type LucideIcon } from "lucide-react";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
@@ -21,10 +21,18 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const specialties = [
-  "Clínica Médica", "Geriatria", "Cardiologia", "Endocrinologia",
-  "Dermatologia", "Neurologia", "Nutrição", "Oftalmologia",
-  "Reumatologia", "Psiquiatria", "Psicologia",
+const specialties: { name: string; Icon: LucideIcon }[] = [
+  { name: "Clínica Médica", Icon: Stethoscope },
+  { name: "Geriatria", Icon: HeartHandshake },
+  { name: "Cardiologia", Icon: HeartPulse },
+  { name: "Endocrinologia", Icon: Activity },
+  { name: "Dermatologia", Icon: Sparkles },
+  { name: "Neurologia", Icon: Brain },
+  { name: "Nutrição", Icon: Apple },
+  { name: "Oftalmologia", Icon: Eye },
+  { name: "Reumatologia", Icon: Bone },
+  { name: "Psiquiatria", Icon: BrainCircuit },
+  { name: "Psicologia", Icon: MessageCircleHeart },
 ];
 
 const doctors = [
@@ -213,16 +221,16 @@ function Home() {
           <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {specialties.map((s, i) => (
               <li
-                key={s}
+                key={s.name}
                 className="group relative border border-border rounded-2xl p-7 bg-card card-lift overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-transparent transition-all duration-700" />
                 <div className="relative flex items-center justify-between">
                   <div>
                     <p className="text-[11px] tracking-[0.22em] uppercase text-gold">{String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="mt-3 font-serif text-2xl">{s}</h3>
+                    <h3 className="mt-3 font-serif text-2xl">{s.name}</h3>
                   </div>
-                  <SpecialtyIcon className="h-9 w-9 text-primary/70 group-hover:text-primary transition-colors" />
+                  <s.Icon className="h-8 w-8 text-primary/70 group-hover:text-primary transition-colors" strokeWidth={1.25} />
                 </div>
               </li>
             ))}
@@ -362,12 +370,3 @@ function Home() {
   );
 }
 
-function SpecialtyIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round">
-      <circle cx="16" cy="16" r="13" opacity="0.4" />
-      <path d="M16 8 v16 M8 16 h16" opacity="0.55" />
-      <circle cx="16" cy="16" r="3" />
-    </svg>
-  );
-}

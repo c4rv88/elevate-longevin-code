@@ -1,14 +1,29 @@
-## Substituir imagem da seção "Excelência que atua em conjunto"
+## Ícones minimalistas de especialidades
 
-Trocar a foto atual (`interiorImg` / clinic-interior.jpg) pela nova foto da equipe médica (`Atua_conjunto.webp`) na seção EXCELÊNCIA do `src/routes/index.tsx`.
+Substituir o `SpecialtyIcon` genérico (círculo + cruz) por ícones lineares específicos de cada especialidade, usando `lucide-react` (já no projeto). Mantém visual clean, traço fino, tom premium e consistente com o site.
 
-### Implementação
+### Mapeamento
 
-1. Copiar `user-uploads://Atua_conjunto.webp` para `src/assets/excelencia-equipe.webp`.
-2. Em `src/routes/index.tsx`:
-   - Adicionar `import excelenciaImg from "@/assets/excelencia-equipe.webp";`
-   - Trocar `src={interiorImg}` por `src={excelenciaImg}` no `<img>` da seção EXCELÊNCIA (linha ~183).
-   - Atualizar o `alt` para "Equipe médica Longevin que atua em conjunto".
-   - Ajustar o aspect ratio do contêiner de `aspect-[4/5]` para `aspect-[4/3]` (a nova foto é paisagem) para evitar crop pesado, mantendo `rounded-2xl overflow-hidden`.
+| Especialidade | Ícone lucide |
+|---|---|
+| Clínica Médica | `Stethoscope` |
+| Geriatria | `HeartHandshake` |
+| Cardiologia | `HeartPulse` |
+| Endocrinologia | `Activity` |
+| Dermatologia | `Sparkles` |
+| Neurologia | `Brain` |
+| Nutrição | `Apple` |
+| Oftalmologia | `Eye` |
+| Reumatologia | `Bone` |
+| Psiquiatria | `BrainCircuit` |
+| Psicologia | `MessageCircleHeart` |
 
-Nenhuma outra alteração — badge "10+", textos, layout e tipografia permanecem iguais.
+### Implementação em `src/routes/index.tsx`
+
+1. Importar os ícones acima de `lucide-react`.
+2. Mudar o array `specialties` de `string[]` para `{ name: string; Icon: LucideIcon }[]`.
+3. No `.map`, renderizar `<s.Icon className="h-8 w-8 text-primary/70 group-hover:text-primary transition-colors" strokeWidth={1.25} />` no lugar do `<SpecialtyIcon />`.
+4. Remover o componente local `SpecialtyIcon` (não mais utilizado).
+5. Manter card, kicker numerado, título serif, hover sutil — sem alterar layout, espaçamentos ou cores.
+
+`strokeWidth={1.25}` garante traço fino e elegante, alinhado ao mood minimalista pedido. Nada mais é alterado.
