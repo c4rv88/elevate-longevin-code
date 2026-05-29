@@ -208,16 +208,8 @@ function Home() {
             <p className="mt-8 text-foreground/70 leading-relaxed max-w-md">
               Na Longevin, cada especialidade faz parte de uma visão integrada da saúde. Nossa equipe atua de forma colaborativa para compreender o paciente como um todo, conectando diferentes áreas do conhecimento para promover prevenção, diagnóstico e acompanhamento contínuo.
             </p>
-            <div className="mt-10">
-              <a
-                href="https://agende.longevin.com.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-premium"
-              >
-                Agendar consulta <span className="arrow">→</span>
-              </a>
-            </div>
+
+
           </div>
 
           <div className="lg:col-span-3">
