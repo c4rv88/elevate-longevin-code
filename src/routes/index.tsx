@@ -247,30 +247,32 @@ function Home() {
       {/* ESPECIALIDADES */}
       <section id="especialidades" className="relative py-28 md:py-40 overflow-hidden">
         {/* Camada humana sutil — equipe multidisciplinar */}
+        {/* Camada humana sutil — equipe multidisciplinar */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <div
-            className="absolute inset-y-0 right-0 w-full md:w-[70%] lg:w-[62%]"
+            className="absolute inset-y-0 right-0 w-full md:w-[75%] lg:w-[68%]"
             style={{
               backgroundImage: `url(${areasEquipeImg})`,
               backgroundSize: "cover",
               backgroundPosition: "center right",
-              filter: "saturate(0.25) contrast(0.82) brightness(1.06) blur(2px) sepia(0.18) hue-rotate(40deg)",
-              opacity: 0.09,
+              filter: "saturate(0.55) contrast(0.9) brightness(1.02)",
+              opacity: 0.38,
               WebkitMaskImage:
-                "radial-gradient(ellipse 75% 80% at 70% 50%, #000 30%, transparent 78%)",
+                "radial-gradient(ellipse 85% 90% at 72% 50%, #000 38%, transparent 85%)",
               maskImage:
-                "radial-gradient(ellipse 75% 80% at 70% 50%, #000 30%, transparent 78%)",
+                "radial-gradient(ellipse 85% 90% at 72% 50%, #000 38%, transparent 85%)",
             }}
           />
-          {/* Tonalização verde oliva institucional */}
+          {/* Tonalização verde oliva institucional + legibilidade */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 85%, transparent) 45%, color-mix(in oklab, var(--primary) 6%, var(--background)) 100%)",
+                "linear-gradient(90deg, var(--background) 0%, color-mix(in oklab, var(--background) 78%, transparent) 38%, color-mix(in oklab, var(--background) 30%, transparent) 70%, color-mix(in oklab, var(--primary) 10%, transparent) 100%)",
             }}
           />
         </div>
+
 
         <div className="relative mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
           <div className="lg:col-span-2 lg:sticky lg:top-32">
