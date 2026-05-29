@@ -13,9 +13,9 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { useRef } from "react";
 
 
 export const Route = createFileRoute("/")({
@@ -57,6 +57,7 @@ const articles = [
 ];
 
 function Home() {
+  const autoplay = useRef(Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }));
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
 
@@ -245,6 +246,7 @@ function Home() {
 
           <Carousel
             opts={{ align: "start", loop: true }}
+            plugins={[autoplay.current]}
             className="mt-16"
           >
             <CarouselContent className="-ml-4">
@@ -273,10 +275,6 @@ function Home() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="mt-10 flex items-center justify-end gap-3">
-              <CarouselPrevious className="static translate-y-0 h-11 w-11 border-border text-foreground hover:bg-primary hover:text-primary-foreground" />
-              <CarouselNext className="static translate-y-0 h-11 w-11 border-border text-foreground hover:bg-primary hover:text-primary-foreground" />
-            </div>
           </Carousel>
 
         </div>
