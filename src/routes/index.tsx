@@ -105,7 +105,6 @@ function Home() {
               </a>
             </div>
 
-            </div>
 
             <ul className="reveal reveal-delay-4 mt-12 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-8 text-[11px] tracking-[0.18em] uppercase text-white/75">
               <li className="flex items-center gap-2.5">
