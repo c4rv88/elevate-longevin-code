@@ -419,7 +419,7 @@ function Home() {
                   src={post.img}
                   alt={`Post no Instagram da Clínica Longevin ${i + 1}`}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+                  className="w-full h-full object-contain transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/35 transition-colors duration-500 flex items-center justify-center">
                   <Instagram
