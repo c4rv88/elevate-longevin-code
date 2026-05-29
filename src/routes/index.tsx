@@ -13,7 +13,6 @@ import excelenciaImg from "@/assets/excelencia-equipe.webp";
 import propostaAtendimento from "@/assets/proposta-atendimento.webp";
 import propostaMultidisciplinar from "@/assets/proposta-multidisciplinar.jpg";
 import propostaCasa from "@/assets/proposta-casa.png";
-import areasEquipeImg from "@/assets/areas-especialidades.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
@@ -245,35 +244,8 @@ function Home() {
 
 
       {/* ESPECIALIDADES */}
-      <section id="especialidades" className="relative py-28 md:py-40 overflow-hidden">
-        {/* Foto da equipe contida à esquerda — diagrama à direita fica sobre fundo limpo */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-          <div
-            className="absolute inset-y-0 left-0 w-full md:w-[42%] lg:w-[36%]"
-            style={{
-              backgroundImage: `url(${areasEquipeImg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "15% 35%",
-              filter: "saturate(0.62) contrast(0.96) brightness(1.04)",
-              opacity: 0.6,
-              WebkitMaskImage:
-                "linear-gradient(90deg, #000 0%, #000 60%, transparent 100%)",
-              maskImage:
-                "linear-gradient(90deg, #000 0%, #000 60%, transparent 100%)",
-            }}
-          />
-          {/* Véu sutil só na faixa esquerda para legibilidade do texto */}
-          <div
-            className="absolute inset-y-0 left-0 w-full md:w-[42%] lg:w-[36%]"
-            style={{
-              background:
-                "linear-gradient(90deg, color-mix(in oklab, var(--background) 28%, transparent) 0%, transparent 60%)",
-            }}
-          />
-
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
+      <section id="especialidades" className="py-28 md:py-40">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 grid gap-16 lg:gap-20 lg:grid-cols-5 items-start">
           <div className="lg:col-span-2 lg:sticky lg:top-32">
             <p className="eyebrow">Especialidades</p>
             <h2 className="mt-5 font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
@@ -282,15 +254,16 @@ function Home() {
             <p className="mt-8 text-foreground/70 leading-relaxed max-w-md">
               Na Longevin, cada especialidade faz parte de uma visão integrada da saúde. Nossa equipe atua de forma colaborativa para compreender o paciente como um todo, conectando diferentes áreas do conhecimento para promover prevenção, diagnóstico e acompanhamento contínuo.
             </p>
+
+
           </div>
-          <div className="lg:col-span-2 lg:col-start-4 min-w-0 w-full justify-self-end">
+
+          <div className="lg:col-span-3 min-w-0 w-full">
             <SpecialtiesNetwork />
           </div>
+
         </div>
       </section>
-
-
-
 
 
       {/* EQUIPE */}

@@ -1,17 +1,17 @@
-## Objetivo
+## Alterações em `src/routes/index.tsx`
 
-1. Deslocar o diagrama de especialidades ainda mais para a direita da seção.
-2. Recortar a foto para focar nas duas pessoas conversando na lateral esquerda.
+### 1. Remover 3 médicos do array `doctors` (linhas 40–50)
+- Dra. Emanuelle Albuquerque (Psicologia)
+- Dr. Gerber Caraciolo (Oftalmologia)
+- Dra. Tayná Milfont (Endocrinologia)
 
-## Mudanças em `src/routes/index.tsx` (seção ESPECIALIDADES)
+Restarão 6 médicos: Karlos Jennysson, Thayane Furtado, Itaquê Figueiredo, Igor Brito, Mayanne Lucy, Alexia Carneiro.
 
-1. **Reposicionar o diagrama mais à direita**: no grid `lg:grid-cols-5`, mudar o `<div className="lg:col-span-3">` que envolve `<SpecialtiesNetwork />` para `lg:col-span-2 lg:col-start-4` (ou `lg:justify-self-end`), encolhendo o card e empurrando-o para a borda direita. Manter `min-w-0 w-full max-w-md lg:max-w-none` para responsivo.
-2. **Recortar a foto nas duas pessoas à esquerda**:
-   - Trocar `backgroundPosition: "left center"` por algo como `"15% 35%"` para enquadrar nos rostos das duas pessoas.
-   - Aumentar levemente o zoom: usar `backgroundSize: "cover"` em um container mais estreito (`md:w-[42%] lg:w-[36%]`) para o crop ficar mais íntimo.
-   - Manter máscara de fade na borda direita.
-3. **Não alterar** texto, eyebrow, título ou componente `SpecialtiesNetwork`.
+### 2. Diminuir tamanho dos cards do carrossel (linha 295)
+Aumentar a quantidade de cards visíveis por viewport, deixando cada card menor:
+- Antes: `basis-[82%] sm:basis-1/2 lg:basis-1/3` (1 / 2 / 3 cards)
+- Depois: `basis-[70%] sm:basis-1/3 lg:basis-1/4 xl:basis-1/5` (1 / 3 / 4 / 5 cards)
 
-## Detalhe técnico
+Também reduzir tipografia do nome (linha 309) de `text-2xl` para `text-xl` para acompanhar o card menor.
 
-Como a coluna de texto à esquerda (`lg:col-span-2 lg:sticky`) já ocupa 2/5, e o diagrama vai para `lg:col-span-2 lg:col-start-4`, a coluna central (col 3) vira respiro vazio entre texto e diagrama, criando a sensação de empurrar o diagrama para a lateral direita.
+Nenhuma outra mudança.
