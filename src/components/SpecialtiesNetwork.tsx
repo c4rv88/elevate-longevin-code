@@ -556,7 +556,6 @@ function MobileTimeline() {
           className="pointer-events-none absolute top-[49px] left-1/2 -translate-x-1/2 h-[2px] w-24 rounded-full"
           style={{ backgroundColor: "var(--gold)", opacity: 0.7 }}
         />
-        />
 
         {/* Botão anterior */}
         <button
