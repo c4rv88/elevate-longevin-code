@@ -9,6 +9,14 @@ import propostaMultidisciplinar from "@/assets/proposta-multidisciplinar.jpg";
 import propostaCasa from "@/assets/proposta-casa.png";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -91,12 +99,20 @@ function Home() {
             <p className="reveal reveal-delay-2 mt-8 max-w-md text-base md:text-lg leading-relaxed text-white/85">
               Mais do que uma clínica — um novo jeito de cuidar. Medicina integrada, escuta atenta e protocolos personalizados em um espaço pensado para acolher.
             </p>
-
             <div className="reveal reveal-delay-3 mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-4">
+              <a
+                href="https://agende.longevin.com.br/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-premium justify-center w-full sm:w-auto"
+              >
+                Agendar consulta <span className="arrow">→</span>
+              </a>
               <a href="#especialidades" className="btn-ghost-light justify-center w-full sm:w-auto">
                 Especialidades
               </a>
             </div>
+
 
             <ul className="reveal reveal-delay-4 mt-12 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-8 text-[11px] tracking-[0.18em] uppercase text-white/75">
               <li className="flex items-center gap-2.5">
@@ -200,21 +216,14 @@ function Home() {
             <p className="mt-8 text-foreground/70 leading-relaxed max-w-md">
               Na Longevin, cada especialidade faz parte de uma visão integrada da saúde. Nossa equipe atua de forma colaborativa para compreender o paciente como um todo, conectando diferentes áreas do conhecimento para promover prevenção, diagnóstico e acompanhamento contínuo.
             </p>
-            <div className="mt-10">
-              <a
-                href="https://agende.longevin.com.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-premium"
-              >
-                Agendar consulta <span className="arrow">→</span>
-              </a>
-            </div>
+
+
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 min-w-0 w-full">
             <SpecialtiesNetwork />
           </div>
+
         </div>
       </section>
 
@@ -234,27 +243,42 @@ function Home() {
             </p>
           </div>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {doctors.map((d) => (
-              <article key={d.name} className="group">
-                <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
-                  <img
-                    src={d.img}
-                    alt={d.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div className="mt-6 flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] tracking-[0.22em] uppercase text-gold">{d.spec}</p>
-                    <h3 className="mt-2 font-serif text-2xl leading-tight">{d.name}</h3>
-                  </div>
-                  {d.rqe && <span className="mt-2 text-[11px] tracking-[0.18em] uppercase text-muted-foreground whitespace-nowrap">{d.rqe}</span>}
-                </div>
-              </article>
-            ))}
-          </div>
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            className="mt-16"
+          >
+            <CarouselContent className="-ml-4">
+              {doctors.map((d) => (
+                <CarouselItem
+                  key={d.name}
+                  className="pl-4 basis-[82%] sm:basis-1/2 lg:basis-1/3"
+                >
+                  <article className="group">
+                    <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
+                      <img
+                        src={d.img}
+                        alt={d.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                      />
+                    </div>
+                    <div className="mt-6 flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-[11px] tracking-[0.22em] uppercase text-gold">{d.spec}</p>
+                        <h3 className="mt-2 font-serif text-2xl leading-tight">{d.name}</h3>
+                      </div>
+                      {d.rqe && <span className="mt-2 text-[11px] tracking-[0.18em] uppercase text-muted-foreground whitespace-nowrap">{d.rqe}</span>}
+                    </div>
+                  </article>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="mt-10 flex items-center justify-end gap-3">
+              <CarouselPrevious className="static translate-y-0 h-11 w-11 border-border text-foreground hover:bg-primary hover:text-primary-foreground" />
+              <CarouselNext className="static translate-y-0 h-11 w-11 border-border text-foreground hover:bg-primary hover:text-primary-foreground" />
+            </div>
+          </Carousel>
+
         </div>
       </section>
 
