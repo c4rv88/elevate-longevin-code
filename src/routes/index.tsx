@@ -413,7 +413,7 @@ function Home() {
                 href={post.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block aspect-square overflow-hidden rounded-2xl bg-muted"
+                className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-muted"
               >
                 <img
                   src={post.img}
