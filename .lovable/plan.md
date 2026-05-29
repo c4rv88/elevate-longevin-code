@@ -1,15 +1,29 @@
-## Reordenar topo de `/a-longevin`
+## Ajustes no topo de `/a-longevin`
 
-Mover o bloco "Mais do que uma clínica — um novo jeito de cuidar" (atual hero) para **depois** da seção "Nossa proposta".
+### Problemas
+- Hero muito branco/lavado, contraste fraco.
+- Header sobreposto (texto/logo brancos) fica ilegível sobre fundo claro.
+- Título "Um ecossistema em saúde, além da consulta" pequeno demais para um hero.
 
-### Nova ordem das seções
+### Solução em `src/routes/a-longevin.tsx`
 
-1. **Hero / Nossa proposta** (atual seção "Manifesto") — passa a ser o topo da página, com o eyebrow "A Longevin" + breadcrumb Home / A Longevin acima, mantendo o título "Um ecossistema em saúde, além da consulta." e os dois parágrafos. Padding superior aumentado (`pt-40 md:pt-48`) para compensar o header fixo.
-2. **"Mais do que uma clínica — um novo jeito de cuidar"** — vira uma seção destaque logo abaixo, centralizada, com o subtítulo e os CTAs ("Agendar consulta" / "Conhecer a proposta") preservados.
-3. Pilares (Melhor atendimento médico)
-4. Por que nos escolher
-5. Cuidado integral
-6. Localização (com Google Maps)
-7. CTA final
+1. **Trocar fundo do hero por tom escuro sage** (mesma família do `--primary`), criando contraste com o header branco e dando peso institucional:
+   - Substituir o gradiente claro por um fundo escuro (`bg-foreground` ou um sage escuro próximo de `oklch(0.32 0.04 135)`) com um leve gradiente para a cor de fundo cremosa antes da próxima seção.
+   - Adicionar uma textura/imagem sutil opcional? Não — manter sólido para ficar elegante.
 
-Apenas reordenação e ajuste de paddings/breadcrumb em `src/routes/a-longevin.tsx`. Nenhuma outra mudança.
+2. **Inverter cores do conteúdo do hero** para tons claros:
+   - Eyebrow "A Longevin" em `text-gold` (mantém).
+   - Breadcrumb em `text-background/60` / `text-background/85`.
+   - Eyebrow "Nossa proposta" em `text-background/60` com tracking maior.
+   - Título em `text-background`, itálico em `text-gold`.
+   - Parágrafos em `text-background/75`.
+   - Borda da imagem em `border-background/15` (mais suave no escuro).
+
+3. **Aumentar título do hero**:
+   - De `text-4xl md:text-6xl` para `text-5xl md:text-7xl lg:text-[5.5rem]` com `leading-[1.0]`.
+
+4. **Padding inferior maior** para o hero "respirar" antes da próxima seção (`pb-32 md:pb-40`).
+
+5. **Remover borda superior** da seção "Mais do que uma clínica" (não precisa mais separar, pois o hero escuro já cria contraste forte).
+
+Nenhuma mudança no `SiteHeader` — ele já tem o estado `onDark` quando não scrollado, que é exatamente o que queremos sobre o novo fundo escuro.

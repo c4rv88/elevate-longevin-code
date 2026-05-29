@@ -54,30 +54,30 @@ function ALongevinPage() {
       <SiteHeader />
 
       {/* Hero / Nossa proposta */}
-      <section className="relative pt-40 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[oklch(0.96_0.012_100)] to-background" />
+      <section className="relative pt-40 pb-28 md:pt-48 md:pb-40 overflow-hidden bg-[oklch(0.28_0.025_135)] text-background">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[oklch(0.24_0.03_135)] via-[oklch(0.28_0.025_135)] to-[oklch(0.32_0.03_135)]" />
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <p className="eyebrow text-gold">A Longevin</p>
-          <nav className="mt-4 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-muted-foreground">
-            <Link to="/" className="link-underline">Home</Link>
+          <nav className="mt-4 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-background/55">
+            <Link to="/" className="link-underline text-background/80 hover:text-background">Home</Link>
             <span>/</span>
-            <span className="text-foreground/70">A Longevin</span>
+            <span className="text-background/85">A Longevin</span>
           </nav>
 
-          <div className="mt-12 grid gap-16 md:grid-cols-12 items-center">
+          <div className="mt-14 grid gap-16 md:grid-cols-12 items-center">
             <div className="md:col-span-6">
-              <p className="eyebrow">Nossa proposta</p>
-              <h1 className="mt-6 font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight">
+              <p className="eyebrow text-background/55">Nossa proposta</p>
+              <h1 className="mt-6 font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[1] tracking-tight text-background">
                 Um ecossistema em saúde,{" "}
-                <span className="italic text-primary">além da consulta.</span>
+                <span className="italic text-gold">além da consulta.</span>
               </h1>
-              <p className="mt-8 text-lg leading-relaxed text-foreground/75">
+              <p className="mt-10 text-lg leading-relaxed text-background/80">
                 A Longevin propõe um modelo inovador de cuidado em saúde, que vai
                 além da consulta: um verdadeiro ecossistema que combina
                 especialidades médicas, ambiente acolhedor e atenção autêntica a
                 cada etapa da jornada do paciente.
               </p>
-              <p className="mt-6 text-lg leading-relaxed text-foreground/75">
+              <p className="mt-6 text-lg leading-relaxed text-background/75">
                 Idealizada por profissionais que defendem uma medicina mais humana
                 e abrangente, a clínica reúne áreas como geriatria, cardiologia,
                 endocrinologia, reumatologia, dermatologia, psiquiatria,
@@ -86,7 +86,7 @@ function ALongevinPage() {
               </p>
             </div>
             <div className="md:col-span-6">
-              <div className="relative overflow-hidden rounded-2xl border border-border/60 shadow-xl">
+              <div className="relative overflow-hidden rounded-2xl border border-background/15 shadow-2xl">
                 <img
                   src={interiorImg}
                   alt="Interior da clínica Longevin"
@@ -100,7 +100,8 @@ function ALongevinPage() {
       </section>
 
       {/* Manifesto destaque */}
-      <section id="proposta" className="py-24 md:py-32 border-t border-border/60">
+      <section id="proposta" className="py-24 md:py-32">
+
         <div className="mx-auto max-w-5xl px-6 md:px-10 text-center">
           <p className="eyebrow text-gold">Nosso jeito</p>
           <h2 className="mt-8 font-serif text-5xl md:text-7xl leading-[1.02] tracking-tight">
