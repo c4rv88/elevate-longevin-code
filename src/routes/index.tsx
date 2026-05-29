@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles, Stethoscope, Users } from "lucide-react";
+import { Sparkles, Stethoscope, Users, Star, BadgeCheck } from "lucide-react";
 import { SpecialtiesNetwork } from "@/components/SpecialtiesNetwork";
 import heroImg from "@/assets/hero-clinic.webp";
 import interiorImg from "@/assets/clinic-interior.jpg";
@@ -44,9 +44,39 @@ const doctors = [
 ];
 
 const testimonials = [
-  { quote: "A escuta atenta e o cuidado integrado me devolveram qualidade de vida. Senti-me, pela primeira vez, vista como pessoa, não como prontuário.", name: "Paciente Longevin" },
-  { quote: "Um espaço que parece uma casa, com a precisão de uma clínica de excelência. Cada detalhe transmite calma e confiança.", name: "Paciente Longevin" },
-  { quote: "A discussão multidisciplinar do meu caso elevou completamente o nível dos meus diagnósticos. Cuidado raro e verdadeiro.", name: "Paciente Longevin" },
+  {
+    quote:
+      "Médico exatamente o que eu procurava, excelência em tudo, desde o recebimento do paciente até o final da consulta. Já escolhi o médico da nossa família.",
+    name: "Maria das Graças",
+    context: "Dr. Igor Brito · Geriatria",
+  },
+  {
+    quote:
+      "Me senti realmente acolhido e compreendido. A consulta foi boa até demais — me senti confortável, respeitado e à vontade para falar.",
+    name: "Daniel Mendes",
+    context: "Dra. Mayanne Lucy · Psicologia",
+  },
+  {
+    quote:
+      "Dra. Alexia atendeu minha mãe. Médica super atenciosa e bastante profissional. Excelente.",
+    name: "Josiane",
+    context: "Dra. Alexia Carneiro · Neurologia",
+  },
+  {
+    quote: "Ótima profissional, atenciosa, pontual. Estou gostando muito.",
+    name: "Thamiris",
+    context: "Dra. Mayanne Lucy · Psicologia",
+  },
+  {
+    quote: "Atendimento humanizado com orientações detalhadas para a paciente.",
+    name: "M.A.S.",
+    context: "Dr. Igor Brito · Geriatria",
+  },
+  {
+    quote: "Explicou muito bem. Saímos mais calmos. Maravilhoso.",
+    name: "Samara",
+    context: "Dr. Igor Brito · Clínica médica",
+  },
 ];
 
 const articles = [
@@ -284,29 +314,68 @@ function Home() {
       </section>
 
       {/* DEPOIMENTOS */}
-      <section className="py-28 md:py-40">
-        <div className="mx-auto max-w-6xl px-6 md:px-10">
-          <p className="eyebrow text-center">Nossos depoimentos</p>
-          <h2 className="mt-5 text-center font-serif text-4xl md:text-5xl leading-[1.08] tracking-tight">
-            O que nossos pacientes <span className="italic text-primary">dizem</span>.
+      <section className="py-28 md:py-40 bg-[oklch(0.96_0.012_100)]">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <p className="eyebrow text-center">Depoimentos</p>
+          <h2 className="mt-5 text-center font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
+            O que dizem nossas <span className="italic text-primary">pacientes</span>.
           </h2>
+          <p className="mt-6 text-center text-foreground/65 max-w-xl mx-auto">
+            Relatos reais de pacientes verificados na Doctoralia.
+          </p>
 
-          <div className="mt-20 grid gap-10 md:grid-cols-3">
-            {testimonials.map((t, i) => (
-              <figure key={i} className="relative">
-                <span className="absolute -top-6 left-0 font-serif text-7xl text-primary/25 leading-none">“</span>
-                <blockquote className="relative pt-6 font-serif text-xl md:text-[1.35rem] leading-[1.5] text-foreground/85">
-                  {t.quote}
-                </blockquote>
-                <figcaption className="mt-8 flex items-center gap-3 text-xs tracking-[0.22em] uppercase text-muted-foreground">
-                  <span className="h-px w-8 bg-gold" />
-                  {t.name}
-                </figcaption>
-              </figure>
-            ))}
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            className="mt-16"
+          >
+            <CarouselContent className="-ml-4">
+              {testimonials.map((t, i) => (
+                <CarouselItem
+                  key={i}
+                  className="pl-4 basis-[88%] sm:basis-1/2 lg:basis-1/3"
+                >
+                  <figure className="h-full flex flex-col rounded-2xl border border-border bg-background/60 p-8 md:p-10">
+                    <div className="flex items-center gap-1 text-gold">
+                      {Array.from({ length: 5 }).map((_, s) => (
+                        <Star key={s} className="h-4 w-4 fill-gold text-gold" strokeWidth={1} />
+                      ))}
+                    </div>
+                    <blockquote className="mt-6 flex-1 font-serif italic text-lg md:text-xl leading-relaxed text-foreground/85">
+                      “{t.quote}”
+                    </blockquote>
+                    <figcaption className="mt-8">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-foreground">{t.name}</span>
+                        <BadgeCheck className="h-4 w-4 text-[#00a991]" strokeWidth={2} />
+                      </div>
+                      <p className="mt-1 text-sm text-muted-foreground">Consulta verificada</p>
+                      <p className="mt-1 text-xs tracking-[0.18em] uppercase text-gold/90">
+                        {t.context}
+                      </p>
+                    </figcaption>
+                  </figure>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+
+          <div className="mt-16 flex flex-col items-center gap-3">
+            <div className="flex items-center gap-2 text-[#00a991]">
+              <BadgeCheck className="h-5 w-5" strokeWidth={2} />
+              <span className="font-semibold tracking-tight">Doctoralia</span>
+            </div>
+            <a
+              href="https://www.doctoralia.com.br/clinicas/clinica-longevin#facility-opinion-stats"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-foreground/65 hover:text-primary transition-colors"
+            >
+              Ver todas as 98 opiniões na Doctoralia →
+            </a>
           </div>
         </div>
       </section>
+
 
       {/* CTA */}
       <section className="relative py-28 md:py-40 overflow-hidden">
