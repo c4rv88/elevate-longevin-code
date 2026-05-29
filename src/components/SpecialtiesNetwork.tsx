@@ -525,9 +525,9 @@ function MobileTimeline() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden flex flex-col items-center">
+    <div className="relative w-full max-w-full overflow-x-hidden flex flex-col items-center mx-auto">
       {/* Núcleo central compacto */}
-      <div className="flex flex-col items-center w-full max-w-sm text-center">
+      <div className="flex flex-col items-center w-full max-w-sm text-center mx-auto px-4 box-border">
         <div
           className="relative h-28 w-28 rounded-full bg-background flex items-center justify-center animate-[corepulse_5s_ease-in-out_infinite]"
           style={{
@@ -543,13 +543,14 @@ function MobileTimeline() {
         <p className="mt-3 font-serif text-[10px] tracking-[0.28em] uppercase text-foreground/75">
           Medicina Integrada
         </p>
-        <p className="mt-3 text-center text-sm leading-relaxed text-foreground/65 px-4">
+        <p className="mt-3 text-center text-sm leading-relaxed text-foreground/65">
           Deslize pelas especialidades e descubra como nossa equipe atua de forma integrada para cuidar da sua saúde.
         </p>
       </div>
 
       {/* Timeline horizontal com navegação */}
-      <div className="relative mt-10 w-full max-w-md">
+      <div className="relative mt-10 w-full max-w-md mx-auto box-border">
+
         <div className="pointer-events-none absolute inset-x-0 top-[50px] h-px bg-[color-mix(in_oklab,var(--primary)_18%,transparent)]" />
         {/* Segmento dourado centralizado (item ativo) */}
         <div
@@ -597,14 +598,17 @@ function MobileTimeline() {
           ref={scrollerRef}
           tabIndex={0}
           onKeyDown={onKey}
-          className="relative overflow-x-auto overscroll-x-contain snap-x snap-mandatory scroll-smooth flex items-start gap-6 px-[max(64px,calc(50%-40px))] pt-1 pb-6 focus:outline-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="relative w-full max-w-full overflow-x-auto overscroll-x-contain snap-x snap-mandatory scroll-smooth flex items-start gap-6 pt-1 pb-6 focus:outline-none box-border [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           style={{
+            paddingLeft: "max(64px, calc(50% - 42px))",
+            paddingRight: "max(64px, calc(50% - 42px))",
             WebkitMaskImage:
               "linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%)",
             maskImage:
               "linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%)",
           }}
         >
+
           {SPECIALTIES.map((s) => {
             const isCenter = s.id === centerId;
             return (
@@ -696,7 +700,8 @@ function MobileTimeline() {
         type="button"
         onClick={() => setSelected(centerSpec)}
         aria-label={`Ver detalhes de ${centerSpec.name}`}
-        className="mt-2 w-full max-w-md mx-auto block text-left rounded-2xl bg-background/60 px-5 py-4 animate-[fade-in_240ms_ease-out] focus:outline-none"
+        className="mt-2 w-full max-w-md mx-auto block text-left rounded-2xl bg-background/60 px-5 py-4 box-border animate-[fade-in_240ms_ease-out] focus:outline-none"
+
         style={{
           borderWidth: "1px",
           borderStyle: "solid",
