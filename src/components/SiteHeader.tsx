@@ -9,7 +9,7 @@ const links = [
   { label: "Equipe", href: "/#equipe", to: "/" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ variant = "auto" }: { variant?: "auto" | "light" }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -20,12 +20,12 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const onDark = !scrolled;
+  const onDark = variant === "auto" && !scrolled;
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled
+        variant === "light" || scrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-border/60"
           : "bg-black/15 backdrop-blur-md border-b border-white/10"
       }`}
@@ -46,7 +46,7 @@ export function SiteHeader() {
         <nav className="hidden md:flex items-center gap-10">
           {links.map((l) => {
             const cls = `link-underline text-[12px] tracking-[0.22em] uppercase transition-colors ${
-              onDark ? "text-white/80 hover:text-white" : "text-foreground/75 hover:text-primary"
+              onDark ? "text-white/80 hover:text-white" : variant === "light" ? "text-primary/85 hover:text-primary" : "text-foreground/75 hover:text-primary"
             }`;
             return l.internal ? (
               <Link key={l.href} to={l.to} className={cls}>

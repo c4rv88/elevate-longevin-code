@@ -51,7 +51,7 @@ const principles = [
 function ALongevinPage() {
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
+      <SiteHeader variant="light" />
 
       {/* Hero / Nossa proposta */}
       <section className="relative pt-40 pb-28 md:pt-48 md:pb-40 overflow-hidden bg-background">
