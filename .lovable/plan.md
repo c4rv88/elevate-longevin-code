@@ -1,47 +1,89 @@
-## Objetivo
+# Deploy do Longevin no Swarm + Traefik
 
-Adicionar favicons em todos os formatos comuns (browser, iOS, Android, Windows) usando o ícone oficial da Longevin, e remover/garantir que não há referências visíveis ao "Lovable" no conteúdo do site.
+Adaptar o padrão dos seus outros sites (Swarm + Traefik + Let's Encrypt) para o Longevin, mantendo o SSR Node já configurado (porta 3000).
 
-## O que será feito
+## Arquivos a criar/ajustar
 
-### 1. Favicons (todos os dispositivos)
+### 1) `docker-stack.yml` (novo — para Portainer/Swarm)
+Stack idêntica em estrutura ao seu exemplo `monameclinic`, com diferenças:
+- `image: longevin:site-v01` (build local no servidor, tag manual)
+- Host duplo: `longevin.com.br` e `www.longevin.com.br`
+- `loadbalancer.server.port=3000` (Node SSR, não nginx)
+- Redirect `www` → apex via middleware Traefik
+- Healthcheck HTTP em `/` para o Swarm saber quando o container está pronto
 
-A imagem enviada (16×16) é pequena demais para gerar ícones em alta resolução. Vou baixar o favicon oficial em alta resolução do site `longevin.com.br` (`longevin-favicon2-300x300.png`) e usá-lo como fonte. A partir dele, gerarei todos os tamanhos necessários em `public/`:
+```yaml
+version: "3.7"
 
-- `public/favicon.ico` (multi-resolução: 16, 32, 48)
-- `public/favicon-16x16.png`
-- `public/favicon-32x32.png`
-- `public/favicon-96x96.png`
-- `public/apple-touch-icon.png` (180×180, iOS)
-- `public/android-chrome-192x192.png`
-- `public/android-chrome-512x512.png`
-- `public/site.webmanifest` (nome, ícones, theme color)
+services:
+  longevin:
+    image: longevin:site-v01
+    networks:
+      - network_public
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.longevin.rule=Host(`longevin.com.br`) || Host(`www.longevin.com.br`)
+        - traefik.http.routers.longevin.entrypoints=websecure
+        - traefik.http.routers.longevin.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.longevin.middlewares=longevin-www-redirect
+        - traefik.http.middlewares.longevin-www-redirect.redirectregex.regex=^https?://www\.longevin\.com\.br/(.*)
+        - traefik.http.middlewares.longevin-www-redirect.redirectregex.replacement=https://longevin.com.br/$${1}
+        - traefik.http.middlewares.longevin-www-redirect.redirectregex.permanent=true
+        - traefik.http.services.longevin.loadbalancer.server.port=3000
+        - traefik.http.services.longevin.loadbalancer.passHostHeader=true
 
-Ferramenta usada: ImageMagick (via `nix run nixpkgs#imagemagick`) para redimensionar e gerar o `.ico` multi-size.
-
-### 2. Registrar no `<head>`
-
-Em `src/routes/__root.tsx`, adicionar no array `links` do `head()`:
-
-```ts
-{ rel: "icon", href: "/favicon.ico", sizes: "any" },
-{ rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
-{ rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
-{ rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
-{ rel: "manifest", href: "/site.webmanifest" },
+networks:
+  network_public:
+    external: true
+    name: network_public
 ```
 
-E em `meta`: `{ name: "theme-color", content: "#<verde-longevin>" }`.
+### 2) `Dockerfile` (manter o atual)
+Já está pronto: build com `oven/bun:1`, runtime `node:20-alpine`, expõe 3000.
+Sem alterações.
 
-### 3. Referências ao "Lovable"
+### 3) `docker-compose.yml` (manter para dev local)
+Continua útil para `docker compose up` em dev. Sem alterações.
 
-Pesquisei o projeto. As únicas ocorrências de "Lovable" são:
+### 4) `DEPLOY.md` (novo — instruções operacionais)
+Passo a passo para o servidor:
 
-- `package.json` → dependência `@lovable.dev/vite-tanstack-config` (ferramenta de build, invisível ao usuário)
-- `vite.config.ts` → import da mesma dependência
+```bash
+# 1) Atualizar código
+cd /opt/longevin
+git pull
 
-Nenhuma referência aparece em conteúdo, títulos, meta tags, manifest ou UI — já estão definidos como "Longevin". As referências de build não podem ser removidas (o projeto deixa de compilar), mas não são visíveis ao usuário final nem aparecem no HTML publicado.
+# 2) Build local da imagem (gera longevin:site-v01)
+docker build -t longevin:site-v01 .
 
-### Não incluso
+# 3a) Primeiro deploy
+docker stack deploy -c docker-stack.yml longevin
 
-- Não vou reescrever o site para ficar visualmente idêntico ao `longevin.com.br` (WordPress/Elementor). Apenas a identidade visual (favicon, nome, metadados) será alinhada. Se você quiser replicar layout/cores/seções específicas da WordPress, me avise quais.
+# 3b) Atualizações futuras (incrementar tag: v02, v03...)
+docker build -t longevin:site-v02 .
+# editar docker-stack.yml -> image: longevin:site-v02
+docker stack deploy -c docker-stack.yml longevin
+
+# Logs / status
+docker service logs -f longevin_longevin
+docker service ls
+```
+
+## Detalhes técnicos
+
+- **Por que porta 3000 e não 80**: o build TanStack Start gera um servidor Node (`.output/server/index.mjs`) que escuta em `PORT=3000`. Traefik faz o proxy `:443 → container:3000`. Não há nginx no container.
+- **Por que `||` no rule**: Traefik v2 permite múltiplos hosts num único router. Mais limpo que duplicar router.
+- **Redirect www→apex**: padrão SEO (canonical único). Se preferir o inverso (apex→www), basta inverter regex/replacement.
+- **`network_public` external**: assume que sua rede overlay do Traefik já existe (igual aos outros stacks). Sem mudança.
+- **Tag versionada (`site-v01`)**: igual ao seu padrão `moname:site-v04`. Evita usar `:latest` (que quebra rollback no Swarm).
+- **Sem `ports:` exposto**: Traefik resolve via rede overlay, container não publica porta no host (mesmo padrão do seu exemplo).
+
+## Fora de escopo
+- Configurar DNS de `longevin.com.br` apontando para o servidor (manual no registrador).
+- Configurar Traefik / Let's Encrypt resolver — assumido já existente, como nos outros sites.
