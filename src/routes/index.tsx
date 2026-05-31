@@ -178,7 +178,7 @@ function Home() {
           <div className="grid gap-12 md:grid-cols-12 items-end">
             <div className="md:col-span-7">
               <p className="eyebrow">Nossa proposta</p>
-              <h2 className="mt-5 font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight">
+              <h2 className="mt-5 font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-tight whitespace-nowrap">
                 Uma jornada de cuidado <span className="italic text-primary">completa</span>.
               </h2>
             </div>

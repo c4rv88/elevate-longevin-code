@@ -1,6 +1,3 @@
-## Aplicar header com letras verdes nas páginas de especialidades
+Em `src/routes/index.tsx` linha 181-183, reduzir tamanho do h2 "Uma jornada de cuidado completa." e adicionar `whitespace-nowrap` para caber em uma linha.
 
-Atualmente `SpecialtyPage.tsx` usa `<SiteHeader />` (variant default "auto"), que mostra letras claras no topo. Trocar para `<SiteHeader variant="light" />` — mesma variante usada em `/a-longevin`, que aplica o tom verde nos itens de navegação.
-
-### Arquivo
-- `src/components/SpecialtyPage.tsx` linha 13: `<SiteHeader />` → `<SiteHeader variant="light" />`
+- Trocar `text-4xl md:text-6xl` por `text-3xl md:text-4xl lg:text-5xl whitespace-nowrap`.
