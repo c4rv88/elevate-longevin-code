@@ -182,11 +182,6 @@ function Home() {
                 Uma jornada de cuidado <span className="italic text-primary">completa</span>.
               </h2>
             </div>
-            <div className="md:col-span-5 md:pl-10 md:border-l border-border">
-              <p className="text-foreground/70 leading-relaxed">
-                Respeito ao tempo, à escuta e à singularidade do paciente — sustentado por uma equipe de especialistas que atuam em verdadeira sinergia.
-              </p>
-            </div>
           </div>
 
           <div className="mt-20 grid gap-px bg-border md:grid-cols-3 overflow-hidden rounded-2xl border border-border">
