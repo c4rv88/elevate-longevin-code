@@ -1,23 +1,22 @@
-## Ajustes no hero de `/a-longevin`
+## Adicionar galeria de fotos na página `/a-longevin`
 
-### Mudanças
+### O que fazer
 
-1. **Fundo claro em vez do verde escuro** no hero (seção "Nossa proposta"):
-   - Trocar `bg-[oklch(0.28_0.025_135)]` por fundo creme claro (`bg-background` com gradient suave para `oklch(0.96 0.012 100)`).
-   - Reverter cores do conteúdo para os tons escuros padrão: eyebrow em `text-primary`, título em `text-foreground`, itálico em `text-primary`, parágrafos em `text-foreground/75`, borda da imagem em `border-border/60`.
+Inserir uma nova seção "Galeria" logo abaixo do hero (após a foto da fachada), exibindo as 4 fotos enviadas: recepção, sala de espera e dois consultórios.
 
-2. **Trocar imagem lateral direita** pela foto da fachada da Longevin (`alongevin-fachada.jpg`):
-   - Copiar `user-uploads://alongevin-fachada.jpg` para `src/assets/alongevin-fachada.jpg`.
-   - Substituir o import `interiorImg` por `fachadaImg` no hero.
-   - Manter `interiorImg` se ainda usado em outras seções (verificar — atualmente só no hero).
+### Passos
 
-3. **Remover breadcrumb Home / A Longevin** completamente.
+1. **Copiar as 4 imagens** de `user-uploads://` para `src/assets/`:
+   - `recep-longevin2.webp` (recepção com logo)
+   - `recep-longevin.webp` (sala de espera)
+   - `consultorio-longevin.webp` (consultório com mesa)
+   - `consultorio-longevin2.webp` (consultório com janela gradeada)
 
-4. **Aumentar título "A Longevin"** (eyebrow no topo):
-   - Trocar de `eyebrow` (11px) para algo maior tipo título secundário: `font-serif text-3xl md:text-4xl text-primary` ou similar, para virar um cabeçalho real da página em vez de eyebrow.
+2. **Editar `src/routes/a-longevin.tsx`**:
+   - Importar as 4 imagens.
+   - Adicionar nova `<section>` entre o hero e a seção "Manifesto destaque" (após linha 96).
+   - Layout: grid responsivo de 4 colunas em desktop (2 em tablet, 1 em mobile), com cantos arredondados, borda sutil e legendas curtas em cada foto (Recepção, Sala de espera, Consultório, Atendimento). Tom claro consistente com o resto da página.
 
-5. **Header**: já fica legível em fundo claro (estado scrolled padrão). Sem mudanças.
-
-### Arquivos
-- `src/routes/a-longevin.tsx` — alterações de cor, remoção de breadcrumb, aumento de "A Longevin", troca de imagem.
-- `src/assets/alongevin-fachada.jpg` — nova imagem copiada do upload.
+### Arquivos afetados
+- `src/assets/recep-longevin.webp`, `src/assets/recep-longevin2.webp`, `src/assets/consultorio-longevin.webp`, `src/assets/consultorio-longevin2.webp` (novos)
+- `src/routes/a-longevin.tsx` (imports + nova seção)
