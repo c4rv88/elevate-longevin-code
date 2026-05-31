@@ -43,6 +43,9 @@ export const Route = createFileRoute("/a-longevin")({
         content:
           "Um novo jeito de cuidar — escuta, diagnóstico preciso e planos personalizados, em um único lugar.",
       },
+      { property: "og:url", content: "/a-longevin" },
+      { property: "og:image", content: fachadaImg },
+      { name: "twitter:image", content: fachadaImg },
     ],
     links: [{ rel: "canonical", href: "/a-longevin" }],
   }),

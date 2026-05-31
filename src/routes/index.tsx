@@ -28,10 +28,14 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Longevin · Clínica de Medicina Integrada e Longevidade" },
-      { name: "description", content: "Uma jornada de saúde e longevidade em uma clínica boutique de medicina integrada. Atendimento multidisciplinar, humano e personalizado." },
+      { name: "description", content: "Uma jornada de saúde e longevidade em uma clínica boutique de medicina integrada em Fortaleza. Atendimento multidisciplinar, humano e personalizado." },
       { property: "og:title", content: "Longevin · Medicina Integrada e Longevidade" },
       { property: "og:description", content: "Mais do que uma clínica — um novo jeito de cuidar." },
+      { property: "og:url", content: "/" },
+      { property: "og:image", content: heroImg },
+      { name: "twitter:image", content: heroImg },
     ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: Home,
 });
