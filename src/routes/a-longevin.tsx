@@ -189,9 +189,9 @@ function ALongevinPage() {
 
       {/* Cuidado integral */}
       <section className="py-24 md:py-32 bg-foreground text-background">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 text-center">
+        <div className="mx-auto max-w-[90rem] px-6 md:px-10 text-center">
           <p className="eyebrow text-gold">Cuidado integral</p>
-          <h2 className="mt-8 font-serif text-4xl md:text-6xl leading-[1.05]">
+          <h2 className="mt-8 font-serif text-3xl md:text-5xl lg:text-6xl leading-[1.1] whitespace-nowrap">
             Na Longevin, cada paciente é{" "}
             <span className="italic text-gold">visto como um todo.</span>
           </h2>
