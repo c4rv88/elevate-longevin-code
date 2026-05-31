@@ -445,37 +445,8 @@ function Home() {
       </section>
 
 
-      {/* ARTIGOS */}
-      <section className="py-28 md:py-40">
-        <div className="mx-auto max-w-7xl px-6 md:px-10">
-          <div className="flex items-end justify-between flex-wrap gap-6">
-            <div>
-              <p className="eyebrow">Artigos e dicas</p>
-              <h2 className="mt-5 font-serif text-4xl md:text-6xl leading-[1.05] tracking-tight">
-                Últimos <span className="italic text-primary">artigos</span>.
-              </h2>
-            </div>
-            <a href="https://longevin.com.br/" target="_blank" rel="noopener noreferrer" className="btn-ghost">
-              Ver todos
-            </a>
-          </div>
+      {/* ARTIGOS - oculto a pedido */}
 
-          <div className="mt-16 grid gap-px bg-border md:grid-cols-2 lg:grid-cols-4 overflow-hidden rounded-2xl border border-border">
-            {articles.map((a) => (
-              <a key={a.title} href={a.href} target="_blank" rel="noopener noreferrer" className="group bg-background p-8 flex flex-col card-lift">
-                <span className="text-[11px] tracking-[0.22em] uppercase text-gold">{a.date}</span>
-                <h3 className="mt-5 font-serif text-2xl leading-snug text-foreground group-hover:text-primary transition-colors">
-                  {a.title}
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-foreground/65 flex-1">{a.excerpt}</p>
-                <span className="mt-8 inline-flex items-center gap-2 text-[11px] tracking-[0.22em] uppercase text-primary">
-                  Ler mais <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <SiteFooter />
     </div>
