@@ -100,7 +100,7 @@ function ALongevinPage() {
       <section id="proposta" className="py-24 md:py-32">
 
         <div className="mx-auto max-w-5xl px-6 md:px-10 text-center">
-          <p className="eyebrow text-gold">Nosso jeito</p>
+          <p className="eyebrow text-gold">Nosso cuidado</p>
           <h2 className="mt-8 font-serif text-5xl md:text-7xl leading-[1.02] tracking-tight">
             Mais do que uma clínica —{" "}
             <span className="italic text-primary">um novo jeito de cuidar.</span>
