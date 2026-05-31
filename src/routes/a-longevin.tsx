@@ -131,9 +131,9 @@ function ALongevinPage() {
       <section id="pilares" className="py-24 md:py-32 bg-[oklch(0.96_0.012_100)]">
 
         <div className="mx-auto max-w-7xl px-6 md:px-10">
-          <div className="max-w-3xl">
+          <div className="max-w-none">
             <p className="eyebrow text-gold">Melhor atendimento médico</p>
-            <h2 className="mt-6 font-serif text-4xl md:text-5xl leading-tight">
+            <h2 className="mt-6 font-serif text-3xl md:text-4xl lg:text-5xl leading-tight whitespace-nowrap">
               Quatro pilares que sustentam cada encontro.
             </h2>
           </div>
