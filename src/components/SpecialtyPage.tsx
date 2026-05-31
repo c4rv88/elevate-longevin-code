@@ -10,7 +10,7 @@ export function SpecialtyPage({ specialty }: { specialty: SpecialtyContent }) {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
+      <SiteHeader variant="light" />
 
       <main className="pt-28 pb-24">
         {/* Hero */}
