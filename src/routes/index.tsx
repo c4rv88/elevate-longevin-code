@@ -87,12 +87,6 @@ const testimonials = [
   },
 ];
 
-const articles = [
-  { date: "13 de junho de 2025", title: "Você enxerga bem? E como anda a sua saúde visual?", excerpt: "Muitas doenças sistêmicas — como diabetes, hipertensão e até distúrbios neurológicos — podem se manifestar primeiro nos olhos.", href: "https://longevin.com.br/2025/06/13/voce-enxerga-bem-e-como-anda-a-sua-saude-visual/" },
-  { date: "11 de junho de 2025", title: "Você escuta a sua mente — ou só quando ela grita?", excerpt: "Você consegue parar? Sente que tem vivido no automático? A mente também dá sinais que precisam ser ouvidos.", href: "https://longevin.com.br/2025/06/11/voce-escuta-a-sua-mente-ou-so-quando-ela-grita/" },
-  { date: "11 de junho de 2025", title: "Cardiologia em Fortaleza · Acompanhamento contínuo do coração", excerpt: "A cardiologia em Fortaleza com acompanhamento contínuo permite prevenir, identificar e tratar com profundidade.", href: "https://longevin.com.br/2025/06/11/cardiologia-em-fortaleza-acompanhamento-continuo-do-coracao/" },
-  { date: "11 de junho de 2025", title: "Alimentação emocional: quando o que você sente afeta o que você come", excerpt: "Quem nunca buscou comida para aliviar o estresse, a ansiedade ou aquela tristeza que não passa?", href: "https://longevin.com.br/2025/06/11/alimentacao-emocional-quando-o-que-voce-sente-afeta-o-que-voce-come/" },
-];
 
 function Home() {
   const autoplay = useRef<ReturnType<typeof Autoplay> | null>(null);
