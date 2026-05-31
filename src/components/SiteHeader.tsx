@@ -46,7 +46,7 @@ export function SiteHeader({ variant = "auto" }: { variant?: "auto" | "light" })
         <nav className="hidden md:flex items-center gap-10">
           {links.map((l) => {
             const cls = `link-underline text-[12px] tracking-[0.22em] uppercase transition-colors ${
-              onDark ? "text-white/80 hover:text-white" : "text-foreground/75 hover:text-primary"
+              onDark ? "text-white/80 hover:text-white" : variant === "light" ? "text-primary/85 hover:text-primary" : "text-foreground/75 hover:text-primary"
             }`;
             return l.internal ? (
               <Link key={l.href} to={l.to} className={cls}>
