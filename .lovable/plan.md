@@ -1,29 +1,23 @@
-## Ajustes no topo de `/a-longevin`
+## Ajustes no hero de `/a-longevin`
 
-### Problemas
-- Hero muito branco/lavado, contraste fraco.
-- Header sobreposto (texto/logo brancos) fica ilegível sobre fundo claro.
-- Título "Um ecossistema em saúde, além da consulta" pequeno demais para um hero.
+### Mudanças
 
-### Solução em `src/routes/a-longevin.tsx`
+1. **Fundo claro em vez do verde escuro** no hero (seção "Nossa proposta"):
+   - Trocar `bg-[oklch(0.28_0.025_135)]` por fundo creme claro (`bg-background` com gradient suave para `oklch(0.96 0.012 100)`).
+   - Reverter cores do conteúdo para os tons escuros padrão: eyebrow em `text-primary`, título em `text-foreground`, itálico em `text-primary`, parágrafos em `text-foreground/75`, borda da imagem em `border-border/60`.
 
-1. **Trocar fundo do hero por tom escuro sage** (mesma família do `--primary`), criando contraste com o header branco e dando peso institucional:
-   - Substituir o gradiente claro por um fundo escuro (`bg-foreground` ou um sage escuro próximo de `oklch(0.32 0.04 135)`) com um leve gradiente para a cor de fundo cremosa antes da próxima seção.
-   - Adicionar uma textura/imagem sutil opcional? Não — manter sólido para ficar elegante.
+2. **Trocar imagem lateral direita** pela foto da fachada da Longevin (`alongevin-fachada.jpg`):
+   - Copiar `user-uploads://alongevin-fachada.jpg` para `src/assets/alongevin-fachada.jpg`.
+   - Substituir o import `interiorImg` por `fachadaImg` no hero.
+   - Manter `interiorImg` se ainda usado em outras seções (verificar — atualmente só no hero).
 
-2. **Inverter cores do conteúdo do hero** para tons claros:
-   - Eyebrow "A Longevin" em `text-gold` (mantém).
-   - Breadcrumb em `text-background/60` / `text-background/85`.
-   - Eyebrow "Nossa proposta" em `text-background/60` com tracking maior.
-   - Título em `text-background`, itálico em `text-gold`.
-   - Parágrafos em `text-background/75`.
-   - Borda da imagem em `border-background/15` (mais suave no escuro).
+3. **Remover breadcrumb Home / A Longevin** completamente.
 
-3. **Aumentar título do hero**:
-   - De `text-4xl md:text-6xl` para `text-5xl md:text-7xl lg:text-[5.5rem]` com `leading-[1.0]`.
+4. **Aumentar título "A Longevin"** (eyebrow no topo):
+   - Trocar de `eyebrow` (11px) para algo maior tipo título secundário: `font-serif text-3xl md:text-4xl text-primary` ou similar, para virar um cabeçalho real da página em vez de eyebrow.
 
-4. **Padding inferior maior** para o hero "respirar" antes da próxima seção (`pb-32 md:pb-40`).
+5. **Header**: já fica legível em fundo claro (estado scrolled padrão). Sem mudanças.
 
-5. **Remover borda superior** da seção "Mais do que uma clínica" (não precisa mais separar, pois o hero escuro já cria contraste forte).
-
-Nenhuma mudança no `SiteHeader` — ele já tem o estado `onDark` quando não scrollado, que é exatamente o que queremos sobre o novo fundo escuro.
+### Arquivos
+- `src/routes/a-longevin.tsx` — alterações de cor, remoção de breadcrumb, aumento de "A Longevin", troca de imagem.
+- `src/assets/alongevin-fachada.jpg` — nova imagem copiada do upload.
