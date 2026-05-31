@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Compass,
@@ -17,12 +18,14 @@ import esperaImg from "@/assets/recep-longevin.webp";
 import consultorioImg from "@/assets/consultorio-longevin.webp";
 import consultorio2Img from "@/assets/consultorio-longevin2.webp";
 
-const galleryImages = [
+const heroGallery = [
+  { src: fachadaImg, label: "Fachada" },
   { src: recepImg, label: "Recepção" },
   { src: esperaImg, label: "Sala de espera" },
   { src: consultorioImg, label: "Consultório" },
   { src: consultorio2Img, label: "Atendimento" },
 ];
+
 
 
 export const Route = createFileRoute("/a-longevin")({
