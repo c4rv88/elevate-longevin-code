@@ -12,6 +12,17 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import fachadaImg from "@/assets/alongevin-fachada.jpg";
 import excelenciaImg from "@/assets/excelencia-equipe.webp";
+import recepImg from "@/assets/recep-longevin2.webp";
+import esperaImg from "@/assets/recep-longevin.webp";
+import consultorioImg from "@/assets/consultorio-longevin.webp";
+import consultorio2Img from "@/assets/consultorio-longevin2.webp";
+
+const galleryImages = [
+  { src: recepImg, label: "Recepção" },
+  { src: esperaImg, label: "Sala de espera" },
+  { src: consultorioImg, label: "Consultório" },
+  { src: consultorio2Img, label: "Atendimento" },
+];
 
 
 export const Route = createFileRoute("/a-longevin")({
@@ -96,8 +107,39 @@ function ALongevinPage() {
         </div>
       </section>
 
+      {/* Galeria */}
+      <section className="pb-8 md:pb-12">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <div className="mb-10">
+            <p className="eyebrow text-gold">Nosso espaço</p>
+            <h2 className="mt-4 font-serif text-3xl md:text-4xl tracking-tight text-foreground">
+              Um ambiente pensado para acolher.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {galleryImages.map(({ src, label }) => (
+              <figure
+                key={label}
+                className="group relative overflow-hidden rounded-2xl border border-border/60 shadow-md"
+              >
+                <img
+                  src={src}
+                  alt={label}
+                  className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/80 to-transparent p-4 text-background text-sm tracking-[0.18em] uppercase">
+                  {label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Manifesto destaque */}
       <section id="proposta" className="py-24 md:py-32">
+
 
         <div className="mx-auto max-w-5xl px-6 md:px-10 text-center">
           <p className="eyebrow text-gold">Nosso cuidado</p>
