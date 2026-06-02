@@ -149,6 +149,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         }),
       },
       { children: metaPixelScript },
+      { children: gtmScript },
     ],
   }),
   shellComponent: RootShell,
